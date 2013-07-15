@@ -12,10 +12,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'cleandata_001_db',                      # Or path to database file if using sqlite3.
-        'USER': 'jr_hack',                      # Not used with sqlite3.
-        'PASSWORD': '*3caedrus3*',                  # Not used with sqlite3.
-        'HOST': 'mysql.cleandata.jrsandbox.com',                      # Set to empty string for localhost. Not used with sqlite3.
+        'NAME': 'cleandata',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': 'root',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -45,7 +45,7 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/jr_hack/cleandata.jrsandbox.com/public/media'
+MEDIA_ROOT = '/home/kiran/workspace/cleandata/app/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -78,7 +78,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'CleanData.urls'
 
 TEMPLATE_DIRS = (
-	"/home/jr_hack/cleandata.jrsandbox.com/templates"
+	"/home/kiran/workspace/cleandata/app/templates"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
