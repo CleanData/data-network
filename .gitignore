@@ -33,3 +33,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+app/django-setup.py
+
+app/passenger_wsgi.py
