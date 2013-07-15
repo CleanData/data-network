@@ -24,7 +24,7 @@ In a first version it does not:
 
 The bare minimum functionality is to show a map of the connections between datasets. An example view:
 
-![image](/Users/Jon/Desktop/Screen Shot 2013-07-08 at 2.37.17 PM.png)
+![image](https://dl.dropboxusercontent.com/u/70519/datawebOutline.png)
 Fig 1. Example inter-related data view
 
 Here the Electricity Normalized by Zipcodes is the focal dataset. The map shows all the datasets that feed in, and the datasets that feed into that, as well as a subset of other sets that use the same resources. For example, the NYC Zipcode JSON is also used in VisioNYC and Mapping the Spread of the West Nile Virus.
@@ -33,7 +33,7 @@ Here the Electricity Normalized by Zipcodes is the focal dataset. The map shows 
 
 We're storing meta-data about datasets, those that create and manage them, and those that collaborate on them. The network of connections between data sets for a directed acyclic graph (DAG). Each dataset has an asymmetric connection to other datasets (one is the source, the other is a derivative). One dataset can have many sources, and also many derivatives. To store this data, we use the model:
 
-![image](/Users/Jon/Dropbox/Public/SuggestedDataStructure.png)
+![image](https://dl.dropboxusercontent.com/u/70519/SuggestedDataStructure.png)
 Fig. 2 - minimal underlying data structure
 
 We cover the use of each of these in turn:
