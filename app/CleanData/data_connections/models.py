@@ -35,8 +35,11 @@ class Dataset(models.Model):
 									related_name='derivatives',null=True,blank=True)
 	contributors = models.ManyToManyField('UserProfile', through='ContributorRelation', symmetrical=False,
 									related_name='contributed_datasets',null=True,blank=True)
-	manager = models.ForeignKey("UserProfile",related_name="managed_datasets",blank=True,null=True)
+	manager = models.ForeignKey("UserProfile",related_name="managed_datasets",null=True,blank=True)
 	managing_organization = models.ForeignKey("Organization",related_name="managed_datasets",null=True,blank=True)
+
+	#def url_string(self):
+	#	# return name+date
 	
 	def __unicode__(self):
 		return self.name
