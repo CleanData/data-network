@@ -29,13 +29,13 @@ class Dataset(models.Model):
 	date_last_edited = models.DateTimeField('date last edited')
 	url = models.URLField(blank=True)
 	# relationships
-	data_format = models.ForeignKey(Format,related_name="formatted_datasets")
-	license = models.ForeignKey(License,related_name="licensed_datasets")
+	data_format = models.ForeignKey(Format,related_name="formatted_datasets",null=True,blank=True)
+	license = models.ForeignKey(License,related_name="licensed_datasets",null=True,blank=True)
 	sources = models.ManyToManyField('self', through='DataRelation', symmetrical=False,
 									related_name='derivatives',null=True,blank=True)
 	contributors = models.ManyToManyField('UserProfile', through='ContributorRelation', symmetrical=False,
 									related_name='contributed_datasets',null=True,blank=True)
-	manager = models.ForeignKey("UserProfile",related_name="managed_datasets")
+	manager = models.ForeignKey("UserProfile",related_name="managed_datasets",blank=True,null=True)
 	managing_organization = models.ForeignKey("Organization",related_name="managed_datasets",null=True,blank=True)
 	
 	def __unicode__(self):
