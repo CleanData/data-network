@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <body onload=plotMap()>
+  <body>
 
 	<!-- The header nav bar -->
     <div class="navbar navbar-fixed-top">
@@ -15,7 +15,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="./results.html">Search</a></li>
-              <li><a href="./dataset">+Dataset</a></li>
+              <li><a href="./">+Dataset</a></li>
               <li><a href="./results.html">+Scientist</a></li>
             </ul>
             <ul class="nav pull-right">
@@ -28,7 +28,52 @@
     <!-- end of the header nav bar -->
 	  
 <div class="row">
-	<div class="span9" id="data_map"></div>
+
+	<div class="span9" id="data_map">
+		<br><br>
+	<div class="row">
+	<div class="span7">
+		{{ formset }}
+		<form action="billing" method="post" class="form-horizontal" id="billingform" accept-charset="utf-8">
+			<div class="control-group">
+				<label for="email" class="control-label">	
+					Name
+				</label>
+				<div class="controls">
+					<input name="email" type="email" value="" id="email">
+						</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="address" class="control-label">	
+					Date Published
+				</label>
+				<div class="controls"><input name="address" type="text" value="" id="address">
+				</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="zip" class="control-label">	
+					Date Last updated
+				</label>
+				<div class="controls"><input name="zip" type="text" value="" id="zip">
+				</div>
+			</div>
+ 
+			<div class="control-group">
+				<label for="city" class="control-label">	
+					URL
+				</label>
+				<div class="controls"><input name="city" type="text" value="" id="city">
+				</div>
+			</div> 
+			<div class="control-group">
+				<div class="controls"><button type="submit" class="btn btn-primary">Save</button></div>
+			</div>
+		</form>
+	</div> <!-- .span8 -->
+</div>
+	</div>
 	<div class="span3" id="sidebar">
 		<div class="row">
 			<div><h4><span id="dataset_name">Electricity Use Normalised by Household</span></h4></div>
