@@ -35,5 +35,7 @@ nosetests.xml
 .pydevproject
 
 app/django-setup.py
-
 app/passenger_wsgi.py
+passenger_wsgi.py
+tmp
+public
