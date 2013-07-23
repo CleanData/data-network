@@ -90,7 +90,14 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'CleanData.data_connections',
+    'registration',		# django-registration - details: https://django-registration.readthedocs.org
 )
+
+# for the registration app
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+
+# sets the redirect page after logging in. Change this if we want to redirect to a profile page.
+LOGIN_REDIRECT_URL = 'index'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

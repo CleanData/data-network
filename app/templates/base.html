@@ -2,10 +2,9 @@
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>The Transport of Energy Data</title>
-    <script type="text/javascript" src="/static/user/js/d3.v2.js"></script>
-    <script type="text/javascript" src="/static/user/js/mapper.js"></script>
-	<link type="text/css" href="/static/user/css/map_style.css" rel="stylesheet" />
+    <title>{% block title %}{% endblock %}</title>
+	{# The libs block contains the page specific libs and css style links #}
+	{% block libs %}{% endblock %}
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 	 <style>
@@ -14,8 +13,79 @@
       }
     </style>
   </head>
+  <body {% block onload %}{% endblock %} >
+  
+	<!-- The header nav bar -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="{% url 'index' %}">Clean<span style="color:#04B4AE; font-size: larger;">.</span>Data<span style="color:#04B4AE; font-size: larger;">.</span></a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><form class="navbar-search pull-left">
+				     <input type="text" class="search-query" placeholder="Search">
+				  </form>
+			  </li>
+              <li><a href="./dataset">+Dataset</a></li>
+              <li><a href="./">+Scientist</a></li>
+            </ul>
+		    <div class="nav pull-right">
+			    <ul class="nav">
+			    {% if user.is_authenticated %}
+				<li class="dropdown">
+					<a  style="padding-right:4px;" href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
+					<ul class="dropdown-menu">
+					    <li><a href="{% url 'auth_logout' %}">Log out</a></li>
+					    <li><a href="{% url 'auth_password_change' %}">Change password</a></li>
+					</ul>
+				</li>
+			    <li><a style="padding-left:4px;" href="{% url 'auth_logout' %}">{{ user.username }}</a></li> 
+			    {% else %}
+			    <li class="active"><a href="{% url 'auth_login' %}">Log in</a></li>
+			    {% endif %}
+			    </ul>
+		    </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <!-- end of the header nav bar -->
+
  {% block content %}
 
  {% endblock %}
+<div class="footer row" style="color:grey;background:rgb(220,220,220); width:100%; font-size:smaller; margin:0; padding-top:10px; border-top: 1px solid lightgrey;">
+	<div class="span3 offset1">
+		<ul class="nav">
+			<li>About</li>
+			<li>EITNYC</li>
+			<li>Data Jam</li>
+			<li>Contact</li>
+		</ul>
+	</div>
+	<div class="span3 offset1">
+		<ul class="nav">
+			<li>Adding Data</li>
+			<li>Help</li>
+			<li>Resources</li>
+			<li>Open Data Foundation...</li>
+		</ul>
+	</div>
+	<div class="span3 offset1">
+		<ul class="nav">
+			<li>Lorem</li>
+			<li>Ipsum</li>
+		</ul>	
+	</div>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/static/user/bootstrap/js/bootstrap.js"></script>
+  </body>
 
 </html>
