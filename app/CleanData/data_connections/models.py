@@ -27,7 +27,9 @@ class Dataset(models.Model):
 	name = models.CharField(max_length=200)
 	date_published = models.DateTimeField('date published')
 	date_last_edited = models.DateTimeField('date last edited')
-	url = models.URLField(blank=True)
+	url = models.URLField()
+	description = models.TextField(blank=True)
+
 	# relationships
 	data_format = models.ForeignKey(Format,related_name="formatted_datasets",null=True,blank=True)
 	license = models.ForeignKey(License,related_name="licensed_datasets",null=True,blank=True)
