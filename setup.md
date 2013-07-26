@@ -12,4 +12,8 @@ South changes the way databases are handled in django. After installing south, d
     python manage.py syncdb
     python manage.py convert_to_south data_connections
 
+If you run into problems with your first migration, make sure to try:
+
+    python ./manage.py migrate myapp 0001 --fake
+
 See the README.md for basic instructions on how to use South to perform database migrations.
