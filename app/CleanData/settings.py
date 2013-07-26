@@ -94,10 +94,15 @@ INSTALLED_APPS = (
 )
 
 # for the registration app
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window; you may, of course, use a different value.
 
 # sets the redirect page after logging in. Change this if we want to redirect to a profile page.
 LOGIN_REDIRECT_URL = 'index'
+
+#recaptcha details registered for [cleandata.jrsandbox.com]
+RECAPTCHA_PUBLIC_KEY = '6LffTOUSAAAAAMvH9Drtc9njPGWaHOCeSy03ULHw'
+RECAPTCHA_PRIVATE_KEY = '6LffTOUSAAAAAOXjCdrf76TXIrm_2SIGbsDHcO0Q'
+RECAPTCHA_USE_SSL = False
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

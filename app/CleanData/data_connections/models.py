@@ -2,13 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # The data models
+
+
 class DataCatalog(models.Model):
-	name = models.CharField(max_length=200)
-	manager = models.ForeignKey("UserProfile",related_name="managed_datacatalogs")
-	managing_organization = models.ForeignKey("Organization",related_name="managed_datacatalogs",null=True,blank=True)
-	
-	def __unicode__(self):
-		return self.name
+    name = models.CharField(max_length=200)
+    manager = models.ForeignKey("UserProfile", related_name="managed_datacatalogs")
+    managing_organization = models.ForeignKey("Organization", related_name="managed_datacatalogs", null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
 
 class License(models.Model):
 	name = models.CharField(max_length=200)
@@ -16,12 +19,14 @@ class License(models.Model):
 	def __unicode__(self):
 		return self.name
 
+
 class Format(models.Model):
 	name = models.CharField(max_length=200)
 	url = models.URLField(blank=True)
 	def __unicode__(self):
 		return self.name
 	
+
 class Dataset(models.Model):
 	data_catalog = models.ForeignKey(DataCatalog,null=True,blank=True)
 	name = models.CharField(max_length=200)
@@ -43,6 +48,7 @@ class Dataset(models.Model):
 	
 	def __unicode__(self):
 		return self.name
+
 
 class DataRelation(models.Model):
 	source = models.ForeignKey(Dataset, related_name='relation_to_derivative')
@@ -79,11 +85,3 @@ class ContributorRelation(models.Model):
 	
 	def __unicode__(self):
 		return self.contributor.name+" -> "+self.dataset.name	
-	
-	
-	
-	
-	
-	
-	
-	
