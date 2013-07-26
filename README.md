@@ -36,3 +36,7 @@ By creating a visual network of data we will:
 * Django - https://www.djangoproject.com
 * D3 - http://d3js.org/
 
+## Dependencies
+
+* django - 1.5
+* django-registration - pip install django-registration
