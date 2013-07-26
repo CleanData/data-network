@@ -36,3 +36,35 @@ By creating a visual network of data we will:
 * Django - https://www.djangoproject.com
 * D3 - http://d3js.org/
 
+## Dependencies
+
+* django - 1.5
+* django-registration - pip install django-registration
+* south (migration for databases) - pip install south
+
+** remember to run: **
+
+    python manage.py syncdb
+
+after each new app (but see below for how south integrates into this)
+
+## Database migrations
+South changes the way databases are handled in django. After installing south, do the following (see [here for the full discussion](http://south.readthedocs.org/en/latest/convertinganapp.html#converting-an-app), and for a possible error):
+
+    python manage.py syncdb
+    python manage.py convert_to_south data_connections
+
+to set up the database migration for the data_connections models. From now on, new changes to the custom app models will be updated in the database using South. This means we can do things like changing null=True without Django freaking out.
+
+The [full tutorial](http://south.readthedocs.org/en/latest/tutorial/part1.html) on how south handles database migrations can be found here: 
+
+When you've changed a model for an app that's being managed by south, do the following to migrate the database:
+
+    python manage.py schemamigration data_connections --auto
+    python manage.py migrate data_connections
+
+If you're doing a number of small updates, then rather than creating a migration for each one, instead (after the first)
+
+    python manage.py schemamigration data_connections --auto --update
+    python manage.py migrate data_connections
+
