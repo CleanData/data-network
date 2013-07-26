@@ -40,3 +40,4 @@ By creating a visual network of data we will:
 
 * django - 1.5
 * django-registration - pip install django-registration
+* south (migration for databases) - pip install south
