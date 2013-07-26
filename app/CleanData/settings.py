@@ -91,6 +91,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'CleanData.data_connections',
     'registration',		# django-registration - details: https://django-registration.readthedocs.org
+    'south',			# south: http://south.readthedocs.org/en/latest/installation.html
 )
 
 # for the registration app

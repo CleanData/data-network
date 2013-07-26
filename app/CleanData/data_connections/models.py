@@ -30,6 +30,8 @@ class Dataset(models.Model):
 	url = models.URLField()
 	description = models.TextField(blank=True)
 
+	uploaded_by = models.CharField(max_length=200,blank=True)
+
 	# relationships
 	data_format = models.ForeignKey(Format,related_name="formatted_datasets",null=True,blank=True)
 	license = models.ForeignKey(License,related_name="licensed_datasets",null=True,blank=True)
