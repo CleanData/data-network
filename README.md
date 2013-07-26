@@ -63,4 +63,8 @@ When you've changed a model for an app that's being managed by south, do the fol
     python manage.py schemamigration data_connections --auto
     python manage.py migrate data_connections
 
+If you're doing a number of small updates, then rather than creating a migration for each one, instead (after the first)
+
+    python manage.py schemamigration data_connections --auto --update
+    python manage.py migrate data_connections
 
