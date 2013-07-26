@@ -58,3 +58,9 @@ to set up the database migration for the data_connections models. From now on, n
 
 The [full tutorial](http://south.readthedocs.org/en/latest/tutorial/part1.html) on how south handles database migrations can be found here: 
 
+When you've changed a model for an app that's being managed by south, do the following to migrate the database:
+
+    python manage.py schemamigration data_connections --auto
+    python manage.py migrate data_connections
+
+
