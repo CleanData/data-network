@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'CleanData.data_connections',
     'registration',		# django-registration - details: https://django-registration.readthedocs.org
     'south',			# south: http://south.readthedocs.org/en/latest/installation.html
+	'tastypie',			# Tastypie: http://django-tastypie.readthedocs.org/en/latest/
 )
 
 # for the registration app

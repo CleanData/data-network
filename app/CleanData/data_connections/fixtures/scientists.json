@@ -1,6 +1,6 @@
 [
 	{
-		"model":"data_connections.UnregScientist",
+		"model":"data_connections.Scientist",
 		"pk":null,
 		"fields":{
 			"firstname":"Albert",
@@ -9,7 +9,7 @@
 		}
 	},
 	{
-		"model":"data_connections.UnregScientist",
+		"model":"data_connections.Scientist",
 		"pk":null,
 		"fields":{
 			"firstname":"Jorge",
@@ -18,7 +18,7 @@
 		}
 	},
 	{
-		"model":"data_connections.UnregScientist",
+		"model":"data_connections.Scientist",
 		"pk":null,
 		"fields":{
 			"firstname":"NYC",
@@ -27,7 +27,7 @@
 		}
 	},
 	{
-		"model":"data_connections.UnregScientist",
+		"model":"data_connections.Scientist",
 		"pk":null,
 		"fields":{
 			"firstname":"Vijay",
@@ -36,12 +36,30 @@
 		}
 	},
 	{
-		"model":"data_connections.UnregScientist",
+		"model":"data_connections.Scientist",
 		"pk":null,
 		"fields":{
 			"firstname":"Bianca",
 			"lastname":"Howard",
 			"profile_url":""
+		}
+	},
+	{
+		"model":"data_connections.Scientist",
+		"pk":null,
+		"fields":{
+			"firstname":"Jonathan",
+			"lastname":"Roberts",
+			"profile_url":"https://github.com/jonroberts"
+		}
+	},
+	{
+		"model":"data_connections.Scientist",
+		"pk":null,
+		"fields":{
+			"firstname":"Nathan",
+			"lastname":"Storey",
+			"profile_url":"http://nathanstorey.com/"
 		}
 	}
 ]
