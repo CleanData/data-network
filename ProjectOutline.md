@@ -33,7 +33,7 @@ Here the Electricity Normalized by Zipcodes is the focal dataset. The map shows 
 
 We're storing meta-data about datasets, those that create and manage them, and those that collaborate on them. The network of connections between data sets for a directed acyclic graph (DAG). Each dataset has an asymmetric connection to other datasets (one is the source, the other is a derivative). One dataset can have many sources, and also many derivatives. To store this data, we use the model:
 
-![image](https://dl.dropboxusercontent.com/u/70519/SuggestedDataStructure.png)
+![image](https://dl.dropboxusercontent.com/u/70519/CleanData_Schema.png)
 Fig. 2 - minimal underlying data structure
 
 We cover the use of each of these in turn:
