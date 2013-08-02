@@ -2,18 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # The data models
-<<<<<<< HEAD
-
-
-class DataCatalog(models.Model):
-    name = models.CharField(max_length=200)
-    manager = models.ForeignKey("UserProfile", related_name="managed_datacatalogs")
-    managing_organization = models.ForeignKey("Organization", related_name="managed_datacatalogs", null=True, blank=True)
-
-    def __unicode__(self):
-        return self.name
-
-=======
 class DataCatalogManager(models.Manager):
 	def get_by_natural_key(self,name):
 		return self.get(name=name)
@@ -26,7 +14,6 @@ class DataCatalog(models.Model):
 	
 	def __unicode__(self):
 		return self.name
->>>>>>> 30baeadc1c87838542efcd2610e3542339b18750
 
 class LicenseManager(models.Manager):
 	def get_by_natural_key(self,name):
