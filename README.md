@@ -42,6 +42,7 @@ By creating a visual network of data we will:
 * django-registration - pip install django-registration
 * django-tastypie - pip install django_tastypie
 * south (migration for databases) - pip install south
+* django-taggit-0.10a1 - pip install django-taggit
 
 ** remember to run: **
 
