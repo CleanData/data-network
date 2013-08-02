@@ -69,7 +69,7 @@ class UserProfile(models.Model):
 		return self.user.name
 	
 class Organization(models.Model):
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=100)
 	def __unicode__(self):
 		return self.name
 
@@ -83,7 +83,7 @@ class MembershipRelation(models.Model):
 class ContributorRelation(models.Model):
 	contributor = models.ForeignKey(UserProfile, related_name='relation_to_data')
 	dataset = models.ForeignKey(Dataset, related_name='relation_to_contributor')
-	work_done = models.TextField(max_length=20000)
+	work_done = models.TextField(max_length=10)
 	
 	def __unicode__(self):
 		return self.contributor.name+" -> "+self.dataset.name	

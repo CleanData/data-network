@@ -90,7 +90,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'CleanData.data_connections',
-    'registration',		# django-registration - details: https://django-registration.readthedocs.org
+    'registration_app',		# django-registration - details: https://django-registration.readthedocs.org
+    'south'
 )
 
 # for the registration app
