@@ -9,6 +9,7 @@ v1_api.register(DataRelationResource())
 
 urlpatterns = patterns('data_connections.views',
     url(r'^$', 'index',name='index'),
+    url(r'^tree', 'tree_view',name='tree_view'),
     (r'^add_dataset','add_dataset'),
     (r'^api/', include(v1_api.urls)),
 )
