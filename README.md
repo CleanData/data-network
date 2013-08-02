@@ -68,4 +68,3 @@ If you're doing a number of small updates, then rather than creating a migration
 
     python manage.py schemamigration data_connections --auto --update
     python manage.py migrate data_connections
-
