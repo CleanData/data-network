@@ -1,4 +1,5 @@
 *.pyc
+app/CleanData/settings_local.py
 
 # C extensions
 *.so

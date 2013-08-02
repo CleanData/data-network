@@ -44,7 +44,7 @@ STATIC_ROOT = ''
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
-
+ADMIN_MEDIA_PREFIX = '/static/admin/' 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
