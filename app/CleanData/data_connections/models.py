@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 # The data models
 class DataCatalogManager(models.Manager):
@@ -50,6 +51,7 @@ class Dataset(models.Model):
 	date_last_edited = models.DateTimeField('date last edited')
 	url = models.URLField(max_length=150)
 	description = models.TextField(blank=True)
+	tags = TaggableManager()
 
 	#added_by = models.CharField(max_length=200,blank=True,)
 
