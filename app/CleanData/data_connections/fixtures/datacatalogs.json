@@ -1,0 +1,11 @@
+[
+	{
+		"model":"data_connections.DataCatalog",
+		"pk":null,
+		"fields":{
+			"name":"2010 US Census",
+			"manager":null,
+			"managing_organization":["U.S. Census Bureau"]
+		}
+	}
+]
