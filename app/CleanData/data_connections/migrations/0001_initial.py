@@ -37,10 +37,10 @@ class Migration(SchemaMigration):
         db.create_table(u'data_connections_dataset', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('data_catalog', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['data_connections.DataCatalog'], null=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('date_published', self.gf('django.db.models.fields.DateTimeField')()),
             ('date_last_edited', self.gf('django.db.models.fields.DateTimeField')()),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
+            ('url', self.gf('django.db.models.fields.URLField')(unique=True, max_length=150)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('data_format', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='formatted_datasets', null=True, to=orm['data_connections.Format'])),
             ('license', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='licensed_datasets', null=True, to=orm['data_connections.License'])),
@@ -49,12 +49,15 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'data_connections', ['Dataset'])
 
+        # Adding unique constraint on 'Dataset', fields ['name', 'url']
+        db.create_unique(u'data_connections_dataset', ['name', 'url'])
+
         # Adding model 'DataRelation'
         db.create_table(u'data_connections_datarelation', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('source', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_derivative', to=orm['data_connections.Dataset'])),
             ('derivative', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_source', to=orm['data_connections.Dataset'])),
-            ('how_data_was_processed', self.gf('django.db.models.fields.TextField')(max_length=20000)),
+            ('how_data_was_processed', self.gf('django.db.models.fields.TextField')(max_length=20000, blank=True)),
         ))
         db.send_create_signal(u'data_connections', ['DataRelation'])
 
@@ -94,12 +97,15 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('contributor', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_data', to=orm['data_connections.UserProfile'])),
             ('dataset', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_contributor', to=orm['data_connections.Dataset'])),
-            ('work_done', self.gf('django.db.models.fields.TextField')(max_length=20000)),
+            ('work_done', self.gf('django.db.models.fields.TextField')(max_length=20000, blank=True)),
         ))
         db.send_create_signal(u'data_connections', ['ContributorRelation'])
 
 
     def backwards(self, orm):
+        # Removing unique constraint on 'Dataset', fields ['name', 'url']
+        db.delete_unique(u'data_connections_dataset', ['name', 'url'])
+
         # Deleting model 'DataCatalog'
         db.delete_table(u'data_connections_datacatalog')
 
@@ -173,7 +179,7 @@ class Migration(SchemaMigration):
             'contributor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_data'", 'to': u"orm['data_connections.UserProfile']"}),
             'dataset': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_contributor'", 'to': u"orm['data_connections.Dataset']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'work_done': ('django.db.models.fields.TextField', [], {'max_length': '20000'})
+            'work_done': ('django.db.models.fields.TextField', [], {'max_length': '20000', 'blank': 'True'})
         },
         u'data_connections.datacatalog': {
             'Meta': {'object_name': 'DataCatalog'},
@@ -185,12 +191,12 @@ class Migration(SchemaMigration):
         u'data_connections.datarelation': {
             'Meta': {'object_name': 'DataRelation'},
             'derivative': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_source'", 'to': u"orm['data_connections.Dataset']"}),
-            'how_data_was_processed': ('django.db.models.fields.TextField', [], {'max_length': '20000'}),
+            'how_data_was_processed': ('django.db.models.fields.TextField', [], {'max_length': '20000', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'source': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_derivative'", 'to': u"orm['data_connections.Dataset']"})
         },
         u'data_connections.dataset': {
-            'Meta': {'object_name': 'Dataset'},
+            'Meta': {'unique_together': "(('name', 'url'),)", 'object_name': 'Dataset'},
             'contributors': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'contributed_datasets'", 'to': u"orm['data_connections.UserProfile']", 'through': u"orm['data_connections.ContributorRelation']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
             'data_catalog': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['data_connections.DataCatalog']", 'null': 'True', 'blank': 'True'}),
             'data_format': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'formatted_datasets'", 'null': 'True', 'to': u"orm['data_connections.Format']"}),
@@ -201,9 +207,9 @@ class Migration(SchemaMigration):
             'license': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'licensed_datasets'", 'null': 'True', 'to': u"orm['data_connections.License']"}),
             'manager': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'managed_datasets'", 'null': 'True', 'to': u"orm['data_connections.UserProfile']"}),
             'managing_organization': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'managed_datasets'", 'null': 'True', 'to': u"orm['data_connections.Organization']"}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'sources': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'derivatives'", 'to': u"orm['data_connections.Dataset']", 'through': u"orm['data_connections.DataRelation']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
+            'url': ('django.db.models.fields.URLField', [], {'unique': 'True', 'max_length': '150'})
         },
         u'data_connections.format': {
             'Meta': {'object_name': 'Format'},

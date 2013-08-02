@@ -8,6 +8,9 @@ from forms import *
 def index(request):
 	return render_to_response('data_connections/index.html', {}, context_instance=RequestContext(request))
 
+def tree_view(request):
+	return render_to_response('data_connections/tree_view.html', {}, context_instance=RequestContext(request))
+
 def add_dataset(request):
 	p = request.user
 	
