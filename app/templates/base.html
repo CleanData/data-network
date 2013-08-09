@@ -6,15 +6,11 @@
 	{# The libs block contains the page specific libs and css style links #}
 	{% block libs %}{% endblock %}
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link type="text/css" href="/static/user/css/style.css" rel="stylesheet" />
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-	 <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
   </head>
-  <body {% block onload %}{% endblock %} >
-  
+  <body {% block onload %}{% endblock %}>
+   <div id="wrap">
 	<!-- The header nav bar -->
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -60,8 +56,11 @@
 
  {% block content %}
 
+
  {% endblock %}
-<div class="footer row" style="color:grey;background:rgb(220,220,220); width:100%; font-size:smaller; margin:0; padding-top:10px; border-top: 1px solid lightgrey;">
+ <div id="push"></div>
+</div>
+<div id="footer" class="footer row" style="color:grey;background:rgb(220,220,220); width:100%; font-size:smaller; margin:0; padding-top:10px; border-top: 1px solid lightgrey;">
 	<div class="span3 offset1">
 		<ul class="nav">
 			<li>About</li>
@@ -88,6 +87,6 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/static/user/bootstrap/js/bootstrap.js"></script>
-  </body>
+</body>
 
 </html>
