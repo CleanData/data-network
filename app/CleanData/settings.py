@@ -44,7 +44,7 @@ STATIC_ROOT = ''
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
-
+ADMIN_MEDIA_PREFIX = '/static/admin/' 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -100,7 +100,11 @@ INSTALLED_APPS = (
     'registration',		# django-registration - details: https://django-registration.readthedocs.org
     'south',			# south: http://south.readthedocs.org/en/latest/installation.html
 	'tastypie',			# Tastypie: http://django-tastypie.readthedocs.org/en/latest/
+<<<<<<< HEAD
     'captcha',
+=======
+    'taggit',           # Create  custom tags for the datasets 
+>>>>>>> bf8971c4429361f0d4edfb389b2349df99691500
 )
 
 # for the registration app

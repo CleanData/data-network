@@ -8,132 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'DataCatalog'
-        db.create_table(u'data_connections_datacatalog', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('manager', self.gf('django.db.models.fields.related.ForeignKey')(related_name='managed_datacatalogs', to=orm['data_connections.UserProfile'])),
-            ('managing_organization', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='managed_datacatalogs', null=True, to=orm['data_connections.Organization'])),
-        ))
-        db.send_create_signal(u'data_connections', ['DataCatalog'])
 
-        # Adding model 'License'
-        db.create_table(u'data_connections_license', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-        ))
-        db.send_create_signal(u'data_connections', ['License'])
-
-        # Adding model 'Format'
-        db.create_table(u'data_connections_format', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-        ))
-        db.send_create_signal(u'data_connections', ['Format'])
-
-        # Adding model 'Dataset'
-        db.create_table(u'data_connections_dataset', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('data_catalog', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['data_connections.DataCatalog'], null=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('date_published', self.gf('django.db.models.fields.DateTimeField')()),
-            ('date_last_edited', self.gf('django.db.models.fields.DateTimeField')()),
-            ('url', self.gf('django.db.models.fields.URLField')(unique=True, max_length=150)),
-            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('data_format', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='formatted_datasets', null=True, to=orm['data_connections.Format'])),
-            ('license', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='licensed_datasets', null=True, to=orm['data_connections.License'])),
-            ('manager', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='managed_datasets', null=True, to=orm['data_connections.UserProfile'])),
-            ('managing_organization', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='managed_datasets', null=True, to=orm['data_connections.Organization'])),
-        ))
-        db.send_create_signal(u'data_connections', ['Dataset'])
-
-        # Adding unique constraint on 'Dataset', fields ['name', 'url']
-        db.create_unique(u'data_connections_dataset', ['name', 'url'])
-        # Adding model 'DataRelation'
-        db.create_table(u'data_connections_datarelation', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('source', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_derivative', to=orm['data_connections.Dataset'])),
-            ('derivative', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_source', to=orm['data_connections.Dataset'])),
-            ('how_data_was_processed', self.gf('django.db.models.fields.TextField')(max_length=20000, blank=True)),
-        ))
-        db.send_create_signal(u'data_connections', ['DataRelation'])
-
-        # Adding model 'UserProfile'
-        db.create_table(u'data_connections_userprofile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-        ))
-        db.send_create_signal(u'data_connections', ['UserProfile'])
-
-        # Adding M2M table for field collaborators on 'UserProfile'
-        m2m_table_name = db.shorten_name(u'data_connections_userprofile_collaborators')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('from_userprofile', models.ForeignKey(orm[u'data_connections.userprofile'], null=False)),
-            ('to_userprofile', models.ForeignKey(orm[u'data_connections.userprofile'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['from_userprofile_id', 'to_userprofile_id'])
-
-        # Adding model 'Organization'
-        db.create_table(u'data_connections_organization', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-        ))
-        db.send_create_signal(u'data_connections', ['Organization'])
-
-        # Adding model 'MembershipRelation'
-        db.create_table(u'data_connections_membershiprelation', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('organization', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_member', to=orm['data_connections.Organization'])),
-            ('member', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_organization', to=orm['data_connections.UserProfile'])),
-        ))
-        db.send_create_signal(u'data_connections', ['MembershipRelation'])
-
-        # Adding model 'ContributorRelation'
-        db.create_table(u'data_connections_contributorrelation', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('contributor', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_data', to=orm['data_connections.UserProfile'])),
-            ('dataset', self.gf('django.db.models.fields.related.ForeignKey')(related_name='relation_to_contributor', to=orm['data_connections.Dataset'])),
-            ('work_done', self.gf('django.db.models.fields.TextField')(max_length=20000, blank=True)),
-        ))
-        db.send_create_signal(u'data_connections', ['ContributorRelation'])
-
+        # Changing field 'License.url'
+        db.alter_column(u'data_connections_license', 'url', self.gf('django.db.models.fields.URLField')(default='', max_length=200))
 
     def backwards(self, orm):
-        # Removing unique constraint on 'Dataset', fields ['name', 'url']
-        db.delete_unique(u'data_connections_dataset', ['name', 'url'])
-        # Deleting model 'DataCatalog'
-        db.delete_table(u'data_connections_datacatalog')
 
-        # Deleting model 'License'
-        db.delete_table(u'data_connections_license')
-
-        # Deleting model 'Format'
-        db.delete_table(u'data_connections_format')
-
-        # Deleting model 'Dataset'
-        db.delete_table(u'data_connections_dataset')
-
-        # Deleting model 'DataRelation'
-        db.delete_table(u'data_connections_datarelation')
-
-        # Deleting model 'UserProfile'
-        db.delete_table(u'data_connections_userprofile')
-
-        # Removing M2M table for field collaborators on 'UserProfile'
-        db.delete_table(db.shorten_name(u'data_connections_userprofile_collaborators'))
-
-        # Deleting model 'Organization'
-        db.delete_table(u'data_connections_organization')
-
-        # Deleting model 'MembershipRelation'
-        db.delete_table(u'data_connections_membershiprelation')
-
-        # Deleting model 'ContributorRelation'
-        db.delete_table(u'data_connections_contributorrelation')
-
+        # Changing field 'License.url'
+        db.alter_column(u'data_connections_license', 'url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True))
 
     models = {
         u'auth.group': {
@@ -177,7 +59,7 @@ class Migration(SchemaMigration):
             'contributor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_data'", 'to': u"orm['data_connections.UserProfile']"}),
             'dataset': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_contributor'", 'to': u"orm['data_connections.Dataset']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'work_done': ('django.db.models.fields.TextField', [], {'max_length': '20000', 'blank': 'True'})
+            'work_done': ('django.db.models.fields.TextField', [], {'max_length': '20000'})
         },
         u'data_connections.datacatalog': {
             'Meta': {'object_name': 'DataCatalog'},
@@ -189,12 +71,12 @@ class Migration(SchemaMigration):
         u'data_connections.datarelation': {
             'Meta': {'object_name': 'DataRelation'},
             'derivative': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_source'", 'to': u"orm['data_connections.Dataset']"}),
-            'how_data_was_processed': ('django.db.models.fields.TextField', [], {'max_length': '20000', 'blank': 'True'}),
+            'how_data_was_processed': ('django.db.models.fields.TextField', [], {'max_length': '20000'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'source': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'relation_to_derivative'", 'to': u"orm['data_connections.Dataset']"})
         },
         u'data_connections.dataset': {
-            'Meta': {'unique_together': "(('name', 'url'),)", 'object_name': 'Dataset'},
+            'Meta': {'object_name': 'Dataset'},
             'contributors': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'contributed_datasets'", 'to': u"orm['data_connections.UserProfile']", 'through': u"orm['data_connections.ContributorRelation']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
             'data_catalog': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['data_connections.DataCatalog']", 'null': 'True', 'blank': 'True'}),
             'data_format': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'formatted_datasets'", 'null': 'True', 'to': u"orm['data_connections.Format']"}),
@@ -205,9 +87,10 @@ class Migration(SchemaMigration):
             'license': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'licensed_datasets'", 'null': 'True', 'to': u"orm['data_connections.License']"}),
             'manager': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'managed_datasets'", 'null': 'True', 'to': u"orm['data_connections.UserProfile']"}),
             'managing_organization': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'managed_datasets'", 'null': 'True', 'to': u"orm['data_connections.Organization']"}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'sources': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'derivatives'", 'to': u"orm['data_connections.Dataset']", 'through': u"orm['data_connections.DataRelation']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
-            'url': ('django.db.models.fields.URLField', [], {'unique': 'True', 'max_length': '150'})
+            'uploaded_by': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
         },
         u'data_connections.format': {
             'Meta': {'object_name': 'Format'},

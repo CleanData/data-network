@@ -1,10 +1,11 @@
 from django.contrib import admin
 from data_connections.models import Dataset, DataCatalog, DataRelation, License, Format, UserProfile, Organization, MembershipRelation, ContributorRelation, Scientist
 
-class DatasetAdmin(admin.ModelAdmin):
-	fields = ['name', 'url', 'data_format', 'date_published', 'date_last_edited','license','manager','managing_organization']
+#remove comment for custom fields
+#class DatasetAdmin(admin.ModelAdmin):
+	#fields = ['name', 'url', 'data_format', 'date_published', 'date_last_edited','license','manager','managing_organization']
 
-admin.site.register(Dataset,DatasetAdmin)
+admin.site.register(Dataset)
 admin.site.register(DataCatalog)
 admin.site.register(DataRelation)
 admin.site.register(License)

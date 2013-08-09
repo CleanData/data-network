@@ -37,7 +37,7 @@ function populateTree(tree_in,direction){
 	tree_in.details={};
 	tree_in.children=[];
 	
-	$.get('/api/v1/dataset/97/?format=json', function(data) {
+	$.get('/api/v1/dataset/14/?format=json', function(data) {
 			tree_in.details=data;
 			// using closures we should be able to pre-populate this and create the empty nodes.
 			numChildren=data[direction].length;
