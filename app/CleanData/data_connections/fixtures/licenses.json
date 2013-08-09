@@ -1,4 +1,4 @@
-[	// These are the core licenses. If you need to add to this list, create a *new file* called my_licenses.json 
+[	
 	{
 		"model":"data_connections.License",
 		"pk":1,

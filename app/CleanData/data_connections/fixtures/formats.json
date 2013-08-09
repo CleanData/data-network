@@ -1,4 +1,4 @@
-[	// These are the core formats. If you need to add to this list, create a *new file* called my_formats.json
+[	
 	{
 		"model":"data_connections.Format",
 		"pk":1,

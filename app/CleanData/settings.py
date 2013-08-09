@@ -100,6 +100,7 @@ INSTALLED_APPS = (
     'registration',		# django-registration - details: https://django-registration.readthedocs.org
     'south',			# south: http://south.readthedocs.org/en/latest/installation.html
 	'tastypie',			# Tastypie: http://django-tastypie.readthedocs.org/en/latest/
+    'captcha',
 )
 
 # for the registration app
