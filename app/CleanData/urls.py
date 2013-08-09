@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+	# (r'^accounts/register/','registration_app.views.register')
 	(r'^accounts/', include('registration.backends.default.urls')),
 
     # Uncomment the next line to enable the admin:
