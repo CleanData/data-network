@@ -11,8 +11,12 @@ from forms import *
 #	return render_to_response('data_connections/index.html', {}, context_instance=RequestContext(request))
 
 
-def tree_view(request):
-	return render_to_response('data_connections/tree_view.html', {}, context_instance=RequestContext(request))
+#def tree_view(request):
+#	return render_to_response('data_connections/tree_view.html', {"dataset":{"id":48}}, #context_instance=RequestContext(request))
+def dataset_view(request,dataset_id=48):
+	theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
+	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset},
+							  context_instance=RequestContext(request))
 def license_view(request,license_id):
 	theLicense = get_object_or_404(License, id=license_id)
 	return render_to_response('data_connections/license_view.html',{"license":theLicense},
@@ -21,9 +25,17 @@ def format_view(request,format_id):
 	theFormat = get_object_or_404(Format, id=format_id)
 	return render_to_response('data_connections/format_view.html',{"format":theFormat},
 							  context_instance=RequestContext(request))
+def catalog_view(request,data_catalog_id):
+	theDataCatalog = get_object_or_404(DataCatalog.objects.select_related(), id=data_catalog_id)
+	return render_to_response('data_connections/data_catalog_view.html',{"data_catalog":theDataCatalog},
+							  context_instance=RequestContext(request))
 def scientist_view(request,scientist_id):
 	theScientist = get_object_or_404(Scientist, id=scientist_id)
 	return render_to_response('data_connections/scientist_view.html',{"scientist":theScientist},
+							  context_instance=RequestContext(request))
+def organization_view(request,organization_id):
+	theOrganization = get_object_or_404(Organization.objects.select_related(), id=organization_id)
+	return render_to_response('data_connections/organization_view.html',{"organization":theOrganization},
 							  context_instance=RequestContext(request))
 
 def add_dataset(request):

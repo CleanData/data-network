@@ -1,6 +1,6 @@
 from tastypie import fields
 from tastypie.resources import Resource, ModelResource, ALL, ALL_WITH_RELATIONS
-from data_connections.models import Dataset, Scientist, DataRelation, License, Format, DataCatalog
+from data_connections.models import *
 from tastypie.authentication import Authentication
 from tastypie.cache import SimpleCache
 
@@ -30,6 +30,13 @@ class FormatResource(ModelResource):
 		allowed_methods = ['get']
 		authentication = Authentication()
 		cache=SimpleCache()
+class OrganizationResource(ModelResource):
+	class Meta:
+		queryset = Organization.objects.all()
+		resource_name = 'organization'		
+		allowed_methods = ['get']
+		authentication = Authentication()
+		cache=SimpleCache()
 class DataCatalogResource(ModelResource):
 	class Meta:
 		queryset = DataCatalog.objects.all()
@@ -37,7 +44,6 @@ class DataCatalogResource(ModelResource):
 		allowed_methods = ['get']
 		authentication = Authentication()
 		cache=SimpleCache()
-
 class DataRelationResource(ModelResource):
 	source = fields.ToOneField('data_connections.api.DatasetResource', 'source',full=True)
 	derivative = fields.ToOneField('data_connections.api.DatasetResource', 'derivative',full=True)
@@ -51,7 +57,7 @@ class DataRelationResource(ModelResource):
 class DatasetResource(ModelResource):
 	# note that the name in the ForeignKey relation here is the name of the foreign key field we're mapping to.
 	scientist = fields.ForeignKey(ScientistResource, 'manager',null=True,blank=True)
-	
+	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
 	sources = fields.ToManyField('self','derivatives')
 	derivatives = fields.ToManyField('self','sources') 	
 	class Meta:
@@ -68,7 +74,8 @@ class DatasetResource(ModelResource):
 class DatasetSourcesResource(ModelResource):
 	# note that the name in the ForeignKey relation here is the name of the foreign key field we're mapping to.
 	scientist = fields.ForeignKey(ScientistResource, 'manager',null=True,blank=True,full=True)
-	
+	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
+
 	license = fields.ForeignKey(LicenseResource, 'license',full=True)
 	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
 
@@ -94,6 +101,7 @@ class DatasetDerivativesResource(ModelResource):
 	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
 
 	data_catalog = fields.ForeignKey(DataCatalogResource, 'data_catalog',null=True,blank=True,full=True)
+	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
 	
 	#sources = fields.ToManyField('self','derivatives')
 	children = fields.ToManyField('self','sources',full=True)

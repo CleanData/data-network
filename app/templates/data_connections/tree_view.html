@@ -4,8 +4,6 @@
 {% block libs %}
 	<script type="text/javascript" src="/static/user/js/d3.v3.min.js"></script>
 	<link type="text/css" href="/static/user/css/map_style.css" rel="stylesheet" />
-	<script type="text/javascript" src="/static/user/js/testData.js"></script>
-
 	<style>
 
 .node circle, .node_d circle, .node_s circle {
@@ -34,12 +32,10 @@ var sourceTree={"details":{},"children":[]};
 var derivativeTree={"details":{},"children":[]};
 
 function populateTree(ds_id){
-	console.log("Calling server");
 	$.ajax({
 	    url: '/api/v1/dataset_derivatives/'+ds_id+'/?format=json',
 	    type: 'GET',
 	    success: function(data){
-			printDetails(data);		
 			if(data.children.length>0){updateMap("derivatives",data);}
 	    },
 	    error: function(response,str_error,error_obj) {
@@ -230,7 +226,9 @@ function printDetails(d){
 	}else{
 		$('#dataset_scientist').html("Unknown");
 	}
-	$('#dataset_url').html("<a href='"+d.url+"'>Source Website</a>");
+	if(d["organization"]!=null){
+		$('#dataset_organization').html("<a href='/organization/"+ d.organization.id+"'>"+d.organization.name+"</a>");
+	}else{$('#dataset_organization').html("None");}
 	$('#dataset_license').html("<a href='/license/"+ d.license.id+"'>"+d.license.name+"</a>");
 	$('#dataset_format').html("<a href='/data_format/"+ d.data_format.id+"'>"+d.data_format.name+"</a>");
 	if(d["data_catalog"]!=null){
@@ -240,13 +238,15 @@ function printDetails(d){
 	$('#dataset_date_created').html(pub.getDate()+"."+pub.getDay()+"."+pub.getFullYear());
 	var edit=new Date(Date.parse(d.date_last_edited));
 	$('#dataset_last_edited').html(edit.getDate()+"."+edit.getDay()+"."+edit.getFullYear());
+	$('#dataset_url').html("<a href='"+d.url+"'>Source Website</a>");
+	$('#permalink_url').html("<a href='/dataset/"+d.id+"'>Link to this view</a>");
 	
 	$('#dataset_sources').html("");
 	$('#dataset_derivatives').html("");
 }
 
 function createMap(){
-	populateTree(48);
+	populateTree({{ dataset.id }});
 }
 </script>
 {% endblock %}
@@ -260,15 +260,53 @@ function createMap(){
 <div class="container">
 	<div class="row-fluid">
 		<div class="span3" id="sidebar">
-			<div><h4><span id="dataset_name"></span></h4></div>
-			<div>Manager: <span id="dataset_scientist"></span></div>
-			<div>License: <span id="dataset_license"></span></div>
-			<div>Format: <span id="dataset_format"></span></div>
-			<div>Catalog: <span id="dataset_catalog"></span></div>
-			<div>Date Created: <span id="dataset_date_created"></span></div>
-			<div>Last Edited: <span id="dataset_last_edited"></span></div>
+			<div><strong>• Click a node to view details</strong></div>
+			<div><strong>• Double click a node to re-center</strong></div>
 			<hr/>
-			<div><span id="dataset_url"></span></div>
+			<div><h4><span id="dataset_name">{{ dataset.name }}</span></h4></div>
+
+			<div>Manager: <span id="dataset_scientist">
+				{% if dataset.manager %}
+					<a href="{% url 'scientist_detail' scientist_id=dataset.manager.id %}">{{ dataset.manager.firstname }} {{ dataset.manager.lastname }}</a>
+				{% else %}
+					None
+				{% endif %}
+					</span></div>
+			<div>Managing Organization: <span id="dataset_organization">
+				{% if dataset.managing_organization %}
+					<a href="{% url 'organization_detail' organization_id=dataset.managing_organizations.id %}">{{ dataset.managing_organization.name }}</a>
+				{% else %}
+					None
+				{% endif %}
+					</span></div>
+			<div>License: <span id="dataset_license">
+					<a href="{% url 'license_detail' license_id=dataset.license.id %}">{{ dataset.license.name }}</a>
+					<!--<a href="/license/{{ dataset.license.id }}">{{ dataset.license.name }}</a>-->
+				</span></div>
+			<div>Format: <span id="dataset_format">
+					<a href="{% url 'format_detail' format_id=dataset.data_format.id %}">{{ dataset.data_format.name }}</a>
+				</span></div>
+			<div>Catalog: <span id="dataset_catalog">
+				{% if dataset.data_catalog %}
+					<a href="{% url 'data_catalog_detail' data_catalog_id=dataset.data_catalog.id %}">{{ dataset.data_catalog.name }}</a>
+				{% else %}
+					None
+				{% endif %}
+				</span></div>
+			<div>Date Created: <span id="dataset_date_created">
+					{{ dataset.date_published | date:"m.d.y" }}
+				</span></div>
+			<div>Last Edited: <span id="dataset_last_edited">
+					{{ dataset.date_last_edited | date:"m.d.y" }}			
+			</span></div>
+			<hr/>
+			<div><span id="dataset_url">
+					<a href="{{ dataset.url }}">Source Website</a>
+				</span></div>
+			<hr/>
+			<div><span id="permalink_url">
+					<a href="{% url 'dataset_detail' dataset_id=dataset.id %}">Link to this view</a>
+				</span></div>
 			<!--<div>Sources:</div>
 			<ul id="dataset_sources">
 				<li><a href="#NYC-Zipcode-JSON">NYC Zipcode JSON</a></li>

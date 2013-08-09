@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Clean.Data. | {{ license.name }} {% endblock %}
+{% block title %}Clean.Data. | {{ organization.name }} {% endblock %}
 
 {% block libs %}
 
@@ -12,8 +12,8 @@
 
 <div class="container">
 	<div class="row-fluid">
-		<h4>License: {{ license.name }}</h4>
-		<div><a href="{{ license.url }}" target=_blank>More information</a></div>
+		<h4>Organization: {{ organization.name }}</h4>
+		<div><a href="{{ organization.url }}" target=_blank>More information</a></div>
 	</div>
 </div>
 

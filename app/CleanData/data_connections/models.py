@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from taggit.managers import TaggableManager
 
 # The data models
 class DataCatalogManager(models.Manager):
@@ -10,7 +9,7 @@ class DataCatalog(models.Model):
 	objects = DataCatalogManager()	# handles natural keys
 
 	name = models.CharField(max_length=200, unique=True)
-	manager = models.ForeignKey("UserProfile",related_name="managed_datacatalogs",null=True,blank=True)
+	manager = models.ForeignKey("Scientist",related_name="managed_datacatalogs",null=True,blank=True)
 	managing_organization = models.ForeignKey("Organization",related_name="managed_datacatalogs",null=True,blank=True)
 	
 	def __unicode__(self):
@@ -30,7 +29,6 @@ class License(models.Model):
 class FormatManager(models.Manager):
 	def get_by_natural_key(self,name):
 		return self.get(name=name)
-
 class Format(models.Model):
 	objects = FormatManager() 		# handles natural keys
 
@@ -43,7 +41,6 @@ class Format(models.Model):
 class DatasetManager(models.Manager):
 	def get_by_natural_key(self,url,name):
 		return self.get(url=url,name=name)
-
 class Dataset(models.Model):
 	objects = DatasetManager()		# handles natural keys
 	
@@ -53,7 +50,6 @@ class Dataset(models.Model):
 	date_last_edited = models.DateTimeField('date last edited')
 	url = models.URLField(max_length=150)
 	description = models.TextField(blank=True)
-	tags = TaggableManager()
 
 	#added_by = models.CharField(max_length=200,blank=True,)
 
@@ -74,7 +70,6 @@ class Dataset(models.Model):
 		return self.name
 	class Meta:
 		unique_together = (('name','url'),)
-
 
 
 class DataRelation(models.Model):
@@ -119,9 +114,9 @@ class OrganizationManager(models.Manager):
 		return self.get(name=name)
 class Organization(models.Model):
 	objects = OrganizationManager()		# handles natural keys
+
 	name = models.CharField(max_length=200,unique=True)
 	url = models.URLField(max_length=150,default="")
-
 	def __unicode__(self):
 		return self.name
 
@@ -139,3 +134,11 @@ class ContributorRelation(models.Model):
 	
 	def __unicode__(self):
 		return self.contributor.firstname+" "+self.contributor.lastname+ "-> "+self.contributor.firstname+" "+self.contributor.lastname	
+	
+	
+	
+	
+	
+	
+	
+	
