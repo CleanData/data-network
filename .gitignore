@@ -1,6 +1,8 @@
 *.pyc
 app/CleanData/settings_local.py
 
+app/*/migrations*
+
 # C extensions
 *.so
 
