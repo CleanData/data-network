@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Clean.Data. | {{ scientist.firstname }} {{ scientist.lastname }} {% endblock %}
+
+{% block libs %}
+
+{% endblock %}
+
+{% block onload %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row-fluid">
+		<h4>Name: {{ scientist.firstname }} {{ scientist.lastname }}</h4>
+		{% if scientist.profile_url != "" %}
+			<div><a href="{{ scientist.profile_url }}" target=_blank>Web Profile</a></div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

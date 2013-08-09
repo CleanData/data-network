@@ -34,6 +34,7 @@ var sourceTree={"details":{},"children":[]};
 var derivativeTree={"details":{},"children":[]};
 
 function populateTree(ds_id){
+	console.log("Calling server");
 	$.ajax({
 	    url: '/api/v1/dataset_derivatives/'+ds_id+'/?format=json',
 	    type: 'GET',
@@ -225,7 +226,7 @@ function updateMap(direction,tree){
 function printDetails(d){
 	$('#dataset_name').html(d["name"]);
 	if(d["scientist"]!=null){
-		$('#dataset_scientist').html("<a href='/scientist/'"+d.scientist.id+">"+d.scientist.firstname +" "+ d.scientist.lastname+"</a>");
+		$('#dataset_scientist').html("<a href='/scientist/"+d.scientist.id+"'"+d.scientist.id+">"+d.scientist.firstname +" "+ d.scientist.lastname+"</a>");
 	}else{
 		$('#dataset_scientist').html("Unknown");
 	}
@@ -245,7 +246,7 @@ function printDetails(d){
 }
 
 function createMap(){
-	populateTree(97);
+	populateTree(48);
 }
 </script>
 {% endblock %}

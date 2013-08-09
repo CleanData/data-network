@@ -1,15 +1,30 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.forms.models import modelformset_factory
 from django.contrib.auth.models import User
 from django.template import RequestContext
+from models import *
 from forms import *
 
-def index(request):
-	return render_to_response('data_connections/index.html', {}, context_instance=RequestContext(request))
+# deprecated for now.
+#def index(request):
+#	return render_to_response('data_connections/index.html', {}, context_instance=RequestContext(request))
+
 
 def tree_view(request):
 	return render_to_response('data_connections/tree_view.html', {}, context_instance=RequestContext(request))
+def license_view(request,license_id):
+	theLicense = get_object_or_404(License, id=license_id)
+	return render_to_response('data_connections/license_view.html',{"license":theLicense},
+							  context_instance=RequestContext(request))
+def format_view(request,format_id):
+	theFormat = get_object_or_404(Format, id=format_id)
+	return render_to_response('data_connections/format_view.html',{"format":theFormat},
+							  context_instance=RequestContext(request))
+def scientist_view(request,scientist_id):
+	theScientist = get_object_or_404(Scientist, id=scientist_id)
+	return render_to_response('data_connections/scientist_view.html',{"scientist":theScientist},
+							  context_instance=RequestContext(request))
 
 def add_dataset(request):
 	p = request.user
@@ -29,8 +44,6 @@ def add_dataset(request):
 	else:
 		dataset_form = NewDataSetForm()
 
-	#check if user is logged in
-	if request.user.is_authenticated():
-		return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
-	else :
-		return render_to_response('data_connections/index.html')
+	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+
+

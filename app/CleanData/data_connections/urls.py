@@ -12,8 +12,10 @@ v1_api.register(DatasetDerivativesResource())
 v1_api.register(DataRelationResource())
 
 urlpatterns = patterns('data_connections.views',
-    url(r'^$', 'index',name='index'),
-    url(r'^tree', 'tree_view',name='tree_view'),
+    url(r'^$', 'tree_view',name='index'),
+	url(r'^license/(?P<license_id>\d+)', 'license_view'),
+	url(r'^data_format/(?P<format_id>\d+)', 'format_view'),
+	url(r'^scientist/(?P<scientist_id>\d+)', 'scientist_view'),
     (r'^add_dataset','add_dataset'),
     (r'^api/', include(v1_api.urls)),
 )
