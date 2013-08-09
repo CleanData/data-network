@@ -32,22 +32,29 @@
 
 var sourceTree={"details":{},"children":[]};
 var derivativeTree={"details":{},"children":[]};
-function populateTree(tree_in,direction){
-	// first get the base json for the object
-	tree_in.details={};
-	tree_in.children=[];
-	
-	$.get('/api/v1/dataset/14/?format=json', function(data) {
-			tree_in.details=data;
-			// using closures we should be able to pre-populate this and create the empty nodes.
-			numChildren=data[direction].length;
-			 
-			for(child in data[direction]){
-				$.get(data[direction][child],function(child_data){tree_in.children.push({
-																			"details":child_data,"children":[]
-																		});plotMap();})
-			}
-		});
+
+function populateTree(ds_id){
+	$.ajax({
+	    url: '/api/v1/dataset_derivatives/'+ds_id+'/?format=json',
+	    type: 'GET',
+	    success: function(data){
+			printDetails(data);		
+			if(data.children.length>0){updateMap("derivatives",data);}
+	    },
+	    error: function(response,str_error,error_obj) {
+	        console.log("Threw the error: "+str_error+" "+str(error_obj));
+	    }
+	});
+	$.ajax({
+	    url: '/api/v1/dataset_sources/'+ds_id+'/?format=json',
+	    type: 'GET',
+	    success: function(data){ 
+			if(data.children.length>0){updateMap("sources",data);}
+	    },
+	    error: function(response,str_error,error_obj) {
+	        console.log("Threw the error: "+str_error+" "+str(error_obj));
+	    }
+	});
 }
 
 var graph, width, height, cluster, manager_s, manager_d, diagonal, diagonal_inv = null;
@@ -62,9 +69,6 @@ function initGraph(){
 	cluster = d3.layout.cluster()
 	    .size([height, (width)/2.-160]);
 	
-	/*manager_d = d3.layout.cluster()
-	    .size([height, (width)/2.-160]);*/
-	
 	diagonal = d3.svg.diagonal()
 	    .projection(function(d) {return [d.y+width/2., d.x]; });
 	
@@ -75,184 +79,179 @@ function initGraph(){
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("svg:g");
+}
 
-	plotMap();
+function resetMap(){
+	d3.select("#data_map svg").remove();
+	
+	graph = d3.select("#data_map").append("svg:svg")
+	    .attr("width", width)
+	    .attr("height", height)
+	  .append("svg:g");
 }
 
 
-function plotMap(){
-	trees={"s":sourceTree,"d":derivativeTree};
-for(dir in trees){
-  tree=trees[dir];
+function updateMap(direction,tree){
+	var dir="";
+	if(direction=="sources"){dir="s";}
+	else{dir="d";}
 
-  var nodes = cluster.nodes(tree),
-      links = cluster.links(nodes);
-  
-  var node = graph.selectAll(".node_"+dir)
-      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+	var nodes = cluster.nodes(tree);
+	var links = cluster.links(nodes);
+	  	  
+	nodes.forEach(function(d) {
+		d.x0 = d.x;
+		d.y0 = d.y;
+	});
+	  
+	  var node = graph.selectAll(".node_"+dir)
+	      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+	
+	  var nodeEnter = node.enter().append("g")
+	      .attr("class", "node_"+dir)
+	      .attr("transform", function(d) { 
+			  if(direction=="sources"){
+			      return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")";}
+		      else{
+		      	  return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")";}
+	       })
+		   .on("click", function(d) { printDetails(d); })
+		   .on("dblclick", function(d) { resetMap(); populateTree(d.id); });
+	  nodeEnter.append("svg:circle")
+	      .attr("r", 1e-6)
+	      .style("fill", "#fff");
+	
+	  nodeEnter.append("text")
+	      .attr("dx", 0)
+	      .attr("dy", 15)
+	      .style("text-anchor", "middle")
+	      .text(function(d,i) { if(direction=="sources" || i>0){return d.name;} })
+		  .style("fill-opacity", 1e-6);
+	
+	  var nodeUpdate = node.transition()													// update
+	      .duration(1000)
+	      .attr("transform", function(d) { 
+	      		if(direction=="sources"){
+		      		return "translate(" + (width/2.-d.y) + "," + d.x + ")";} 
+	      		else{
+					return "translate(" + (width/2.+d.y) + "," + d.x + ")";} 
+	  		})
+	
+	  nodeUpdate.select("circle")
+	      .attr("r", 4.5)
+	      .style("fill", function(d) { return "#fff"; });
+	
+	  nodeUpdate.select("text")
+	      .style("fill-opacity", 1);
+	
+	  var nodeExit = node.exit().transition()
+	      .duration(1000)
+	      .attr("transform", function(d) { 
+	      			if(dir=="s"){return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")"; }
+	      			else{return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")"; }
+	      		})
+	      .remove();
+	
+	  nodeExit.select("circle")
+	      .attr("r", 1e-6);
+	
+	  nodeExit.select("text")
+	      .style("fill-opacity", 1e-6);
+	
+	
+	  // Update the links…
+	  var link = graph.selectAll(".link_"+dir)
+	      .data(links, function(d) { return d.target.id; });
+	
+	  // Enter any new links at the parent's previous position.
+	  var linkEnter=link.enter().insert("svg:path", "g")
+	      .attr("class", "link_"+dir)
+	      .attr("d", function(d) {
+     		if(direction=="sources"){
+			    //var o = {x: (width/2.-tree.x), y: tree.y};
+		        var o = {x: (height/2.), y: 0};
+		        return diagonal_inv({source: o, target: o});
+		        }
+	       else{
+			        //var o = {x: (width/2.+tree.x), y: tree.y};
+		        //var o = {x: (height/2.), y: (width/2.)};
+		        var o = {x: (height/2.), y: 0};
+		        return diagonal({source: o, target: o});
+		       }
+	      })
 
-  var nodeEnter = node.enter().append("g")
-      .attr("class", "node_"+dir)
-      .attr("transform", function(d) { 
-	      if(dir=="s"){
-		      return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")";}
-	      else{
-	      	  return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")";}
-       });
-      //.on("click", function(d) { toggle(d); update(d); });
-
-  nodeEnter.append("svg:circle")
-      .attr("r", 1e-6)
-      .style("fill", "#fff");
-
-  nodeEnter.append("text")
-      .attr("dx", 0)
-      .attr("dy", 15)
-      .style("text-anchor", "middle")
-      .text(function(d,i) { if(dir="s" || i>0){return d.details.name;} })
-	  .style("fill-opacity", 1e-6);
-
-  console.log(dir);
-  console.log(tree);
-  var nodeUpdate = node.transition()													// update
-      .duration(1000)
-      .attr("transform", function(d) { 
-      		if(dir=="s"){
-	      		console.log("In the source tree");
-	      		console.log("translate(" + (width/2.-d.y) + "," + d.x + ")");
-	      		return "translate(" + (width/2.-d.y) + "," + d.x + ")";} 
-      		else{
-				console.log("In the derivative tree");
-				console.log("translate(" + (width/2.+d.y) + "," + d.x + ")");
-				return "translate(" + (width/2.+d.y) + "," + d.x + ")";} 
-  		})
-
-  nodeUpdate.select("circle")
-      .attr("r", 4.5)
-      .style("fill", function(d) { return "#fff"; });
-
-  nodeUpdate.select("text")
-      .style("fill-opacity", 1);
-
-  var nodeExit = node.exit().transition()
-      .duration(1000)
-      .attr("transform", function(d) { 
-      			if(dir=="s"){return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")"; }
-      			else{return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")"; }
-      		})
-      .remove();
-
-  nodeExit.select("circle")
-      .attr("r", 1e-6);
-
-  nodeExit.select("text")
-      .style("fill-opacity", 1e-6);
-
-
-  // Update the links…
-  var link = graph.selectAll(".link_"+dir)
-      .data(links, function(d) { return d.target.id; });
-
-  // Enter any new links at the parent's previous position.
-  var linkEnter=link.enter().insert("svg:path", "g")
-      .attr("class", "link_"+dir)
-      .attr("d", function(d) {
-      	if(dir=="s"){
-		    //var o = {x: (width/2.-tree.x), y: tree.y};
-	        var o = {x: (height/2.), y: 0};
-	        return diagonal_inv({source: o, target: o});
-	        }
-       else{
-		        //var o = {x: (width/2.+tree.x), y: tree.y};
-	        //var o = {x: (height/2.), y: (width/2.)};
-	        var o = {x: (height/2.), y: 0};
-	        return diagonal_inv({source: o, target: o});
-	       }
-      })
-
-  if(dir=="s"){
-	linkEnter.transition()
-      .duration(1000)
-      .attr("d", diagonal_inv);
-
-	  // Transition links to their new position.
-	  link.transition()
+	  // needs to be a full loop as the diagonal function must be set directly rather than passed as a return	 
+	if(direction=="sources"){
+		linkEnter.transition()
 	      .duration(1000)
 	      .attr("d", diagonal_inv);
-  }
-  else{
-	linkEnter.transition()
-      .duration(1000)
-      .attr("d", diagonal);
-
-	  // Transition links to their new position.
-	  link.transition()
+	
+		  // Transition links to their new position.
+		  link.transition()
+		      .duration(1000)
+		      .attr("d", diagonal_inv);
+	  }
+	  else{
+		linkEnter.transition()
 	      .duration(1000)
 	      .attr("d", diagonal);
-  }
-  //continue;
-
-  // Transition exiting nodes to the parent's new position.
-  
-  link.exit().transition()
-      .duration(1000)
-      .attr("d", function(d) {
-		  if(dir=="d"){
-		        //var o = {x: (width/2.-tree.x), y: tree.y};
-		        var o = {x: (width/2.), y: 0};
-		        return diagonal_inv({source: o, target: o});
-	        }
-		  else{
-  		        //var o = {x: (width/2.+tree.x), y: tree.y};
-		        var o = {x: (width/2.), y: 0};
-		        return diagonal({source: o, target: o});
-		  }
-      })
-      .remove();
-
-	  /*
-  var node_d = graph.selectAll(".node_d")
-      .data(nodes_d, function(d) { return d.id || (d.id = ++i); })
-//      .data(nodes_d)
-    .enter().append("g")
-      .attr("class", "node_d")
-      .attr("transform", function(d) { return "translate(" + (width/2.+d.y) + "," + d.x + ")"; })
-
-  node_d.append("circle")
-      .attr("r", 4.5);
-
-  node_d.append("text")
-      .attr("dx", 0)
-      .attr("dy", 15)
-      .style("text-anchor", "middle")
-      .text(function(d) { return d.details.name; });
-      */
-  /*node_s.append("text")
-      .attr("dx", 0)
-      .attr("dy", 15)
-      .style("text-anchor", "middle")
-      .text(function(d,i) { if(i>0){return d.details.name;} });*/
-
-d3.select(self.frameElement).style("height", height + "px");
-
-
-  nodes.forEach(function(d) {
-    d.x0 = d.x;
-    d.y0 = d.y;
-  });
-
-  }
+	
+		  // Transition links to their new position.
+		  link.transition()
+		      .duration(1000)
+		      .attr("d", diagonal);
+	  }
+	
+	  // Transition exiting nodes to the parent's new position.
+	  link.exit().transition()
+	      .duration(1000)
+	      .attr("d", function(d) {
+			  if(direction=="derivatives"){
+			        //var o = {x: (width/2.-tree.x), y: tree.y};
+			        var o = {x: (width/2.), y: 0};
+			        return diagonal_inv({source: o, target: o});
+		        }
+			  else{
+	  		        //var o = {x: (width/2.+tree.x), y: tree.y};
+			        var o = {x: (width/2.), y: 0};
+			        return diagonal({source: o, target: o});
+			  }
+	      })
+	      .remove();
+		
+	d3.select(self.frameElement).style("height", height + "px");
 }
 
-function updateMap(){
-	populateTree(sourceTree,"sources");
-	populateTree(derivativeTree,"derivatives");
+function printDetails(d){
+	$('#dataset_name').html(d["name"]);
+	if(d["scientist"]!=null){
+		$('#dataset_scientist').html("<a href='/scientist/'"+d.scientist.id+">"+d.scientist.firstname +" "+ d.scientist.lastname+"</a>");
+	}else{
+		$('#dataset_scientist').html("Unknown");
+	}
+	$('#dataset_url').html("<a href='"+d.url+"'>Source Website</a>");
+	$('#dataset_license').html("<a href='/license/"+ d.license.id+"'>"+d.license.name+"</a>");
+	$('#dataset_format').html("<a href='/data_format/"+ d.data_format.id+"'>"+d.data_format.name+"</a>");
+	if(d["data_catalog"]!=null){
+		$('#dataset_catalog').html("<a href='/data_catalog/"+ d.data_catalog.id+"'>"+d.data_catalog.name+"</a>");
+	}else{$('#dataset_catalog').html("None");}
+	var pub=new Date(Date.parse(d.date_published));
+	$('#dataset_date_created').html(pub.getDate()+"."+pub.getDay()+"."+pub.getFullYear());
+	var edit=new Date(Date.parse(d.date_last_edited));
+	$('#dataset_last_edited').html(edit.getDate()+"."+edit.getDay()+"."+edit.getFullYear());
+	
+	$('#dataset_sources').html("");
+	$('#dataset_derivatives').html("");
+}
+
+function createMap(){
+	populateTree(97);
 }
 </script>
 {% endblock %}
 
 {% block onload %}
-  onload=initGraph();updateMap();
+  onload=initGraph();createMap();
 {% endblock %}
 
 {% block content %}
@@ -260,16 +259,16 @@ function updateMap(){
 <div class="container">
 	<div class="row-fluid">
 		<div class="span3" id="sidebar">
-			<div><h4><span id="dataset_name">Electricity Use Normalised by Household</span></h4></div>
-			<div>Manager: <span id="dataset_owner"><a ref="users/jonroberts">Jonathan Roberts</a></span></div>
-			<div>Contributors: <span id="dataset_contributors"><a href="users/jeffallen">Jeff Allen</a>, <a href="users/ronniejansson">Ronnie Jansson</a></span></div>
-			<div>Location: <span id="dataset_url"><a href="http://www.github.com/jonroberts/zipcodegrid">EnergyZip Repository</a></span></div>
-			<div>License: <span id="dataset_license"><a href="datacommons.org">Open Data</a></span></div>
-			<div>Format: <span id="dataset_format"><a href="http://json.org">JSON</a></span></div>
-			<div>Catalog: <span id="dataset_catalog">None</span></div>
-			<div>Date Created: <span id="dataset_date_created">12th May 2013</span></div>
-			<div>Last Edited: <span id="dataset_last_edited">23rd June 2013</span></div>
-			<div>Sources:</div>
+			<div><h4><span id="dataset_name"></span></h4></div>
+			<div>Manager: <span id="dataset_scientist"></span></div>
+			<div>License: <span id="dataset_license"></span></div>
+			<div>Format: <span id="dataset_format"></span></div>
+			<div>Catalog: <span id="dataset_catalog"></span></div>
+			<div>Date Created: <span id="dataset_date_created"></span></div>
+			<div>Last Edited: <span id="dataset_last_edited"></span></div>
+			<hr/>
+			<div><span id="dataset_url"></span></div>
+			<!--<div>Sources:</div>
 			<ul id="dataset_sources">
 				<li><a href="#NYC-Zipcode-JSON">NYC Zipcode JSON</a></li>
 				<li><a href="#2010-Census-Households">2010 Census - Households</a></li>
@@ -278,15 +277,10 @@ function updateMap(){
 				<li><a href="#Retail-Sales-Of-Electricity-Monthly">Retail Sales of Electricity - Monthly</a></li>
 			</ul>
 			<div>Derivatives</div>
-			<ul id="dataset_sources">
+			<ul id="dataset_derivatives">
 				<li>None</li>
-			</ul>
+			</ul>-->
 			<hr/>
-			<p>Datasets often paired with this:</p>
-			<ul>
-				<li>Solar energy coverage</li>
-				<li>...</li>
-			</ul>
 		</div>
 		<div class="span9" id="data_map"></div>
 	</div>
