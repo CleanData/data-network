@@ -31,8 +31,10 @@
 				     <input type="text" class="search-query" placeholder="Search">
 				  </form>
 			  </li>
+			  {% if user.is_authenticated %}
               <li><a href="./add_dataset">+Dataset</a></li>
               <li><a href="./">+Scientist</a></li>
+              {% endif %}
             </ul>
 		    <div class="nav pull-right">
 			    <ul class="nav">

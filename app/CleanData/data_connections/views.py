@@ -29,4 +29,8 @@ def add_dataset(request):
 	else:
 		dataset_form = NewDataSetForm()
 
-	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+	#check if user is logged in
+	if request.user.is_authenticated():
+		return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+	else :
+		return render_to_response('data_connections/index.html')
