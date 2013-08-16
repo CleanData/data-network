@@ -36,7 +36,7 @@ function populateTree(ds_id){
 	    url: '/api/v1/dataset_derivatives/'+ds_id+'/?format=json',
 	    type: 'GET',
 	    success: function(data){
-			if(data.children.length>0){updateMap("derivatives",data);}
+			updateMap("derivatives",data);
 	    },
 	    error: function(response,str_error,error_obj) {
 	        console.log("Threw the error: "+str_error+" "+str(error_obj));
@@ -46,7 +46,7 @@ function populateTree(ds_id){
 	    url: '/api/v1/dataset_sources/'+ds_id+'/?format=json',
 	    type: 'GET',
 	    success: function(data){ 
-			if(data.children.length>0){updateMap("sources",data);}
+			updateMap("sources",data);
 	    },
 	    error: function(response,str_error,error_obj) {
 	        console.log("Threw the error: "+str_error+" "+str(error_obj));
@@ -235,9 +235,9 @@ function printDetails(d){
 		$('#dataset_catalog').html("<a href='/data_catalog/"+ d.data_catalog.id+"'>"+d.data_catalog.name+"</a>");
 	}else{$('#dataset_catalog').html("None");}
 	var pub=new Date(Date.parse(d.date_published));
-	$('#dataset_date_created').html(pub.getDate()+"."+pub.getDay()+"."+pub.getFullYear());
+	$('#dataset_date_created').html(pub.getMonth()+"."+pub.getDay()+"."+pub.getFullYear());
 	var edit=new Date(Date.parse(d.date_last_edited));
-	$('#dataset_last_edited').html(edit.getDate()+"."+edit.getDay()+"."+edit.getFullYear());
+	$('#dataset_last_edited').html(edit.getMonth()+"."+edit.getDay()+"."+edit.getFullYear());
 	$('#dataset_url').html("<a href='"+d.url+"'>Source Website</a>");
 	$('#permalink_url').html("<a href='/dataset/"+d.id+"'>Link to this view</a>");
 	
@@ -274,7 +274,7 @@ function createMap(){
 					</span></div>
 			<div>Managing Organization: <span id="dataset_organization">
 				{% if dataset.managing_organization %}
-					<a href="{% url 'organization_detail' organization_id=dataset.managing_organizations.id %}">{{ dataset.managing_organization.name }}</a>
+					<a href="{% url 'organization_detail' organization_id=dataset.managing_organization.id %}">{{ dataset.managing_organization.name }}</a>
 				{% else %}
 					None
 				{% endif %}

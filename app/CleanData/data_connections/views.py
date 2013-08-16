@@ -13,8 +13,13 @@ from forms import *
 
 #def tree_view(request):
 #	return render_to_response('data_connections/tree_view.html', {"dataset":{"id":48}}, #context_instance=RequestContext(request))
-def dataset_view(request,dataset_id=48):
-	theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
+def dataset_view(request,dataset_id=None):
+
+	if dataset_id==None:
+		theDataset = Dataset.objects.get(url__exact = "https://github.com/jonroberts/zipcodegrid/tree/master/data")
+		
+	else:
+		theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
 	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset},
 							  context_instance=RequestContext(request))
 def license_view(request,license_id):
