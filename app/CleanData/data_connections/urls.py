@@ -23,4 +23,5 @@ urlpatterns = patterns('data_connections.views',
 	# the add/edit/delete views
     (r'^add_dataset','add_dataset'),
     (r'^api/', include(v1_api.urls)),
+    (r'^search/$','search'),
 )

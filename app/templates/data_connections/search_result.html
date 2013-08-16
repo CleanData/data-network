@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %} <!-- allows for the use of the trans tag in templates -->
+{% block title %}Clean.Data.{% endblock %}
+
+{% block libs %}
+    <script type="text/javascript" src="/static/user/js/d3.v2.js"></script>
+    <script type="text/javascript" src="/static/user/js/mapper.js"></script>
+	<link type="text/css" href="/static/user/css/map_style.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="container" id="main">
+
+	<div class="row">
+		<div class="span12">
+		<legend>Search Results</legend>
+			{% if results %}
+				{% for result in results %}
+					<a href="{% url 'dataset_detail' dataset_id=result.id %}">{{ result }}</a><br>
+				{% 	endfor %}
+			{% else %}
+				No results found
+			{% endif %}
+
+		</div>
+	</div>
+
+</div>
+{% endblock %}
+
