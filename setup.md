@@ -2,7 +2,6 @@
 
 * Install django
 * Install django-registration (install via pip install)
-<<<<<<< HEAD
 * Install django-tastypie (install via pip install)
 * Copy settings_local.template to settings_local.py and rewrite the sections that are in <...>
 * Particularly, make sure that you specify an email server for the user validation (I use a Gmail smtp server as a test email server)
@@ -19,7 +18,7 @@ If you run into problems with your first migration, make sure to try:
     python ./manage.py migrate myapp 0001 --fake
 
 See the README.md for basic instructions on how to use South to perform database migrations.
-=======
+
 * Set up an email server
 * Change the site entry in the database through the django admin page (Sites -> change example.com details)
->>>>>>> 91c75bfbde97efa6b268d8460bbafd3ffeea1c94
+
