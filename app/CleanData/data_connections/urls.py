@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from tastypie.api import Api
 from data_connections.api import *
 
@@ -23,4 +23,5 @@ urlpatterns = patterns('data_connections.views',
 	# the add/edit/delete views
     (r'^add_dataset','add_dataset'),
     (r'^api/', include(v1_api.urls)),
+    (r'^search/$','search'),
 )
