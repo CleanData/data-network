@@ -13,12 +13,22 @@ from forms import *
 
 #def tree_view(request):
 #	return render_to_response('data_connections/tree_view.html', {"dataset":{"id":48}}, #context_instance=RequestContext(request))
+<<<<<<< HEAD
 def dataset_view(request,dataset_id=None):
 
 	if dataset_id==None:
 		theDataset = Dataset.objects.get(url__exact = "https://github.com/jonroberts/zipcodegrid/tree/master/data")
 		
 	else:
+=======
+
+
+
+def dataset_view(request,dataset_id=None):
+	if dataset_id == None :
+		theDataset = Dataset.objects.get(name__icontains='Energy Zip - processed data')
+	else :
+>>>>>>> 91c58a707faf3105528a2eff69b08b18c1b27dc9
 		theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
 	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset},
 							  context_instance=RequestContext(request))
@@ -63,4 +73,9 @@ def add_dataset(request):
 
 	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
 
-
+def search(request):
+	if 'query' in request.GET and request.GET['query'] != '':
+		results = Dataset.objects.filter(name__icontains=request.GET['query'])
+	else :
+		results = []
+	return render_to_response('data_connections/search_result.html',{"results":results},context_instance=RequestContext(request))
