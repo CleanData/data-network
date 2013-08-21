@@ -142,5 +142,13 @@
 			"name":"Mapbox Map",
 			"url":"http://www.mapbox.com/"
 		}
+	},
+	{
+		"model":"data_connections.Format",
+		"pk":19,
+		"fields":{
+			"name":"Application",
+			"url":	"http://en.wikipedia.org/wiki/Web_application"
+		}
 	}
 ]

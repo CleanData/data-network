@@ -76,6 +76,7 @@ class DataRelation(models.Model):
 	source = models.ForeignKey(Dataset, related_name='relation_to_derivative')
 	derivative = models.ForeignKey(Dataset, related_name='relation_to_source')
 	how_data_was_processed = models.TextField(max_length=20000,blank=True)
+	processing_url = models.URLField(max_length=150,blank=True,null=True)
 
 	def __unicode__(self):
 		return self.source.name+" -> "+self.derivative.name

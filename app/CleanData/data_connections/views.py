@@ -7,12 +7,6 @@ from models import *
 from forms import *
 
 # deprecated for now.
-#def index(request):
-#	return render_to_response('data_connections/index.html', {}, context_instance=RequestContext(request))
-
-
-#def tree_view(request):
-#	return render_to_response('data_connections/tree_view.html', {"dataset":{"id":48}}, #context_instance=RequestContext(request))
 def dataset_view(request,dataset_id=None):
 
 	if dataset_id==None:
@@ -44,7 +38,8 @@ def organization_view(request,organization_id):
 							  context_instance=RequestContext(request))
 
 def add_dataset(request):
-	p = request.user
+	if not request.user.is_authenticated():
+		return redirect('index')
 	
 	# called once the form is submitted
 	if request.method == 'POST':
@@ -62,7 +57,46 @@ def add_dataset(request):
 		dataset_form = NewDataSetForm()
 
 	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+def add_application(request):
+	if not request.user.is_authenticated():
+		return redirect('index')
+	
+	# called once the form is submitted
+	if request.method == 'POST':
+		dataset_form = NewApplicationForm(request.POST)
 
+		if dataset_form.is_valid():
+			d_obj = dataset_form.save(commit=False)
+			d_obj.data_format=Format.objects.get(name__exact = "Application")
+			d_obj.save()
+			return redirect('index') # Redirect after POST
+		else:
+			return render_to_response('data_connections/add_application.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
+	else:
+		dataset_form = NewApplicationForm()
+
+	return render_to_response('data_connections/add_application.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+def add_datarelation(request):
+	if not request.user.is_authenticated():
+		return redirect('index')
+	
+	# called once the form is submitted
+	if request.method == 'POST':		
+		d_rel=DataRelation()
+		d_rel.how_data_was_processed=request.POST["how_data_was_processed"]
+		d_rel.source=Dataset.objects.get(id__exact = request.POST["source_search_select"])
+		d_rel.derivative=Dataset.objects.get(id__exact = request.POST["derivative_search_select"])
+
+		# also check here to see if the relation already exists.
+
+		if d_rel.source!=None and d_rel.derivative!=None:
+			d_rel.save()
+			return redirect('index') # Redirect after POST
+		else:
+			return render_to_response('data_connections/add_datarelation.html', {}, context_instance=RequestContext(request))
+
+	return render_to_response('data_connections/add_datarelation.html',{}, context_instance=RequestContext(request))
+	
 def search(request):
 	if 'query' in request.GET and request.GET['query'] != '':
 		results = Dataset.objects.filter(name__icontains=request.GET['query'])

@@ -24,14 +24,15 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><form action="/search/" class="navbar-search pull-left" method="GET">
-              		 {% csrf_token %}
 				     <input type="text" name="query" class="search-query" placeholder="Search">
-				     <input type="submit" value="Search">
+				     <!--<input type="submit" value="Search">-->
 				  </form>
 			  </li>
 			  {% if user.is_authenticated %}
-              <li><a href="./add_dataset">+Dataset</a></li>
-              <li><a href="./">+Scientist</a></li>
+              <li><a href="/add_dataset">+Dataset</a></li>
+              <li><a href="/add_application">+Application</a></li>
+              <li><a href="/add_datarelation">+Data Relation</a></li>
+              <!--<li><a href="./">+Scientist</a></li>-->
               {% endif %}
             </ul>
 		    <div class="nav pull-right">
@@ -62,7 +63,7 @@
  {% endblock %}
  <div id="push"></div>
 </div>
-<div id="footer" class="footer row" style="color:grey;background:rgb(220,220,220); width:100%; font-size:smaller; margin:0; padding-top:10px; border-top: 1px solid lightgrey;">
+<!--<div id="footer" class="footer row" style="color:grey;background:rgb(220,220,220); width:100%; font-size:smaller; margin:0; padding-top:10px; border-top: 1px solid lightgrey;">
 	<div class="span3 offset1">
 		<ul class="nav">
 			<li>About</li>
@@ -85,7 +86,7 @@
 			<li>Ipsum</li>
 		</ul>	
 	</div>
-</div>
+</div>-->
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/static/user/bootstrap/js/bootstrap.js"></script>

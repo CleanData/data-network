@@ -1,4 +1,4 @@
-from django.conf.urls import *
+from django.conf.urls.defaults import *
 from tastypie.api import Api
 from data_connections.api import *
 
@@ -11,6 +11,7 @@ v1_api.register(DatasetResource())
 v1_api.register(DatasetSourcesResource())
 v1_api.register(DatasetDerivativesResource())
 v1_api.register(DataRelationResource())
+v1_api.register(MinimalDatasetResource())
 
 urlpatterns = patterns('data_connections.views',
     url(r'^$', 'dataset_view',name='index'),
@@ -22,6 +23,8 @@ urlpatterns = patterns('data_connections.views',
 	url(r'^organization/(?P<organization_id>\d+)', 'organization_view',name="organization_detail"),
 	# the add/edit/delete views
     (r'^add_dataset','add_dataset'),
+    (r'^add_application','add_application'),
+    (r'^add_datarelation','add_datarelation'),
+    (r'^search','search'),
     (r'^api/', include(v1_api.urls)),
-    (r'^search/$','search'),
 )

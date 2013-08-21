@@ -116,7 +116,20 @@ class DatasetDerivativesResource(ModelResource):
 			'data_format': ALL,
 		}
         
-	
+class MinimalDatasetResource(ModelResource):
+	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
+	class Meta:
+		queryset = Dataset.objects.all()
+		resource_name = 'min_dataset'
+		allowed_methods = ['get']
+		authentication = Authentication()
+		cache=SimpleCache()
+		filtering = {
+			'name': ALL,
+			'url': ALL,
+		}
+
+
 """"
 # the test version which includes the -through- data.
 sources = fields.ToManyField(DataRelationResource,
