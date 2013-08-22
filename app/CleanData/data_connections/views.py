@@ -1,16 +1,46 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.forms.models import modelformset_factory
 from django.contrib.auth.models import User
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 from models import *
 from forms import *
+
+# super handy helper function
+def get_or_none(model, **kwargs):
+    try:
+        return model.objects.get(**kwargs)
+    except model.DoesNotExist:
+        return None
+def get_manager_or_create(firstname,lastname,profile_url):
+	manager=None
+	profile_url=""
+		
+	if firstname == "" and lastname == "":
+		return None
+	else:
+		scientist = get_or_none(Scientist, firstname = firstname, lastname = lastname, profile_url = profile_url)
+		if scientist == None:
+			scientist = get_or_none(Scientist, firstname = firstname, lastname = lastname)
+			
+		if scientist == None:
+			sci_obj=Scientist()
+			sci_obj.firstname = firstname
+			sci_obj.lastname = lastname
+			sci_obj.profile_url = profile_url
+			sci_obj.save()
+			manager = sci_obj
+		else:
+			manager = scientist
+	return manager
 
 # deprecated for now.
 def dataset_view(request,dataset_id=None):
 
 	if dataset_id==None:
-		theDataset = Dataset.objects.get(url__exact = "https://github.com/jonroberts/zipcodegrid/tree/master/data")
+		#theDataset = Dataset.objects.get(url__exact = "https://github.com/jonroberts/zipcodegrid/tree/master/data")
+		theDataset = Dataset.objects.get(url__exact = "http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto")
 		
 	else:
 		theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
@@ -47,7 +77,10 @@ def add_dataset(request):
 
 		if dataset_form.is_valid():
 			d_obj = dataset_form.save(commit=False)
-			#d_obj.owner=request.user	-- this might be a good thing to have here.
+			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
+			if manager!=None:
+				d_obj.manager = manager
+
 			d_obj.save()
 			return redirect('index') # Redirect after POST
 		else:
@@ -57,7 +90,10 @@ def add_dataset(request):
 		dataset_form = NewDataSetForm()
 
 	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+
+# adds an application object to the data
 def add_application(request):
+	p=request.user
 	if not request.user.is_authenticated():
 		return redirect('index')
 	
@@ -68,14 +104,20 @@ def add_application(request):
 		if dataset_form.is_valid():
 			d_obj = dataset_form.save(commit=False)
 			d_obj.data_format=Format.objects.get(name__exact = "Application")
+			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
+			if manager!=None:
+				d_obj.manager = manager
 			d_obj.save()
-			return redirect('index') # Redirect after POST
+			return redirect('dataset/{0}'.format(d_obj.id)) # Redirect after POST
+			#return HttpResponseRedirect(reverse('dataset', args=[d_obj.id]))
+			#return redirect('dataset',dataset_id=d_obj.id) # Redirect after POST
 		else:
 			return render_to_response('data_connections/add_application.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
 	else:
 		dataset_form = NewApplicationForm()
 
 	return render_to_response('data_connections/add_application.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+
 def add_datarelation(request):
 	if not request.user.is_authenticated():
 		return redirect('index')

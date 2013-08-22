@@ -96,7 +96,7 @@ class Scientist(models.Model):
 	firstname = models.CharField(max_length=30)
 	lastname = models.CharField(max_length=30,blank=True)
 	profile_url = models.URLField(max_length=150,blank=True,default="")
-	user = models.OneToOneField('UserProfile',blank=True, null=True)
+	user = models.OneToOneField(User,blank=True, null=True, related_name="scientist_profile")
 
 	collaborators = models.ManyToManyField('self')
 
@@ -105,10 +105,10 @@ class Scientist(models.Model):
 	def __unicode__(self):
 		return self.firstname+" "+self.lastname
 
-class UserProfile(models.Model):
-	user = models.OneToOneField(User)
-	def __unicode__(self):
-		return self.user.name
+#class UserProfile(models.Model):
+#	user = models.OneToOneField(User, related_name = "user_profile")
+#	def __unicode__(self):
+#		return self.user.name
 	
 class OrganizationManager(models.Manager):
 	def get_by_natural_key(self,name):

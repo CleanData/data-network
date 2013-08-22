@@ -63,6 +63,14 @@
 			"name":"U.S. Census Bureau",
 			"url":"http://www.census.gov/"
 		}
+	},
+	{
+		"model":"data_connections.Organization",
+		"pk":null,
+		"fields":{
+			"name":"Exversion",
+			"url":"https://exversion.com/"
+		}
 	}
 ]
 
