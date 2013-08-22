@@ -1,0 +1,323 @@
+[
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "",
+            "license": ["MIT"],
+            "date_last_edited": "2013-07-27T01:31:13Z",
+            "url": "http://example.com/",
+            "data_format": ["JSON"],
+            "date_published": "2013-07-27T01:31:11Z",
+            "manager": null,
+            "managing_organization": null,
+            "data_catalog": null,
+            "name": "Test dataset"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "2010 electricity consumption in kWh and GJ, by ZIP code, building type, and utility company.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Electric-Consumption-by-ZIP-Code-2010/74cu-ncm4",
+            "data_format": ["CSV"],
+            "date_published": "2011-09-28T00:00:00Z",
+            "manager": null,
+            "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
+            "data_catalog": null,
+            "name": "Electric Consumption by ZIP Code - 2010"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Energy data from a select portfolio of City-owned buildings (DCAS)",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-26T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Energy-Usage-From-DCAS-Buildings/pwva-zn2w",
+            "data_format": ["CSV"],
+            "date_published": "2012-09-06T00:00:00Z",
+            "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
+            "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
+            "data_catalog": null,
+            "name": "Energy Usage From DCAS Buildings"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Energy data from a select portfolio of City-owned buildings (Department of Education)",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-26T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Energy-Usage-From-DOE-Buildings/mq6n-s45c",
+            "data_format": ["CSV"],
+            "date_published": "2012-09-06T00:00:00Z",
+            "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
+            "managing_organization": ["Department of Education (DOE), NYC"],
+            "data_catalog": null,
+            "name": "Energy Usage From DOE Buildings"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "The City’s Long-Term Sustainability Plan, PlaNYC, calls for City government to reduce greenhouse gas emissions produced by municipal operations 30% by 2017. A large part of this effort is retrofitting municipal buildings to become more energy efficient. This dataset lists energy efficiency projects at City buildings that are complete or in progress. Projects are listed by address, building name, and agency, and the dataset includes the estimated reduction in tons of GHG emissions associated with the project.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Energy-Efficiency-Projects/h3qk-ybvt",
+            "data_format": ["CSV"],
+            "date_published": "2012-02-14T00:00:00Z",
+            "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
+            "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
+            "data_catalog": null,
+            "name": "Energy Efficiency Projects"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "This is an Excel file with a list of New York City municipal buildings over 10,000 square feet by borough, block, lot, and agency, identifying each building’s energy intensity (kBtu/sq. ft.), Portfolio Manager benchmarking rating, where available, and the total GHG emissions for the calendar years 2010 & 2011.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "https://nycopendata.socrata.com/City-Government/2010-2011-NYC-Municipal-Building-Energy-Benchmarki/vvj6-d5qx",
+            "data_format": ["CSV"],
+            "date_published": "2012-02-14T00:00:00Z",
+            "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
+            "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
+            "data_catalog": null,
+            "name": "2010 & 2011 NYC Municipal Building Energy Benchmarking Results"
+
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "2010 steam consumption in mlbs and Mg, by ZIP code and building type.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2011-09-28T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Steam-Consumption-by-ZIP-Code-2010/2pmt-skyq",
+            "data_format": ["CSV"],
+            "date_published": "2011-09-28T00:00:00Z",
+            "manager": ["Jorge","J","https://data.cityofnewyork.us/profile/Jorge-J-/rnig-m3uj"],
+            "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
+            "data_catalog": null,
+            "name": "Steam Consumption by ZIP Code - 2010"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Detailed data on NYC buildings with oil boilers, including fuel consumption, BBL, building owner/management info, deadline for complying with Audit and Retrocommissioning Law, building type and year constructed, number of floors and residential units, Condo/Coop status, and more.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Housing-Development/Oil-Boilers-Detailed-Fuel-Consumption-and-Building/jfzu-yy6n",
+            "data_format": 1,
+            "date_published": "2011-09-29T00:00:00Z",
+            "manager": ["NYC","Open-Data","https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"],
+            "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
+            "data_catalog": null,
+            "name": "Oil Boilers - Detailed Fuel Consumption and Building Data"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "2010 Natural Gas consumption in therms and GJ, by ZIP code, building type, and utility company.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2011-09-28T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Natural-Gas-Consumption-by-ZIP-Code-2010/uedp-fegm",
+            "data_format": ["CSV"],
+            "date_published": "2011-09-28T00:00:00Z",
+            "manager": ["Jorge","J","https://data.cityofnewyork.us/profile/Jorge-J-/rnig-m3uj"],
+            "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
+            "data_catalog": null,
+            "name": "Natural Gas Consumption by ZIP Code - 2010"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Locations of buildings participating in the Cool Roofs initiative. NYC Cool Roofs buildings have a reflective surface applied to their rooftop, helping to reduce cooling costs, cut energy usage and lower greenhouse gas emissions.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/NYC-Cool-Roofs-Buildings/uuxn-wzxe",
+            "data_format": ["CSV"],
+            "date_published": "2012-06-26T00:00:00Z",
+            "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
+            "managing_organization": ["Department of Buildings, NYC"],
+            "data_catalog": null,
+            "name": "NYC Cool Roofs Buildings"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Oil usage statistics for a select portfolio of City-owned buildings",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Oil-Usage-Select-City-Owned-Buildings-/whux-iuiu",
+            "data_format": ["CSV"],
+            "date_published": "2012-06-26T00:00:00Z",
+            "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
+            "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
+            "data_catalog": null,
+            "name": "Oil Usage (Select City Owned Buildings)"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "The sustainability indicators are used by the Mayor's Office of Long-Term Planning and Sustainability to track the progress of the PlaNYC program.",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "https://data.cityofnewyork.us/Environment/Sustainability-Indicators-2012-/6r4h-c2y6",
+            "data_format": ["CSV"],
+            "date_published": "2012-06-29T00:00:00Z",
+            "manager": ["NYC","Open-Data","https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"],
+            "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
+            "data_catalog": null,
+            "name": "Sustainability Indicators (2012)"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Interactive map of electricity use at the tax lot level in NYC",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-06-21T00:00:00Z",
+            "url": "http://a.tiles.mapbox.com/v3/modilabs.map-6v5hnfw2/mm.html#13/40.7400/-73.9180",
+            "data_format": ["Mapbox Map"],
+            "date_published": "2012-06-29T00:00:00Z",
+            "manager": ["Vijay","Modi","http://www.earth.columbia.edu/articles/view/2770"],
+            "managing_organization": ["Modi Research Group, Columbia University"],
+            "data_catalog": null,
+            "name": "NYC Energy Map"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Collated electricity data for NYC, normalised and combined with median income and demographics",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-06-29T00:00:00Z",
+            "url": "https://github.com/jonroberts/zipcodegrid/tree/master/data",
+            "data_format": ["TSV"],
+            "date_published": "2013-05-29T00:00:00Z",
+            "manager": ["Jonathan","Roberts","https://github.com/jonroberts"],
+            "managing_organization": null,
+            "data_catalog": null,
+            "name": "Energy Zip - processed data"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Collated electricity data for NYC, normalised and combined with median income and demographics, keyed to the GeoJSON of NYC's zipcodes.",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-05-29T00:00:00Z",
+            "url": "https://github.com/jonroberts/zipcodegrid/blob/master/static/data/ZipCodeElecPop.js",
+            "data_format": ["JSON"],
+            "date_published": "2013-05-29T00:00:00Z",
+            "manager": ["Jonathan","Roberts","https://github.com/jonroberts"],
+            "managing_organization": null,
+            "data_catalog": null,
+            "name": "Energy Zip - JSONed data for app"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "GeoJSON of the New York City zipcode areas.",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "date_last_edited": "2013-04-10T00:00:00Z",
+            "url": "http://nycdata.pediacities.com/dataset/nyc-zip-code-tabulation-areas/resource/2afec1b8-a23e-4d9f-b0b5-d212b1dad11c",
+            "data_format": ["GeoJSON"],
+            "date_published": "2013-04-10T00:00:00Z",
+            "manager": ["Nathan","Storey","http://nathanstorey.com/"],
+            "managing_organization": ["Pediacities"],
+            "data_catalog": null,
+            "name": "NYC Zipcode Tabulation Areas"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Shapefile of NYC zip code tabulation areas as provided by the Department of City Planning (DCP).",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "date_last_edited": "2013-04-09T00:00:00Z",
+            "url": "http://nycdata.pediacities.com/dataset/nyc-zip-code-tabulation-areas/resource/d9cb29e8-6858-4ea0-a4b0-181716a3a005",
+            "data_format": ["Shapefile"],
+            "date_published": "2013-04-09T00:00:00Z",
+            "manager": ["Nathan","Storey","http://nathanstorey.com/"],
+            "managing_organization": ["Department of City Planning (DCP), NYC"],
+            "data_catalog": null,
+            "name": "NYC Zipcode Tabulation Areas"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "MEDIAN VALUE (DOLLARS), Universe: Owner-occupied housing units, 2007-2011 American Community Survey 5-Year Estimates, limited to NYC zipcodes",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "date_last_edited": "2010-12-30T00:00:00Z",
+            "url": "http://factfinder2.census.gov/bkmk/table/1.0/en/ACS/11_5YR/B25077/0400000US36.86000P",
+            "data_format": ["CSV"],
+            "date_published": "2010-12-30T00:00:00Z",
+            "manager": null,
+            "managing_organization": ["U.S. Census Bureau"],
+            "data_catalog": ["2010 US Census"],
+            "name": "Median Value of Owner Occupied Housing Units, NYC"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Census data on Households in each NYC zipcode from 2010",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "date_last_edited": "2010-12-30T00:00:00Z",
+            "url": "http://factfinder2.census.gov/bkmk/table/1.0/en/DEC/10_SF1/QTP11/0400000US36.86000P",
+            "data_format": ["CSV"],
+            "date_published": "2010-12-30T00:00:00Z",
+            "manager": null,
+            "managing_organization": ["U.S. Census Bureau"],
+            "data_catalog": ["2010 US Census"],
+            "name": "Households and Families: 2010 Census Summary File 1, NYC"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "MEDIAN INCOME IN THE PAST 12 MONTHS (IN 2011 INFLATION-ADJUSTED DOLLARS) 2007-2011 American Community Survey 5-Year Estimates, limited to NYC zipcodes",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "date_last_edited": "2011-12-30T00:00:00Z",
+            "url": "http://factfinder2.census.gov/bkmk/table/1.0/en/ACS/11_5YR/S1903/0400000US36.86000P",
+            "data_format": ["CSV"],
+            "date_published": "2011-12-30T00:00:00Z",
+            "manager": null,
+            "managing_organization": ["U.S. Census Bureau"],
+            "data_catalog": ["2010 US Census"],
+            "name": "Median Income In The Past 12 Months, NYC"
+		}
+	}
+]

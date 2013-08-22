@@ -1,0 +1,311 @@
+[
+	{
+		"model":"data_connections.Scientist",
+		"pk":null,
+		"fields":{
+			"firstname":"Bellmar",
+			"lastname":"",
+			"profile_url":"https://exversion.com/user/1"
+		}
+	},
+	{
+		"model":"data_connections.Organization",
+		"pk":null,
+		"fields":{
+			"name":"Exversion",
+			"url":"https://exversion.com/"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "MapPLUTO merges PLUTO tax lot data with tax lot features from the Department of Finance’s Digital Tax Map (DTM), clipped to the shoreline. It contains extensive land use and geographic data at the tax lot level in ESRI ArcGIS shape format and dbase table format. ",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "date_last_edited": "2013-05-30T00:00:00Z",
+            "url": "http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto",
+            "data_format": ["Shapefile"],
+            "date_published": "2013-05-30T00:00:00Z",
+            "manager": null,
+            "managing_organization": ["Department of City Planning (DCP), NYC"],
+            "data_catalog": null,
+            "name": "MapPluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "Extensive land use and geographic data at the tax lot level in comma–separated values (CSV) file format. The PLUTO files contain more than seventy fields derived from data maintained by city agencies.",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "date_last_edited": "2013-05-30T00:00:00Z",
+            "url": "http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml",
+            "data_format": ["CSV"],
+            "date_published": "2013-05-30T00:00:00Z",
+            "manager": null,
+            "managing_organization": ["Department of City Planning (DCP), NYC"],
+            "data_catalog": null,
+            "name": "Pluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "GeoJSON API of the Brooklyn MapPluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/1MUAU074Q11PSXR/mappluto-brooklyn",
+            "data_format": ["GeoJSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Brooklyn MapPluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "GeoJSON API of the Bronx MapPluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/RNHWN3BQG2C2SXR/mappluto-bronx",
+            "data_format": ["GeoJSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Bronx MapPluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "GeoJSON API of the Queens MapPluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/E4MBCZGML9XFDNB/mappluto-queens",
+            "data_format": ["GeoJSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Queens MapPluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "GeoJSON API of the Manhattan MapPluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/0V9WG9L60RWOA0O/mappluto-manhattan",
+            "data_format": ["GeoJSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Manhattan MapPluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "GeoJSON API of the Staten Island MapPluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/MMN4B9YRI4SRUUI/mappluto-staten-island",
+            "data_format": ["GeoJSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Staten Island MapPluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "JSON API of the Brooklyn Pluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/MXSVARBTDFX9R6I/pluto-brooklyn",
+            "data_format": ["JSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Brooklyn Pluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "JSON API of the Queens Pluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/XUICSRTKM8NW2S2/pluto-queens",
+            "data_format": ["JSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Queens Pluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "JSON API of the Bronx Pluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/26KLFUQWI3HU2QH/pluto-bronx",
+            "data_format": ["JSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Bronx Pluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "JSON API of the Manhattan Pluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/ZV0CGR4E2MQ8LBX/pluto-manhattan",
+            "data_format": ["JSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Manhattan Pluto"
+		}
+	},
+	{
+		"model":"data_connections.Dataset",
+		"pk":null,
+		"fields":{
+            "description": "JSON API of the Staten Island Pluto Data",
+            "license": ["Unknown"],
+            "date_last_edited": "2013-08-18T00:00:00Z",
+            "url": "https://exversion.com/data/view/B6R1B8G3VSW7IIR/pluto-staten-island",
+            "data_format": ["JSON"],
+            "date_published": "2013-08-18T00:00:00Z",
+            "manager": ["Bellmar","","https://exversion.com/user/1"],
+            "managing_organization": ["Exversion"],
+            "data_catalog": null,
+            "name": "Staten Island Pluto"
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto","MapPluto"],
+			"derivative" : ["https://exversion.com/data/view/1MUAU074Q11PSXR/mappluto-brooklyn","Brooklyn MapPluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto","MapPluto"],
+			"derivative" : ["https://exversion.com/data/view/RNHWN3BQG2C2SXR/mappluto-bronx","Bronx MapPluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto","MapPluto"],
+			"derivative" : ["https://exversion.com/data/view/E4MBCZGML9XFDNB/mappluto-queens","Queens MapPluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto","MapPluto"],
+			"derivative" : ["https://exversion.com/data/view/0V9WG9L60RWOA0O/mappluto-manhattan","Manhattan MapPluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto","MapPluto"],
+			"derivative" : ["https://exversion.com/data/view/MMN4B9YRI4SRUUI/mappluto-staten-island","Staten Island MapPluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml","Pluto"],
+			"derivative" : ["https://exversion.com/data/view/MXSVARBTDFX9R6I/pluto-brooklyn","Brooklyn Pluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml","Pluto"],
+			"derivative" : ["https://exversion.com/data/view/XUICSRTKM8NW2S2/pluto-queens","Queens Pluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml","Pluto"],
+			"derivative" : ["https://exversion.com/data/view/26KLFUQWI3HU2QH/pluto-bronx","Bronx Pluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml","Pluto"],
+			"derivative" : ["https://exversion.com/data/view/ZV0CGR4E2MQ8LBX/pluto-manhattan","Manhattan Pluto"],
+			"processing_url":""
+		}
+	},
+	{
+		"model":"data_connections.DataRelation",
+		"pk":null,
+		"fields":{
+            "how_data_was_processed" : "Processed by Exversion",
+			"source" : ["http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml","Pluto"],
+			"derivative" : ["https://exversion.com/data/view/B6R1B8G3VSW7IIR/pluto-staten-island","Staten Island Pluto"],
+			"processing_url":""
+		}
+	}
+]

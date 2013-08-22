@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+{% block title %}Clean.Data.{% endblock %}
+
+{% block libs %}
+	<script type="text/javascript" src="/static/user/js/d3.v3.min.js"></script>
+	<link type="text/css" href="/static/user/css/map_style.css" rel="stylesheet" />
+	<style>
+
+.node circle, .node_d circle, .node_s circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node, .node_s, .node_d {
+  font: 10px sans-serif;
+}
+
+.link, .link_d, .link_s {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+</style>
+<script>
+
+// can specify source or derivative
+// builds a json along the lines of {"name": "zipcodes GeoJSON","children": [{"name": "Energy Zip","size":120},{"name": "VisioNYC","size":120},{"name":"Spread of the West Nile Virus","size":120}]}
+
+var sourceTree={"details":{},"children":[]};
+var derivativeTree={"details":{},"children":[]};
+
+function populateTree(ds_id){
+	$.ajax({
+	    url: '/api/v1/dataset_derivatives/'+ds_id+'/?format=json',
+	    type: 'GET',
+	    success: function(data){
+			updateMap("derivatives",data);
+	    },
+	    error: function(response,str_error,error_obj) {
+	        console.log("Threw the error: "+str_error+" "+str(error_obj));
+	    }
+	});
+	$.ajax({
+	    url: '/api/v1/dataset_sources/'+ds_id+'/?format=json',
+	    type: 'GET',
+	    success: function(data){ 
+			updateMap("sources",data);
+	    },
+	    error: function(response,str_error,error_obj) {
+	        console.log("Threw the error: "+str_error+" "+str(error_obj));
+	    }
+	});
+}
+
+var graph, width, height, cluster, manager_s, manager_d, diagonal, diagonal_inv = null;
+var i=0;
+
+var counter=0;
+
+function initGraph(){
+	width = 800;
+	height = 600;
+	
+	cluster = d3.layout.cluster()
+	    .size([height, (width)/2.-160]);
+	
+	diagonal = d3.svg.diagonal()
+	    .projection(function(d) {return [d.y+width/2., d.x]; });
+	
+	diagonal_inv = d3.svg.diagonal()
+	    .projection(function(d) { return [width/2.-d.y, d.x]; });
+	
+	graph = d3.select("#data_map").append("svg:svg")
+	    .attr("width", width)
+	    .attr("height", height)
+	  .append("svg:g");
+}
+
+function resetMap(){
+	d3.select("#data_map svg").remove();
+	
+	graph = d3.select("#data_map").append("svg:svg")
+	    .attr("width", width)
+	    .attr("height", height)
+	  .append("svg:g");
+}
+
+
+function updateMap(direction,tree){
+	var dir="";
+	if(direction=="sources"){dir="s";}
+	else{dir="d";}
+
+	var nodes = cluster.nodes(tree);
+	var links = cluster.links(nodes);
+	  	  
+	nodes.forEach(function(d) {
+		d.x0 = d.x;
+		d.y0 = d.y;
+	});
+	  
+	  var node = graph.selectAll(".node_"+dir)
+	      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+	
+	  var nodeEnter = node.enter().append("g")
+	      .attr("class", "node_"+dir)
+	      .attr("transform", function(d) { 
+			  if(direction=="sources"){
+			      return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")";}
+		      else{
+		      	  return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")";}
+	       })
+		   .on("click", function(d) { printDetails(d); })
+		   .on("dblclick", function(d) { resetMap(); populateTree(d.id); });
+	  nodeEnter.append("svg:circle")
+	      .attr("r", 1e-6)
+	      //.style("fill", "#fff");
+	      .style("fill", function(d){
+	      
+	      	if(d.data_format.name == "Application"){ 
+	      		return "#0404B4";
+	      		}
+	      	else{
+	      		return "#fff";
+	      		}
+	      	});
+	
+	  nodeEnter.append("text")
+	      .attr("dx", 0)
+	      .attr("dy", 15)
+	      .style("text-anchor", "middle")
+	      .text(function(d,i) { if(direction=="sources" || i>0){return d.name;} })
+		  .style("fill-opacity", 1e-6);
+	
+	  var nodeUpdate = node.transition()													// update
+	      .duration(1000)
+	      .attr("transform", function(d) { 
+	      		if(direction=="sources"){
+		      		return "translate(" + (width/2.-d.y) + "," + d.x + ")";} 
+	      		else{
+					return "translate(" + (width/2.+d.y) + "," + d.x + ")";} 
+	  		})
+	
+	  nodeUpdate.select("circle")
+	      .attr("r", 4.5)
+	      .style("fill", 
+	      	//function(d) { return "#fff"; }
+		function(d){
+	      	if(d.data_format.name == "Application"){ 
+	      		return "#0404B4";
+	      		}
+	      	else{
+	      		return "#fff";
+	      		}
+	      	});
+	
+	  nodeUpdate.select("text")
+	      .style("fill-opacity", 1);
+	
+	  var nodeExit = node.exit().transition()
+	      .duration(1000)
+	      .attr("transform", function(d) { 
+	      			if(dir=="s"){return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")"; }
+	      			else{return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")"; }
+	      		})
+	      .remove();
+	
+	  nodeExit.select("circle")
+	      .attr("r", 1e-6);
+	
+	  nodeExit.select("text")
+	      .style("fill-opacity", 1e-6);
+	
+	
+	  // Update the links…
+	  var link = graph.selectAll(".link_"+dir)
+	      .data(links, function(d) { return d.target.id; });
+	
+	  // Enter any new links at the parent's previous position.
+	  var linkEnter=link.enter().insert("svg:path", "g")
+	      .attr("class", "link_"+dir)
+	      .attr("d", function(d) {
+     		if(direction=="sources"){
+			    //var o = {x: (width/2.-tree.x), y: tree.y};
+		        var o = {x: (height/2.), y: 0};
+		        return diagonal_inv({source: o, target: o});
+		        }
+	       else{
+			        //var o = {x: (width/2.+tree.x), y: tree.y};
+		        //var o = {x: (height/2.), y: (width/2.)};
+		        var o = {x: (height/2.), y: 0};
+		        return diagonal({source: o, target: o});
+		       }
+	      })
+
+	  // needs to be a full loop as the diagonal function must be set directly rather than passed as a return	 
+	if(direction=="sources"){
+		linkEnter.transition()
+	      .duration(1000)
+	      .attr("d", diagonal_inv);
+	
+		  // Transition links to their new position.
+		  link.transition()
+		      .duration(1000)
+		      .attr("d", diagonal_inv);
+	  }
+	  else{
+		linkEnter.transition()
+	      .duration(1000)
+	      .attr("d", diagonal);
+	
+		  // Transition links to their new position.
+		  link.transition()
+		      .duration(1000)
+		      .attr("d", diagonal);
+	  }
+	
+	  // Transition exiting nodes to the parent's new position.
+	  link.exit().transition()
+	      .duration(1000)
+	      .attr("d", function(d) {
+			  if(direction=="derivatives"){
+			        //var o = {x: (width/2.-tree.x), y: tree.y};
+			        var o = {x: (width/2.), y: 0};
+			        return diagonal_inv({source: o, target: o});
+		        }
+			  else{
+	  		        //var o = {x: (width/2.+tree.x), y: tree.y};
+			        var o = {x: (width/2.), y: 0};
+			        return diagonal({source: o, target: o});
+			  }
+	      })
+	      .remove();
+		
+	d3.select(self.frameElement).style("height", height + "px");
+}
+
+function printDetails(d){
+	$('#dataset_name').html(d["name"]);
+	if(d["scientist"]!=null){
+		$('#dataset_scientist').html("<a href='/scientist/"+d.scientist.id+"'"+d.scientist.id+">"+d.scientist.firstname +" "+ d.scientist.lastname+"</a>");
+	}else{
+		$('#dataset_scientist').html("Unknown");
+	}
+	if(d["organization"]!=null){
+		$('#dataset_organization').html("<a href='/organization/"+ d.organization.id+"'>"+d.organization.name+"</a>");
+	}else{$('#dataset_organization').html("None");}
+	$('#dataset_license').html("<a href='/license/"+ d.license.id+"'>"+d.license.name+"</a>");
+	$('#dataset_format').html("<a href='/data_format/"+ d.data_format.id+"'>"+d.data_format.name+"</a>");
+	if(d["data_catalog"]!=null){
+		$('#dataset_catalog').html("<a href='/data_catalog/"+ d.data_catalog.id+"'>"+d.data_catalog.name+"</a>");
+	}else{$('#dataset_catalog').html("None");}
+	var pub=new Date(Date.parse(d.date_published));
+	$('#dataset_date_created').html(pub.getMonth()+"."+pub.getDay()+"."+pub.getFullYear());
+	var edit=new Date(Date.parse(d.date_last_edited));
+	$('#dataset_last_edited').html(edit.getMonth()+"."+edit.getDay()+"."+edit.getFullYear());
+	$('#dataset_url').html("<a href='"+d.url+"'>Source Website</a>");
+	$('#permalink_url').html("<a href='/dataset/"+d.id+"'>Link to this view</a>");
+	
+	$('#dataset_sources').html("");
+	$('#dataset_derivatives').html("");
+}
+
+function createMap(){
+	populateTree({{ dataset.id }});
+}
+</script>
+{% endblock %}
+
+{% block onload %}
+  onload=initGraph();createMap();
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row-fluid">
+		<div class="span3" id="sidebar">
+			<div><strong>• Click a node to view details</strong></div>
+			<div><strong>• Double click a node to re-center</strong></div>
+			<hr/>
+			<div><h4><span id="dataset_name">{{ dataset.name }}</span></h4></div>
+
+			<div>Manager: <span id="dataset_scientist">
+				{% if dataset.manager %}
+					<a href="{% url 'scientist_detail' scientist_id=dataset.manager.id %}">{{ dataset.manager.firstname }} {{ dataset.manager.lastname }}</a>
+				{% else %}
+					None
+				{% endif %}
+					</span></div>
+			<div>Managing Organization: <span id="dataset_organization">
+				{% if dataset.managing_organization %}
+					<a href="{% url 'organization_detail' organization_id=dataset.managing_organization.id %}">{{ dataset.managing_organization.name }}</a>
+				{% else %}
+					None
+				{% endif %}
+					</span></div>
+			<div>License: <span id="dataset_license">
+					<a href="{% url 'license_detail' license_id=dataset.license.id %}">{{ dataset.license.name }}</a>
+					<!--<a href="/license/{{ dataset.license.id }}">{{ dataset.license.name }}</a>-->
+				</span></div>
+			<div>Format: <span id="dataset_format">
+					<a href="{% url 'format_detail' format_id=dataset.data_format.id %}">{{ dataset.data_format.name }}</a>
+				</span></div>
+			<div>Catalog: <span id="dataset_catalog">
+				{% if dataset.data_catalog %}
+					<a href="{% url 'data_catalog_detail' data_catalog_id=dataset.data_catalog.id %}">{{ dataset.data_catalog.name }}</a>
+				{% else %}
+					None
+				{% endif %}
+				</span></div>
+			<div>Date Created: <span id="dataset_date_created">
+					{{ dataset.date_published | date:"m.d.y" }}
+				</span></div>
+			<div>Last Edited: <span id="dataset_last_edited">
+					{{ dataset.date_last_edited | date:"m.d.y" }}			
+			</span></div>
+			<hr/>
+			<div><span id="dataset_url">
+					<a href="{{ dataset.url }}">Source Website</a>
+				</span></div>
+			<hr/>
+			<div><span id="permalink_url">
+					<a href="{% url 'dataset_detail' dataset_id=dataset.id %}">Link to this view</a>
+				</span></div>
+			<!--<div>Sources:</div>
+			<ul id="dataset_sources">
+				<li><a href="#NYC-Zipcode-JSON">NYC Zipcode JSON</a></li>
+				<li><a href="#2010-Census-Households">2010 Census - Households</a></li>
+				<li><a href="#2010-Census-Population">2010 Census - Population</a></li>
+				<li><a href="#Electric-Consumption-by-Zipcode-2010">Electric Consumption by Zipcode - 2010</a></li>
+				<li><a href="#Retail-Sales-Of-Electricity-Monthly">Retail Sales of Electricity - Monthly</a></li>
+			</ul>
+			<div>Derivatives</div>
+			<ul id="dataset_derivatives">
+				<li>None</li>
+			</ul>-->
+			<hr/>
+		</div>
+		<div class="span9" id="data_map"></div>
+	</div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

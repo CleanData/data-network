@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Clean.Data. | {{ data_catalog.name }} {% endblock %}
+
+{% block libs %}
+
+{% endblock %}
+
+{% block onload %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row-fluid">
+		<h4>Catalog: {{ data_catalog.name }}</h4>
+		<div>Manager: 
+		{% if data_catalog.manager %}
+			<a href="/scientist/{{ data_catalog.manager.id }}">
+				{{ data_catalog.manager.firstname }} {{ data_catalog.manager.lastname }}
+			</a>
+		{% else %}
+			None
+		{% endif %}
+		</div>
+		<div>Managing Organization: 
+		{% if data_catalog.managing_organization %}
+			<a href="/organization/{{ data_catalog.organization.id }}">
+				{{ data_catalog.managing_organization.name }}
+			</a>
+		{% else %}
+			None
+		{% endif %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

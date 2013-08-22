@@ -1,36 +1,21 @@
 {% extends "base.html" %}
-{% block content %}
-  <body onload=plotMap()>
+{% block title %}Clean.Data.{% endblock %}
 
-	<!-- The header nav bar -->
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">Clean.Data.</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="./results.html">Search</a></li>
-              <li><a href="./dataset">+Dataset</a></li>
-              <li><a href="./results.html">+Scientist</a></li>
-            </ul>
-            <ul class="nav pull-right">
-              <li><a href="./results.html">jonroberts</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-    <!-- end of the header nav bar -->
-	  
-<div class="row">
-	<div class="span9" id="data_map"></div>
-	<div class="span3" id="sidebar">
-		<div class="row">
+{% block libs %}
+    <script type="text/javascript" src="/static/user/js/d3.v2.js"></script>
+    <script type="text/javascript" src="/static/user/js/mapper.js"></script>
+	<link type="text/css" href="/static/user/css/map_style.css" rel="stylesheet" />
+{% endblock %}
+
+{% block onload %}
+  onload=plotMap()
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row-fluid">
+		<div class="span3" id="sidebar">
 			<div><h4><span id="dataset_name">Electricity Use Normalised by Household</span></h4></div>
 			<div>Manager: <span id="dataset_owner"><a ref="users/jonroberts">Jonathan Roberts</a></span></div>
 			<div>Contributors: <span id="dataset_contributors"><a href="users/jeffallen">Jeff Allen</a>, <a href="users/ronniejansson">Ronnie Jansson</a></span></div>
@@ -52,42 +37,17 @@
 			<ul id="dataset_sources">
 				<li>None</li>
 			</ul>
-		</div>
-		<hr/>
-		<div class="row">
+			<hr/>
 			<p>Datasets often paired with this:</p>
 			<ul>
 				<li>Solar energy coverage</li>
 				<li>...</li>
 			</ul>
-		</div>		
+		</div>
+		<div class="span9" id="data_map"></div>
 	</div>
-</div>	  
-<div class="footer row" style="color:grey;background:rgb(220,220,220); width:100%; font-size:smaller; margin:0; padding-top:10px; border-top: 1px solid lightgrey;">
-<div class="span3 offset1">
-	<ul class="nav">
-		<li>About</li>
-		<li>EITNYC</li>
-		<li>Data Jam</li>
-		<li>Contact</li>
-	</ul>
 </div>
-<div class="span3 offset1">
-	<ul class="nav">
-		<li>Adding Data</li>
-		<li>Help</li>
-		<li>Resources</li>
-		<li>Open Data Foundation...</li>
-	</ul>
-</div>
-<div class="span3 offset1">
-	<ul class="nav">
-		<li>Lorem</li>
-		<li>Ipsum</li>
-	</ul>	
-</div>
-</div>
-  </body>
+
 {% endblock %}
 
 

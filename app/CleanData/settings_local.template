@@ -1,0 +1,45 @@
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+
+MANAGERS = ADMINS
+
+# Email settings. For a description, see: https://docs.djangoproject.com/en/1.5/topics/email/
+EMAIL_USE_TLS = True
+EMAIL_HOST = '<your email host>'
+EMAIL_PORT = <a port, such as 587>
+EMAIL_HOST_USER = '<the email address of the host user, like no-reply@emailserver.com>'
+EMAIL_HOST_PASSWORD = '<the password for the email server>'
+
+DATABASES = {
+    'default': {
+        'ENGINE':   '<db_engine>',       # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME':     '<db_name>',         # Or path to database file if using sqlite3.
+        'USER':     '<db_username>',     # Not used with sqlite3.
+        'PASSWORD': '<db_password>',     # Not used with sqlite3.
+        'HOST':     '<db_host>',         # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/var/www/example.com/media/"
+MEDIA_ROOT = '<your_absolute_path_to_the_app>/app/media'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    '<your_absolute_path_to_the_app>/app/static',
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+TEMPLATE_DIRS = (
+	"<your_absolute_path_to_the_app>/app/templates",
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
