@@ -18,7 +18,3 @@ If you run into problems with your first migration, make sure to try:
     python ./manage.py migrate myapp 0001 --fake
 
 See the README.md for basic instructions on how to use South to perform database migrations.
-
-* Set up an email server
-* Change the site entry in the database through the django admin page (Sites -> change example.com details)
-
