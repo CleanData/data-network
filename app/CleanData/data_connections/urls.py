@@ -12,6 +12,7 @@ v1_api.register(DatasetSourcesResource())
 v1_api.register(DatasetDerivativesResource())
 v1_api.register(DataRelationResource())
 v1_api.register(MinimalDatasetResource())
+v1_api.register(DatasetUrlResource())
 
 urlpatterns = patterns('data_connections.views',
     url(r'^$', 'dataset_view',name='index'),
