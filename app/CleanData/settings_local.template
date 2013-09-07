@@ -1,3 +1,7 @@
+# Hosts/domain names that are valid for this site; required if DEBUG is False
+# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = ['.cleandatahub.org','augusta.dreamhost.com']
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -28,6 +32,8 @@ DATABASES = {
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = '<your_absolute_path_to_the_app>/app/media'
+
+SECRET_KEY = 'n(4&k9(mra8ob95y6(%g5rx&#$8l!l!t$20qtyuzyqh+h#jm#+'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
