@@ -1,0 +1,2756 @@
+[
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The SCA\u2019s comprehensive capital planning process includes developing and analyzing quality data, creating and updating the Department of Education\u2019s Five-Year Capital Plans, and monitoring projects through completion. The SCA prioritizes capital projects to best meet the capacity and building improvements needs throughout the City.  Additionally, the SCA assures that the Capital Plan aligns with New York State and City Department of Education mandates, academic initiatives, and budgetary resources.  This is one of the most current published reports.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:48:39Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Demographic-Projection-Report-Enrollment-Projectio/9gmp-f9x2", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:48:39Z", 
+            "manager": [
+                "Harish", 
+                "Pathria", 
+                "https://data.cityofnewyork.us/profile/Harish-Pathria/ci6y-i73t"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Enrollment Projections - NYC Public Schools prepared by the Grier Partnership Part C"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Financial plan representing Non-Controllable Agency Expenses", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-26T13:10:18Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Non-Controllable-Agency-Expenses-Financial-Plan/m6yw-2k8k", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-26T13:10:18Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Office of the Mayor (OTM)"
+            ], 
+            "data_catalog": null, 
+            "name": "Non- Controllable Agency Expenses Financial Plan"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The most recent school level results for New York City on AP exams. Results are available at the school level for the 2012 school year. Records contain AP Test Taking and Passing Rates.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T09:58:59Z", 
+            "url": "https://data.cityofnewyork.us/Education/AP-Results/9ct9-prf9", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T09:58:59Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "AP Results"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by borough and student ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:19:47Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-B/s5q4-7ezf", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:19:47Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Borough - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:00:18Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-C/89di-hi4s", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:00:18Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Citywide - All Students"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by district and disability status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:12:33Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-D/rq2f-42ua", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:12:33Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - District - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by school.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:00:36Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-S/wrhz-w8mn", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:00:36Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - School - All Students"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by school and student ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T09:56:59Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-S/tn5h-i3e8", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T09:56:59Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - School - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by borough and ELL status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:05:06Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Borough-Classes-of-2005-2011-E/qs5h-jhhg", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:05:06Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Borough - Classes of 2005-2011 - ELL"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by borough.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T09:57:18Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Borough-Classes-of-2005-2011-T/di8r-g5w9", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T09:57:18Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Borough - Classes of 2005-2011 - Total Cohort"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in NYSED&#x27;s Regents-based Aspirational Performance Measure (APM) by school and ELL status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:07:40Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-School-Level-Classes-2010-2011/s9xf-ztqu", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:07:40Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - School Level - Classes 2010-2011 - Regents-based Math/ELA APM - ELL"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes by school and ethnicity", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:17:40Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-School-Level-Classes-of-2005-2/6jad-5sav", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:17:40Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - School Level - Classes of 2005-2011 - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T09:58:39Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-Citywide-Ethnicity/vve2-26rs", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T09:58:39Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - Citywide - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by school and English Language Learner status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:20:41Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-School-ELL/y8bm-tzs3", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:20:41Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - School - ELL"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "List of Earthquakes with details that occurred in New York City", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-02-26T16:18:05Z", 
+            "url": "https://data.cityofnewyork.us/Public-Safety/Directory-of-Historical-Occurrence-of-Earthquakes-/9mid-28fs", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-02-26T16:18:05Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Office of Emergency Management (OEM)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory of Historical Occurrence of Earthquakes in New York City"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Comparison between Fujita and Enhanced Fujita Scale for measuring Hurricane Intensity", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-02-26T17:44:12Z", 
+            "url": "https://data.cityofnewyork.us/Public-Safety/Fujita-and-Enhanced-Fujita-Scale-for-measuring-Hur/9thp-mkar", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-02-26T17:44:12Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Office of Emergency Management (OEM)"
+            ], 
+            "data_catalog": null, 
+            "name": "Fujita and Enhanced Fujita Scale for measuring Hurricane Intensity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "List of hospitals that have Domestic Violence Coordinators", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-20T10:03:57Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Directory-of-Hospitals-with-Domestic-Violence-Coor/22b5-sytd", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-20T10:03:57Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Mayor&#x27;s Office to Combat Domestic Violence (OCDV)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory of Hospitals with Domestic Violence Coordinators"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Listing of domestic violence non-residential services.  Phone numbers and the borough where service is provided is included.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-04-19T13:46:41Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/HRA-Domestic-Violence-Partners/tbf6-u8ea", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-04-19T13:46:41Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "HRA Domestic Violence Partners"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "List of DOP Family and Adult Court Contact Information", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:11Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Directory-Of-DOP-Family-Adult-Court-Contact-Inform/f46j-m4iq", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:11Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Department of Probation (DOP)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory Of DOP Family &amp; Adult Court Contact Information"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This table represents the details of the Medicaid Offices distributed by Borough along with their address and phone number detail.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:15Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Medicaid-Offices/ibs4-k445", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:15Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Medicaid Offices"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This table represents details of Prenatal Care Services program. Prenatal Care Services through Medicaid is a comprehensive prenatal care program that offers complete pregnancy care and other health services to women and teens who live in New York State and meet income guidelines. Health insurance is available for pregnant women regardless of their immigration status. Under Prenatal Care Services, pregnant women receive prenatal health services, such as lab tests, HIV tests, nutrition screenings, and other services related to their pregnancy and for at least two months after delivery.  Babies receive health care services for at least one year after birth.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:20Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Prenatal-care-services-monthly-income-levels-/s2zm-f47y", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:20Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Prenatal care services (monthly income levels)"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This table represents details of Medicaid (coverage for children). Medicaid (coverage for children)  is available for many children in working families. Most children who are eligible for Medicaid (coverage for children) do receive their medical care through a health plan, and visit doctors and hospitals that accept that health plan. While ones application is being processed, Medicaid (coverage for children) may provide up to 90 days of retroactive coverage for unpaid medical bills, if eligible during those 90 days", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:26Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Medicaid-coverage-for-children-and-pregnant-women-/4se9-u6dw", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:26Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Medicaid coverage for children and pregnant women (Income levels)"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Contact information for various departments in New York City Police Pension Fund Agency", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:28:06Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Directory-Of-New-York-City-Police-Pension-Fund-Con/i447-i5u3", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:28:06Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Police Pension Fund (NYCPPF)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory Of New York City Police Pension Fund Contact Numbers"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:09:33Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Citywide-Classes-of-2005-2011-/mbym-vp3s", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:09:33Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Citywide - Classes of 2005-2011 - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes school.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:08:19Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-School-Level-Classes-2010-2011/i6as-kc83", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:08:19Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - School Level - Classes 2010-2011 - Regents-based Math/ELA APM - Total Cohort"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by borough and gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:05:25Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-Borough-Gender/q9mx-gjyn", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:05:25Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - Borough - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by borough and disability status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:03:07Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-Borough-SWD/7vy4-ats6", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:03:07Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - Borough - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:04:25Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-Citywide-All-Students/fxwm-3t4n", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:04:25Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - Citywide - All Students"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Progress Reports grade each school with an A, B, C, D, or F. \u00a0These reports focus on a school&#x27;s learning environment, student performance, and student progress.\u00a0 They were designed to help parents, teachers, principals, and others understand how well schools are doing\u2014and compare them to other, similar schools.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:18:51Z", 
+            "url": "https://data.cityofnewyork.us/Education/School-Progress-Report-2008-2009/vrn4-2abs", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:18:51Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "School Progress Report 2008-2009"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Earned Income Tax Credit Maximum Income Levels and Credit Amounts Tax Year 2012.\r\n*MFJ-Married filing jointly", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-26T15:44:43Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Tax-credits/5fkx-9rt5", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-26T15:44:43Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Tax credits"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "List of resources that address the domestic violence issues", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-20T10:04:25Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Directory-of-City-Resources/yc6c-pk2a", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-20T10:04:25Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Mayor&#x27;s Office to Combat Domestic Violence (OCDV)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory of City Resources"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "List of various important services  and the corresponding phone numbers", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-20T10:04:55Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Directory-of-Service-Hotlines/vp38-q6cf", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-20T10:04:55Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Mayor&#x27;s Office to Combat Domestic Violence (OCDV)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory of Service Hotlines"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Directory of programs for the Young Men&#x27;s Initiative and the Center for Economic Opportunity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-26T12:10:17Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Directory-of-Programs-List-Mayor-s-Office/rafb-6xry", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-26T12:10:17Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Office of the Mayor (OTM)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory of Programs List - Mayor&#x27;s Office"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Statistics from the HRA Office of Data Reporting and Analysis (ODRA) on family assistance.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-05-21T08:41:48Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/ODRA-Family-Assistance/hjnm-89hx", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-05-21T08:41:48Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "ODRA Family Assistance"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This table represents the percentage of active Uniform Staff by Rank and Gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:33Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Active-Uniform-Staff-By-Rank-And-Gender/6dn9-qgma", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:33Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Department of Correction (DOC)"
+            ], 
+            "data_catalog": null, 
+            "name": "Active Uniform Staff By Rank And Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This table represents details of Medicaid income levels (ages 65 and up). Medicaid provides free health insurance for low-income older adults. Eligible adults receive their medical care through a managed care plan or fee-for-service. While ones application is being processed, Medicaid may provide up to 90 days of retroactive coverage for unpaid medical bills, if the individual is eligible during those 90 days.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:41Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Medicaid-income-levels-ages-65-and-up-/dn64-92ub", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:41Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Medicaid income levels (ages 65 and up)"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This table represents details of Medicaid (coverage for Adults). Medicaid provides free health insurance for low-income adults. Eligible adults receive their medical care through a managed care plan or fee-for-service. While your application is being processed, Medicaid may provide up to 90 days of retroactive coverage for unpaid medical bills, if you are eligible during those 90 days.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:53Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Adult-Medicaid-income-levels/r69u-62nw", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:53Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Adult Medicaid income levels"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by borough and gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:08:39Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-B/w5y2-8cs3", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:08:39Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Borough - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by district.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:08:55Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-D/yhfh-vyns", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:08:55Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - District - All Students"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by district and ELL status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:06:42Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-D/tbvj-mbps", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:06:42Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - District - ELL"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by borough and gender", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:06:25Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Borough-Classes-of-2005-2011-G/sqb7-p8nz", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:06:25Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Borough - Classes of 2005-2011 - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by English Language Learner status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:16:56Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Citywide-Classes-of-2005-2011-/38ib-pjw5", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:16:56Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Citywide - Classes of 2005-2011 - ELL"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by students with disabilities", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:17:19Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Citywide-Classes-of-2005-2011-/jkiz-wt49", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:17:19Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Citywide - Classes of 2005-2011 - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in NYSED&#x27;s Regents-based Aspirational Performance Measure (APM) by school and Ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:08:01Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-School-Level-Classes-2010-2011/5fn2-n363", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:08:01Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - School Level - Classes 2010-2011 - Regents-based Math/ELA APM - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes by school and disability status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:07:18Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-School-Level-Classes-of-2005-2/avsi-2fp7", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:07:18Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - School Level - Classes of 2005-2011 - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by school.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:22:14Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-School-All-Students/3mrr-8h5c", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:22:14Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - School - All Students"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by school and disability status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:10:54Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-School-SWD/i99z-ad8n", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:10:54Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - School - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Details of building damage by Earthquake Return Period", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-02-26T16:48:42Z", 
+            "url": "https://data.cityofnewyork.us/Public-Safety/Building-Damage-by-Earthquake-Return-Period/yfd5-gbkr", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-02-26T16:48:42Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Office of Emergency Management (OEM)"
+            ], 
+            "data_catalog": null, 
+            "name": "Building Damage by Earthquake Return Period"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "List of Daytime warming centers for needed citizens to get relief from cold temperatures", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-02-26T17:28:36Z", 
+            "url": "https://data.cityofnewyork.us/Public-Safety/Directory-of-Daytime-Warming-Centers/fjge-cicq", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-02-26T17:28:36Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Office of Emergency Management (OEM)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory of Daytime Warming Centers"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Income limits by household size for public housing", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-29T11:24:38Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/NYCHA-Applicant-Income-Limits/yizy-365y", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-29T11:24:38Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "New York City Housing Authority (NYCHA)"
+            ], 
+            "data_catalog": null, 
+            "name": "NYCHA Applicant Income Limits"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This table represents details of Family Health Plus insurance program. Family Health Plus is a public health insurance program for adults between the ages of 19 and 64 who do not have health insurance - either on their own or through their employers - but have incomes too high to qualify for Medicaid.  The Family Health Plus Premium Assistance Program is available to help eligible lower-income employees and their families participate in their employer\u2019s health insurance plan.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:09:58Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Adult-family-health-plus-levels/2enn-s52j", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:09:58Z", 
+            "manager": [
+                "Tejas.Patel", 
+                "", 
+                "https://data.cityofnewyork.us/profile/Tejas-Patel/iacr-duv5"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Adult family health plus levels"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Contains all occupied and vacant facilities portfolio from Facility Planning (commercial spaces) and Community Operations (community centers, senior centers, day care centers, health centers, etc) It includes the 5 Community Operations borough offices.\u00a0 The source data is our latest Property Directory as December 2012.\u00a0 The field \u201cComments\u201d contains summary codes to distinguish the type of facility (BO \u2013 NYCHA Community Operations Borough Offices, CO \u2013 Community Operations, FP \u2013 Facility Planning).\u00a0 Please note that there are two commercial spaces (not coded under field \u201ccomments\u201d)recorded in our property directory which are not part of the portfolio for Facility Planning.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:51:54Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Directory-of-All-NYCHA-Facilities/d4iy-9uh7", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:51:54Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "New York City Housing Authority (NYCHA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Directory of All NYCHA Facilities"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Population details of selected Asian Race Subgroups in New York City by Borough", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-26T13:17:32Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/Population-Of-Selected-Asian-Race-Subgroups-In-New/432v-a7hc", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-26T13:17:32Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "Department of City Planning (DCP)"
+            ], 
+            "data_catalog": null, 
+            "name": "Population Of Selected Asian Race Subgroups In New York City By Borough"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by charter schools.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:19:08Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-C/d68p-5js9", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:19:08Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Charter Schools"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by student ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:20:07Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-C/p5w7-g72z", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:20:07Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Citywide - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by student gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:22:54Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-C/cs9m-cz6f", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:22:54Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Citywide - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated citywide and student with disabilities.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:23:13Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-C/d72n-ivax", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:23:13Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Citywide - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by district and gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:09:14Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-D/49kg-8sce", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:09:14Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - District - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by borough and ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:12:13Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Borough-Classes-of-2005-2011-E/x2hp-8ukt", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:12:13Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Borough - Classes of 2005-2011 - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by borough and students with disability.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:16:37Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Borough-Classes-of-2005-2011-S/hnf2-ds4u", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:16:37Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Borough - Classes of 2005-2011 - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in graduation and dropout outcomes disaggregated by gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:10:36Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-Citywide-Classes-of-2005-2011-/rn5p-vhac", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:10:36Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - Citywide - Classes of 2005-2011 - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in NYSED&#x27;s Regents-based Aspirational Performance Measure (APM) by school and Gender", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:16:16Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-School-Level-Classes-2010-2011/qrz6-23fw", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:16:16Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - School Level - Classes 2010-2011 - Regents-based Math/ELA APM - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in NYSED&#x27;s Regents-based Aspirational Performance Measure (APM) by school and disability status", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:18:00Z", 
+            "url": "https://data.cityofnewyork.us/Education/Graduation-Outcomes-School-Level-Classes-2010-2011/5gxs-yzxw", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:18:00Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Graduation Outcomes - School Level - Classes 2010-2011 - Regents-based Math/ELA APM - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by borough and English Language Learner status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:09:58Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-Borough-ELL/5c5x-3qz9", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:09:58Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - Borough - ELL"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by borough and ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:18:34Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-Borough-Ethnicity/ihup-vdhf", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:18:34Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - Borough - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by district.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:10:16Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-District-All-Students/7yig-nj52", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:10:16Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - District - All Students"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by district and English Language Learner status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:11:15Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-District-ELL/siju-6isf", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:11:15Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - District - ELL"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by district and gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:11:36Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-District-Gender/qphc-zrtc", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:11:36Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - District - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by district and disability status.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:11:54Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-District-SWD/ducj-28wv", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:11:54Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - District - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by school and ethnicity.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:21:19Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-School-Ethnicity/3tfu-x2qk", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:21:19Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - School - Ethnicity"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of math for grades 3 through 8. Data are disaggregated by school and  gender.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:21:53Z", 
+            "url": "https://data.cityofnewyork.us/Education/Math-Test-Results-2006-2012-School-Gender/b9uf-7skp", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:21:53Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Math Test Results 2006-2012 - School - Gender"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The Family Planning Benefit Program (FPBP) is a free and completely confidential New York State program that provides family planning services to teens, women and men who meet certain income and residency requirements, and who are not enrolled in Medicaid or Family Health Plus. You may obtain coverage through FPBP if you meet certain Eligibility Criteria and your income is equal to or less than the income levels listed here. This chart is only a guide. Individuals should see an enrollment counselor for eligibility screening.\u00a0   \n* Pregnant Women count as two individuals.\nNOTE: Chart effective January 1, 2012; subject to annual income updates.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T13:22:27Z", 
+            "url": "https://data.cityofnewyork.us/Health/Family-planning-benefit-program-income-levels/a9es-3fcm", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T13:22:27Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Family planning benefit program income levels"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The Women, Infants and Children (WIC) Program is a special supplemental food program that provides nutritious foods, milk, juice, formula and other items to low income pregnant or breastfeeding women, infants and children up to age 5.This chart is only a guide. Individuals should see a WIC enrollment counselor for eligibility screening. Eligibility requirements include certain criteria and income levels as listed here. \n* Pregnant women count as two individuals.\nNOTE: Chart effective July 1, 2012 to June 30, 2013; subject to annual income updates.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T13:39:39Z", 
+            "url": "https://data.cityofnewyork.us/Health/WIC-Income-eligibility/366m-74zg", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T13:39:39Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "WIC Income eligibility"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Directory of Workforce 1 career center locations that offer job finding services.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T15:03:28Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Workforce-1-Career-Center-Locations/bnnh-zzg6", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T15:03:28Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of Small Business Services (SBS)"
+            ], 
+            "data_catalog": null, 
+            "name": "Workforce 1 Career Center Locations"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Listing of NYC courts and their liaisons.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T16:37:10Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Court-Liaison-Contact-Sheet/tsy7-gcm8", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T16:37:10Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Court Liaison Contact Sheet"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Listing of GED Plus locations.  GED plus helps students earn their GED and prepares them for college and career options.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T16:41:16Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/GED-Plus-Locations/pd5h-92mc", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T16:41:16Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "GED Plus Locations"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Approved carting, Self-Haulers, Construction &amp; Demolition companies names, addresses and contact number \r\nDenied carting companies names, addresses and contact number", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-26T13:12:18Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/FOIL-Report-Trade-Waste-All-Approved-or-Denied/59t5-r7nb", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-26T13:12:18Z", 
+            "manager": [
+                "Harish", 
+                "Pathria", 
+                "https://data.cityofnewyork.us/profile/Harish-Pathria/ci6y-i73t"
+            ], 
+            "managing_organization": [
+                "Business Integrity Commission (BIC)"
+            ], 
+            "data_catalog": null, 
+            "name": "FOIL Report - Trade Waste All Approved or Denied"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Latest available data and trends in the state assessment results of English Language Arts for grades 3 through 8. Data are disaggregated by borough and student with disabilities.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T10:22:33Z", 
+            "url": "https://data.cityofnewyork.us/Education/English-Language-Arts-ELA-Test-Results-2006-2012-B/vfk9-3uwk", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T10:22:33Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "English Language Arts (ELA) Test Results 2006-2012 - Borough - SWD"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Citywide young adult borough centers", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T15:26:20Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Young-Adult-Borough-Centers-2012-2013/pfn4-vjwr", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T15:26:20Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Young Adult Borough Centers 2012-2013"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The  customer contact center locations, phone numbers and schedules", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-21T16:10:04Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/NYCHA-Customer-Contact-Centers/37fm-7uaa", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-21T16:10:04Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "New York City Housing Authority (NYCHA)"
+            ], 
+            "data_catalog": null, 
+            "name": "NYCHA Customer Contact Centers"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Approved wholesale companies names , addresses and contact number", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-06-26T13:12:23Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/FOIL-Report-All-Markets-Approved/q8fg-j5sk", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-06-26T13:12:23Z", 
+            "manager": [
+                "Harish", 
+                "Pathria", 
+                "https://data.cityofnewyork.us/profile/Harish-Pathria/ci6y-i73t"
+            ], 
+            "managing_organization": [
+                "Business Integrity Commission (BIC)"
+            ], 
+            "data_catalog": null, 
+            "name": "FOIL Report \u2013 All Markets Approved"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The Medicaid Buy-In Program for Working People with Disabilities offers people with disabilities who are working, and earning more than the allowable limits for regular Medicaid, the opportunity to keep their health care coverage through Medicaid. Eligibility requirements include certain criteria and income levels as listed here. This chart is only a guide. Individuals should see an enrollment counselor for eligibility screening. NOTE: Chart effective January 1, 2012; subject to annual income updates.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T13:43:19Z", 
+            "url": "https://data.cityofnewyork.us/Health/Medicaid-buy-in-program-income-levels/qt67-786k", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T13:43:19Z", 
+            "manager": [
+                "Aakash", 
+                "Dalwani", 
+                "https://data.cityofnewyork.us/profile/Aakash-Dalwani/ya7g-926w"
+            ], 
+            "managing_organization": [
+                "Human Resources Administration (HRA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Medicaid buy in program income levels"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Listing of education and training resources offered by Workforce 1", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T15:06:59Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Workforce-1-Education-And-Training-Resources/pwvr-56as", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T15:06:59Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of Small Business Services (SBS)"
+            ], 
+            "data_catalog": null, 
+            "name": "Workforce 1 Education And Training Resources"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Listing of enrollment centers providing additional ways for High School graduation", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T16:55:03Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Borough-Enrollment-Centers-Additional-Ways-To-Grad/yj3u-pw36", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T16:55:03Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Borough Enrollment Centers (Additional Ways To Graduate)"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Listing of referral Centers For High School Alternatives", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-19T17:08:36Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/Referral-Centers-For-High-School-Alternatives/w8dz-xpjh", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-19T17:08:36Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of Education (DOE)"
+            ], 
+            "data_catalog": null, 
+            "name": "Referral Centers For High School Alternatives"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Job preparation or training programs", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-03-29T14:25:33Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/NYCHA-Resident-Jobs-Programs-and-Training/an6v-iuem", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-03-29T14:25:33Z", 
+            "manager": [
+                "Ram", 
+                "S.", 
+                "https://data.cityofnewyork.us/profile/Ram-S-/8b43-zkvh"
+            ], 
+            "managing_organization": [
+                "New York City Housing Authority (NYCHA)"
+            ], 
+            "data_catalog": null, 
+            "name": "NYCHA Resident Jobs Programs and Training"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Enrollment, capacity and utilization data for every elementary and middle school building and schools in those buildings", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-02T15:00:53Z", 
+            "url": "https://data.cityofnewyork.us/Education/Enrollment-Capacity-and-Utilization-Reports-Distri/my4g-bvvs", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-02T15:00:53Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Enrollment Capacity and Utilization Reports District 1-32"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Enrollment, capacity and utilization data for every District 75 building and schools in those buildings", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-02T15:00:40Z", 
+            "url": "https://data.cityofnewyork.us/Education/Enrollment-Capacity-and-Utilization-Reports-Distri/3cn8-i54i", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-02T15:00:40Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Enrollment Capacity and Utilization Reports District 75 Special Ed."
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Enrollment, capacity and utilization data for every regular high school building and schools in those buildings", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-02T15:01:05Z", 
+            "url": "https://data.cityofnewyork.us/Education/Enrollment-Capacity-and-Utilization-Reports-Regula/3mim-bd27", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-02T15:01:05Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Enrollment Capacity and Utilization Reports Regular HS"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Enrollment, capacity and utilization data for every alternative high school building and schools in those buildings", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-02T15:01:06Z", 
+            "url": "https://data.cityofnewyork.us/Education/Enrollment-Capacity-and-Utilization-Reports-Altern/rqx9-kktd", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-02T15:01:06Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Enrollment Capacity and Utilization Reports Alternative HS"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "# of units from projected future housing growth in the City", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-12T13:41:13Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Projected-New-Housing-Starts-as-Used-in-Enrollment/pa5t-ktd3", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-12T13:41:13Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Projected New Housing Starts - as Used in Enrollment Projection"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Demographic projections performed by the Grier Partnership for high school level students.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-12T13:42:54Z", 
+            "url": "https://data.cityofnewyork.us/Education/Grier-Partnership-Part-C-Demographic-Projection-Re/d6ph-dqj8", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-12T13:42:54Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Grier Partnership Part C - Enrollment Projections - New York City Public Schools"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Demographic projections performed by the Grier Partnership for elementary and middle school level students.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-12T13:43:40Z", 
+            "url": "https://data.cityofnewyork.us/Education/Grier-Partnership-Part-B-Demographic-Projection-Re/nxvh-fkda", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-12T13:43:40Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Grier Partnership Part B - Enrollment Projections - New York City Public Schools"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Estimated # of students to be generated by future housing growth", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-12T13:39:57Z", 
+            "url": "https://data.cityofnewyork.us/Education/Projected-Public-School-Ratio/n7ta-pz8k", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-12T13:39:57Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Projected Public School Ratio"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "Demographic projections performed by the Statistics Forecasting for elementary, middle and high school level students.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-12T13:42:04Z", 
+            "url": "https://data.cityofnewyork.us/Education/Statistical-Forecasting-Demographic-Projection-Rep/e649-r223", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-12T13:42:04Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Statistical Forecasting - Enrollment Projections - New York City Public Schools"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The Zoning Tax Lot Database is a comma\u2013separated values (CSV) file format that contains up-to-date zoning by parcel. The Database includes the zoning designations and zoning map associated with a specific tax block and lot. The Database is updated on a monthly basis to reflect rezoning and corrections to the file.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-07-29T15:04:53Z", 
+            "url": "https://data.cityofnewyork.us/City-Government/NYC-Zoning-Tax-Lot-Database/fdkv-4t4z", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-07-29T15:04:53Z", 
+            "manager": [
+                "Albert", 
+                "Webber", 
+                "https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"
+            ], 
+            "managing_organization": [
+                "Department of City Planning (DCP)"
+            ], 
+            "data_catalog": null, 
+            "name": "NYC Zoning Tax Lot Database"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "The Contractor / Sub Contractor Change Order Report is a monthly Multi-Project SCA Change Management Report that lists who is currently responsible for Change Management Issues and the last stage/document of the Change Process.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-08-22T15:07:13Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Contractor-Sub-Contractor-Change-Order-Report/gzvm-na49", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-08-22T15:07:13Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Contractor / Sub Contractor Change Order Report"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "New school projects (Capacity) and Capital Improvement Projects (CIP) currently under Construction.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-08-23T10:09:20Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Active-Projects-Under-Construction/2xh6-psuq", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-08-23T10:09:20Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Active Projects Under Construction"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "New school projects Capital Improvement Projects (CIP) that will complete design within the next 6 months and will be available for bid.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-08-23T10:09:35Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Upcoming-contracts-to-be-awarded-CIP-/tsak-vtv3", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-08-23T10:09:35Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Upcoming contracts to be awarded (CIP)"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "New school projects (Capacity)  that will complete design within the next 6 months and will be available for bid.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-08-23T10:10:05Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Upcoming-contracts-to-be-awarded-CAP-/6m3u-8rbh", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-08-23T10:10:05Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Upcoming contracts to be awarded (CAP)"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "List of firms qualified to perform work for the School Construction Authority, their trades, and the end date of their qualification.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-08-30T16:45:07Z", 
+            "url": "https://data.cityofnewyork.us/Housing-Development/Prequalified-Firms/szkz-syh6", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-08-30T16:45:07Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "School Construction Authority (SCA)"
+            ], 
+            "data_catalog": null, 
+            "name": "Prequalified Firms"
+        }
+    }, 
+    {
+        "pk": null, 
+        "model": "data_connections.Dataset", 
+        "data_format": [
+            "CSV"
+        ], 
+        "fields": {
+            "description": "This dataset includes the daily number of families and individuals residing in the Department of Homeless Services (DHS) shelter system and the daily number of families applying to the DHS shelter system.", 
+            "license": [
+                "Public"
+            ], 
+            "date_published": "2013-09-05T15:29:00Z", 
+            "url": "https://data.cityofnewyork.us/Social-Services/DHS-Daily-Report/k46n-sa2m", 
+            "data_format": ["CSV"], 
+            "date_last_edited": "2013-09-05T15:29:00Z", 
+            "manager": [
+                "NYC", 
+                "OpenData", 
+                "https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"
+            ], 
+            "managing_organization": [
+                "Department of Homeless Services (DHS)"
+            ], 
+            "data_catalog": null, 
+            "name": "DHS Daily Report"
+        }
+    }
+]

@@ -15,7 +15,6 @@ def get_or_none(model, **kwargs):
         return None
 def get_manager_or_create(firstname,lastname,profile_url):
 	manager=None
-	profile_url=""
 		
 	if firstname == "" and lastname == "":
 		return None
@@ -34,6 +33,25 @@ def get_manager_or_create(firstname,lastname,profile_url):
 		else:
 			manager = scientist
 	return manager
+def get_organization_or_create(name,url):
+	org_out=None
+		
+	if name == "":
+		return None
+	else:
+		organization = get_or_none(Organization, name = name, url = url)
+		if organization == None:
+			organization = get_or_none(Organization, name = name)
+			
+		if organization == None:
+			org_obj=Scientist()
+			org_obj.name = name
+			org_obj.url = url
+			org_obj.save()
+			org_out = org_obj
+		else:
+			org_out = organization
+	return org_out
 
 # deprecated for now.
 def dataset_view(request,dataset_id=None):
@@ -80,6 +98,9 @@ def add_dataset(request):
 			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
 			if manager!=None:
 				d_obj.manager = manager
+			#organization = get_organization_or_create(request.POST["organization_name"], request.POST["organization_url"])
+			#if organization!=None:
+			#	d_obj.managing_organization = organization
 
 			d_obj.save()
 			return redirect('index') # Redirect after POST

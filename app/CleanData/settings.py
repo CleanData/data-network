@@ -3,10 +3,6 @@ import os
 
 from settings_local import *
 
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
-
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -53,9 +49,6 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'n(4&k9(mra8ob95y6(%g5rx&#$8l!l!t$20qtyuzyqh+h#jm#+'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -91,9 +84,9 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'CleanData.data_connections',
     'registration',		# django-registration - details: https://django-registration.readthedocs.org
-    'south',			# south: http://south.readthedocs.org/en/latest/installation.html
 	'tastypie',			# Tastypie: http://django-tastypie.readthedocs.org/en/latest/
     'taggit',           # Create  custom tags for the datasets 
+    'south',			# south: http://south.readthedocs.org/en/latest/installation.html
 )
 
 # for the registration app
@@ -112,6 +105,7 @@ RECAPTCHA_USE_SSL = False
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+""""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -135,3 +129,4 @@ LOGGING = {
         },
     }
 }
+"""
