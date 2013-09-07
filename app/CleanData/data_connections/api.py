@@ -129,6 +129,18 @@ class MinimalDatasetResource(ModelResource):
 			'url': ALL,
 		}
 
+class DatasetUrlResource(ModelResource):
+	class Meta:
+		queryset = Dataset.objects.all()
+		fields = ['url']
+		resource_name = 'dataset_url'
+		allowed_methods = ['get']
+		authentication = Authentication()
+		cache=SimpleCache()
+		filtering = {
+			'url': ALL
+		}
+
 
 """"
 # the test version which includes the -through- data.
