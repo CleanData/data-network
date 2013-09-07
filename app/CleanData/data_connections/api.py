@@ -69,6 +69,7 @@ class DatasetResource(ModelResource):
 		filtering = {
 			'name': ALL,
 			'data_format': ALL,
+			'url': ALL,
 		}
         
 class DatasetSourcesResource(ModelResource):
