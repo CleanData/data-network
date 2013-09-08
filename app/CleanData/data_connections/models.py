@@ -39,19 +39,22 @@ class Format(models.Model):
 
 # sorts out natural identification of datasets
 class DatasetManager(models.Manager):
-	def get_by_natural_key(self,url,name):
-		return self.get(url=url,name=name)
+	def get_by_natural_key(self,url):
+		return self.get(url=url)
 class Dataset(models.Model):
 	objects = DatasetManager()		# handles natural keys
 	
 	data_catalog = models.ForeignKey(DataCatalog,null=True,blank=True)
-	name = models.CharField(max_length=100)
+	# sets the registered user who added the dataset
+	added_by = models.ForeignKey(User,null=True)
+
+	name = models.CharField(max_length=200)
 	date_published = models.DateTimeField('date published')
 	date_last_edited = models.DateTimeField('date last edited')
-	url = models.URLField(max_length=150)
+	url = models.URLField(max_length=200)
+	documentation_url = models.URLField(max_length=200,blank=True)
+	download_url = models.URLField(max_length=200,blank=True)
 	description = models.TextField(blank=True)
-
-	#added_by = models.CharField(max_length=200,blank=True,)
 
 	# relationships
 	data_format = models.ForeignKey(Format,related_name="formatted_datasets",null=True,blank=True)
@@ -68,15 +71,15 @@ class Dataset(models.Model):
 
 	def __unicode__(self):
 		return self.name
-	class Meta:
-		unique_together = (('name','url'),)
+	#class Meta:
+	#	unique_together = (('name','url'),)
 
 
 class DataRelation(models.Model):
 	source = models.ForeignKey(Dataset, related_name='relation_to_derivative')
 	derivative = models.ForeignKey(Dataset, related_name='relation_to_source')
 	how_data_was_processed = models.TextField(max_length=20000,blank=True)
-	processing_url = models.URLField(max_length=150,blank=True,null=True)
+	processing_url = models.URLField(max_length=200,blank=True,null=True)
 
 	def __unicode__(self):
 		return self.source.name+" -> "+self.derivative.name
@@ -95,7 +98,7 @@ class Scientist(models.Model):
 	
 	firstname = models.CharField(max_length=30)
 	lastname = models.CharField(max_length=30,blank=True)
-	profile_url = models.URLField(max_length=150,blank=True,default="")
+	profile_url = models.URLField(max_length=200,blank=True,default="")
 	user = models.OneToOneField(User,blank=True, null=True, related_name="scientist_profile")
 
 	collaborators = models.ManyToManyField('self')
@@ -117,7 +120,7 @@ class Organization(models.Model):
 	objects = OrganizationManager()		# handles natural keys
 
 	name = models.CharField(max_length=200,unique=True)
-	url = models.URLField(max_length=150,default="")
+	url = models.URLField(max_length=200,default="")
 	def __unicode__(self):
 		return self.name
 

@@ -86,7 +86,7 @@ INSTALLED_APPS = (
     'registration',		# django-registration - details: https://django-registration.readthedocs.org
 	'tastypie',			# Tastypie: http://django-tastypie.readthedocs.org/en/latest/
     'taggit',           # Create  custom tags for the datasets 
-    'south',			# south: http://south.readthedocs.org/en/latest/installation.html
+    #'south',			# south: http://south.readthedocs.org/en/latest/installation.html
 )
 
 # for the registration app
