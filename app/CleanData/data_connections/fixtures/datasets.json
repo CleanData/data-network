@@ -12,7 +12,10 @@
             "manager": null,
             "managing_organization": null,
             "data_catalog": null,
-            "name": "Test dataset"
+            "added_by":6,
+			"documentation_url":"",
+			"download_url":"",
+			"name": "Test dataset"
 		}
 	},
 	{
@@ -28,7 +31,10 @@
             "manager": null,
             "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
             "data_catalog": null,
-            "name": "Electric Consumption by ZIP Code - 2010"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Electric Consumption by ZIP Code - 2010"
 		}
 	},
 	{
@@ -44,7 +50,10 @@
             "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
             "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
             "data_catalog": null,
-            "name": "Energy Usage From DCAS Buildings"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Energy Usage From DCAS Buildings"
 		}
 	},
 	{
@@ -60,7 +69,10 @@
             "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
             "managing_organization": ["Department of Education (DOE), NYC"],
             "data_catalog": null,
-            "name": "Energy Usage From DOE Buildings"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Energy Usage From DOE Buildings"
 		}
 	},
 	{
@@ -76,7 +88,10 @@
             "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
             "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
             "data_catalog": null,
-            "name": "Energy Efficiency Projects"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Energy Efficiency Projects"
 		}
 	},
 	{
@@ -92,7 +107,10 @@
             "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
             "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
             "data_catalog": null,
-            "name": "2010 & 2011 NYC Municipal Building Energy Benchmarking Results"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "2010 & 2011 NYC Municipal Building Energy Benchmarking Results"
 
 		}
 	},
@@ -109,7 +127,10 @@
             "manager": ["Jorge","J","https://data.cityofnewyork.us/profile/Jorge-J-/rnig-m3uj"],
             "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
             "data_catalog": null,
-            "name": "Steam Consumption by ZIP Code - 2010"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Steam Consumption by ZIP Code - 2010"
 		}
 	},
 	{
@@ -125,7 +146,10 @@
             "manager": ["NYC","Open-Data","https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"],
             "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
             "data_catalog": null,
-            "name": "Oil Boilers - Detailed Fuel Consumption and Building Data"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Oil Boilers - Detailed Fuel Consumption and Building Data"
 		}
 	},
 	{
@@ -141,7 +165,10 @@
             "manager": ["Jorge","J","https://data.cityofnewyork.us/profile/Jorge-J-/rnig-m3uj"],
             "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
             "data_catalog": null,
-            "name": "Natural Gas Consumption by ZIP Code - 2010"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Natural Gas Consumption by ZIP Code - 2010"
 		}
 	},
 	{
@@ -157,7 +184,10 @@
             "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
             "managing_organization": ["Department of Buildings, NYC"],
             "data_catalog": null,
-            "name": "NYC Cool Roofs Buildings"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "NYC Cool Roofs Buildings"
 		}
 	},
 	{
@@ -173,7 +203,10 @@
             "manager": ["Albert","Webber","https://data.cityofnewyork.us/profile/Albert-Webber/txun-eb7e"],
             "managing_organization": ["Department of Citywide Administrative Services (DCAS), NYC"],
             "data_catalog": null,
-            "name": "Oil Usage (Select City Owned Buildings)"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Oil Usage (Select City Owned Buildings)"
 		}
 	},
 	{
@@ -189,7 +222,10 @@
             "manager": ["NYC","Open-Data","https://data.cityofnewyork.us/profile/NYC-OpenData/5fuc-pqz2"],
             "managing_organization": ["Mayor's Office of Long-Term Planning and Sustainability, NYC"],
             "data_catalog": null,
-            "name": "Sustainability Indicators (2012)"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Sustainability Indicators (2012)"
 		}
 	},
 	{
@@ -205,7 +241,10 @@
             "manager": ["Vijay","Modi","http://www.earth.columbia.edu/articles/view/2770"],
             "managing_organization": ["Modi Research Group, Columbia University"],
             "data_catalog": null,
-            "name": "NYC Energy Map"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "NYC Energy Map"
 		}
 	},
 	{
@@ -221,7 +260,10 @@
             "manager": ["Jonathan","Roberts","https://github.com/jonroberts"],
             "managing_organization": null,
             "data_catalog": null,
-            "name": "Energy Zip - processed data"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Energy Zip - processed data"
 		}
 	},
 	{
@@ -237,7 +279,10 @@
             "manager": ["Jonathan","Roberts","https://github.com/jonroberts"],
             "managing_organization": null,
             "data_catalog": null,
-            "name": "Energy Zip - JSONed data for app"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Energy Zip - JSONed data for app"
 		}
 	},
 	{
@@ -253,7 +298,10 @@
             "manager": ["Nathan","Storey","http://nathanstorey.com/"],
             "managing_organization": ["Pediacities"],
             "data_catalog": null,
-            "name": "NYC Zipcode Tabulation Areas"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "NYC Zipcode Tabulation Areas"
 		}
 	},
 	{
@@ -269,7 +317,10 @@
             "manager": ["Nathan","Storey","http://nathanstorey.com/"],
             "managing_organization": ["Department of City Planning (DCP), NYC"],
             "data_catalog": null,
-            "name": "NYC Zipcode Tabulation Areas"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "NYC Zipcode Tabulation Areas"
 		}
 	},
 	{
@@ -285,7 +336,10 @@
             "manager": null,
             "managing_organization": ["U.S. Census Bureau"],
             "data_catalog": ["2010 US Census"],
-            "name": "Median Value of Owner Occupied Housing Units, NYC"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Median Value of Owner Occupied Housing Units, NYC"
 		}
 	},
 	{
@@ -301,7 +355,10 @@
             "manager": null,
             "managing_organization": ["U.S. Census Bureau"],
             "data_catalog": ["2010 US Census"],
-            "name": "Households and Families: 2010 Census Summary File 1, NYC"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Households and Families: 2010 Census Summary File 1, NYC"
 		}
 	},
 	{
@@ -317,7 +374,10 @@
             "manager": null,
             "managing_organization": ["U.S. Census Bureau"],
             "data_catalog": ["2010 US Census"],
-            "name": "Median Income In The Past 12 Months, NYC"
+            "added_by":null,
+"documentation_url":"",
+"download_url":"",
+"name": "Median Income In The Past 12 Months, NYC"
 		}
 	}
 ]

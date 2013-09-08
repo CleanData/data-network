@@ -4,6 +4,8 @@ from django.forms.models import modelformset_factory
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
 from models import *
 from forms import *
 
@@ -166,3 +168,48 @@ def search(request):
 	else :
 		results = []
 	return render_to_response('data_connections/search_result.html',{"results":results},context_instance=RequestContext(request))
+
+def all_datasets(request):
+
+	fields = { "name":"Name","date_published":"Published","date_last_edited":"Last Edited","data_format__name":"Format","src_count":"Sources","deriv_count":"Derivatives" }
+	
+	order_field = request.GET.get('order_by')
+	if order_field == None:
+		order_field = 'name'
+
+	dataset_list = Dataset.objects.all()\
+						  .annotate(src_count=Count('derivatives'))\
+						  .annotate(deriv_count=Count('sources'))\
+						  .select_related('data_format')\
+						  .order_by(order_field)
+	paginator = Paginator(dataset_list, 15)
+	
+	
+	page = request.GET.get('page')
+	try:
+		datasets = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		datasets = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		datasets = paginator.page(paginator.num_pages)
+		
+	datasets.buffer_end = datasets.paginator.num_pages - 2
+
+	return render_to_response('data_connections/all_datasets.html', {"datasets": datasets,"order_by":order_field})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
