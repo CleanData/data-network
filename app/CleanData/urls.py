@@ -6,6 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
+	url(r'frontpage','views.frontpage',name='front'),
     (r'', include('CleanData.data_connections.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

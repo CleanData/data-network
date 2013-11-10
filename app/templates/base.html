@@ -8,6 +8,8 @@
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link type="text/css" href="/static/user/css/style.css" rel="stylesheet" />
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	{% block pageStyles %}
+	{% endblock %}
   </head>
   <body {% block onload %}{% endblock %}>
    <div id="wrap">
@@ -90,6 +92,11 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="/static/user/bootstrap/js/bootstrap.js"></script>
+{% block jqueryScripts %}
+
+
+{% endblock %}
+
 </body>
 
 </html>
