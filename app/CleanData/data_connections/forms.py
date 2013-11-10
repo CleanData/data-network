@@ -4,7 +4,7 @@ from data_connections.models import Dataset
 class NewDataSetForm(ModelForm):
 	class Meta:
 		model = Dataset
-		exclude = ('contributors','manager','sources','data_catalog','added_by')
+		exclude = ('contributors','manager','sources','derivatives','data_catalog','added_by')
 
 	def __init__(self, *args, **kwargs):
 		super(NewDataSetForm, self).__init__(*args, **kwargs)
@@ -17,7 +17,7 @@ class NewDataSetForm(ModelForm):
 class EditDataSetForm(ModelForm):
 	class Meta:
 		model = Dataset
-		exclude = ('contributors','manager','sources','data_catalog','added_by')
+		exclude = ('contributors','manager','sources','derivatives','data_catalog','added_by')
 
 	def __init__(self, *args, **kwargs):
 		super(EditDataSetForm, self).__init__(*args, **kwargs)
@@ -30,7 +30,7 @@ class EditDataSetForm(ModelForm):
 class NewApplicationForm(ModelForm):
 	class Meta:
 		model = Dataset
-		exclude = ('contributors','manager','sources','data_format','data_catalog','added_by')
+		exclude = ('contributors','manager','sources','derivatives','data_format','data_catalog','added_by')
 		#fields=("name",)
 
 	def __init__(self, *args, **kwargs):

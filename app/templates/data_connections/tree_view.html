@@ -198,10 +198,26 @@ function updateMap(trees){
 		
 		  nodeEnter.append("text")
 		      .attr("dx", 0)
-		      .attr("dy", 15)
+		      .attr("dy", 20)
+		      //.attr("class","shadow")
 		      .style("text-anchor", "middle")
-		      .text(function(d,i) { if(dir=="s" || i>0 || dirs.length<2){return d.name;} })
-			  .style("fill-opacity", 1e-6);
+		      .text(function(d,i) { if(dir=="s" || i>0 || dirs.length<2){
+				  	var label=(d.name.length>40)?jQuery.trim(d.name).substring(0, 40)
+	    .split(" ").slice(0, -1).join(" ") + "...":d.name;
+		      		return label;
+		      	} })
+			  .style("fill-opacity", 1e-6)
+			  .style("stroke-opacity", 1e-6);
+		  /*nodeEnter.append("text")
+		      .attr("dx", 0)
+		      .attr("dy", 20)
+		      .style("text-anchor", "middle")
+		      .text(function(d,i) { if(dir=="s" || i>0 || dirs.length<2){
+				  	var label=(d.name.length>40)?jQuery.trim(d.name).substring(0, 40)
+	    .split(" ").slice(0, -1).join(" ") + "...":d.name;
+		      		return label;
+		      	} })
+			  .style("fill-opacity", 1e-6);*/
 		
 		  var nodeUpdate = node.transition()													// update
 		      .duration(1000)
@@ -226,7 +242,10 @@ function updateMap(trees){
 		      	});
 		
 		  nodeUpdate.select("text")
-		      .style("fill-opacity", 1);
+		      .style("fill-opacity", 1)
+		      .style("stroke-opacity", 0.5);
+		  /*nodeUpdate.select("text.shadow")
+		      .style("stroke-opacity", 0.8);*/
 		
 		  var nodeExit = node.exit().transition()
 		      .duration(1000)

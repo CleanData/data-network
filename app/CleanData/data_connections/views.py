@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.forms.models import modelformset_factory
 from django.contrib.auth.models import User
 from django.template import RequestContext
@@ -71,6 +71,8 @@ def dataset_view(request,dataset_id=None):
 			# get a random dataset with some connections
 	else:
 		theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
+		if not checkDatasetIsVisible(theDataset,request.user):
+			raise Http404
 	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset},
 							  context_instance=RequestContext(request))
 def random_dataset_view(request):
@@ -101,7 +103,7 @@ def organization_view(request,organization_id):
 	return render_to_response('data_connections/organization_view.html',{"organization":theOrganization},
 							  context_instance=RequestContext(request))
 
-def checkDatasetIsVisible(dataset,theUser):
+def checkDatasetDictIsVisible(dataset,theUser):
 	if dataset["is_public"]:
 		return True
 	# unauthenticated users don't get to see stuff
@@ -118,6 +120,24 @@ def checkDatasetIsVisible(dataset,theUser):
 
 	return False
 
+def checkDatasetIsVisible(dataset,theUser):
+	if dataset.is_public:
+		return True
+	# unauthenticated users don't get to see stuff
+	if not theUser.is_authenticated():
+		return False
+
+	if theUser.is_superuser:
+		return True
+
+	if dataset.added_by!=None and dataset.added_by == theUser:
+		return True
+
+	# add extra permissions structure here
+
+	return False
+
+
 # gets rid of any private data node if you don't have the rights to view it.
 def removePrivateData(theUser,tree,childKey):
 	for child in tree[childKey]:
@@ -125,7 +145,7 @@ def removePrivateData(theUser,tree,childKey):
 			if len(child[childKey])>0:
 				removePrivateData(theUser,tree,childKey)
 		else:
-			if checkDatasetIsVisible(child,theUser):
+			if checkDatasetDictIsVisible(child,theUser):
 				if len(child[childKey])>0:
 					removePrivateData(theUser,tree,childKey)
 			else:
@@ -239,7 +259,7 @@ def add_application(request):
 			if manager!=None:
 				d_obj.manager = manager
 
-			d.added_by = request.user
+			d_obj.added_by = request.user
 
 			d_obj.save()
 			return redirect('dataset/{0}'.format(d_obj.id)) # Redirect after POST
@@ -278,7 +298,28 @@ def search(request):
 		results = Dataset.objects.filter(name__icontains=request.GET['query'])
 	else :
 		results = []
-	return render_to_response('data_connections/search_result.html',{"results":results},context_instance=RequestContext(request))
+	parsedResults=[]
+	for d in results:
+		if checkDatasetIsVisible(d,request.user):
+			parsedResults.append(d)
+		 
+	return render_to_response('data_connections/search_result.html',{"results":parsedResults},context_instance=RequestContext(request))
+
+def searchAPI(request):
+	HttpResponse("Got to here")
+	if 'query' in request.GET and request.GET['query'] != '':
+		results = Dataset.objects.filter(name__icontains=request.GET['query'])\
+								.select_related('data_format')\
+								.order_by("name")
+	else :
+		results = []
+	parsedResults=[]
+	for d in results:
+		if checkDatasetIsVisible(d,request.user):
+			parsedResults.append(d)
+	resultSet = [{"name":x.name,"id":x.id,"format":x.data_format.name} for x in parsedResults]
+	return HttpResponse(json.dumps({"results":resultSet}), content_type="application/json")
+
 
 def all_datasets(request):
 
@@ -289,6 +330,7 @@ def all_datasets(request):
 		order_field = 'name'
 
 	dataset_list = Dataset.objects.all()\
+						  .filter(is_public=True)\
 						  .annotate(src_count=Count('derivatives'))\
 						  .annotate(deriv_count=Count('sources'))\
 						  .select_related('data_format')\

@@ -91,14 +91,15 @@ function searchForSets(input){
 	}
 	$.ajax({
 				type: "GET",
-				url: "api/v1/min_dataset/",
-				data: { format: "json", name__icontains: term }
+				url: "/searchAPI",
+				data: { query: term }
 			})
 			.done(function( data ) {
-				for(var i in data.objects){
+				console.log(data);
+				for(var i in data.results){
 					$('<option>')
-						.val(data.objects[i].id)
-						.text(data.objects[i].name+" ("+data.objects[i].data_format.name+")")
+						.val(data.results[i].id)
+						.text(data.results[i].name+" ("+data.results[i].format+")")
 						.appendTo('#'+input+'_select');
 				}
 		  });	
