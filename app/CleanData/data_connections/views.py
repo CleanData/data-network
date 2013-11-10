@@ -57,16 +57,29 @@ def get_organization_or_create(name,url):
 			org_out = organization
 	return org_out
 
+# This is currently the index view
 def dataset_view(request,dataset_id=None):
-
 	if dataset_id==None:
-		#theDataset = Dataset.objects.get(url__exact = "https://github.com/jonroberts/zipcodegrid/tree/master/data")
-		theDataset = Dataset.objects.get(url__exact = "http://www.nyc.gov/html/dcp/html/bytes/dwn_pluto_mappluto.shtml#mappluto")
-		
+		if not request.user.is_authenticated():
+			return render_to_response('front/index.html',{},
+								  context_instance=RequestContext(request))
+		else:
+			theDataset = Dataset.objects.filter(is_public=True)\
+										.exclude(derivatives__isnull=True)\
+										.all()\
+										.order_by('?')[0]
+			# get a random dataset with some connections
 	else:
 		theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
 	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset},
 							  context_instance=RequestContext(request))
+def random_dataset_view(request):
+	theDataset = Dataset.objects.filter(is_public=True)\
+								.exclude(derivatives__isnull=True)\
+								.all()\
+								.order_by('?')[0]
+	return dataset_view(request,dataset_id=theDataset.id)
+			  
 def license_view(request,license_id):
 	theLicense = get_object_or_404(License, id=license_id)
 	return render_to_response('data_connections/license_view.html',{"license":theLicense},
@@ -91,8 +104,13 @@ def organization_view(request,organization_id):
 def checkDatasetIsVisible(dataset,theUser):
 	if dataset["is_public"]:
 		return True
+	# unauthenticated users don't get to see stuff
+	if not theUser.is_authenticated():
+		return False
+
 	if theUser.is_superuser:
 		return True
+
 	if dataset["added_by"]!=None and dataset["added_by"]!='' and dataset["added_by"]["id"] == theUser:
 		return True
 
@@ -124,15 +142,15 @@ def getDerivsAndSources(request,dataset_id):
 	derivs = DatasetDerivativesResource()
 	deriv_request_bundle = derivs.build_bundle(obj=d,request=request)		# empty object at this stage
 	#deriv_queryset = derivs.obj_get_list(deriv_request_bundle)						# builds a queryset
-	
 	# This line needs to be fixed to match up to expectations. Needs to be fixed in the API request
 	sources = json.loads(srcs.serialize(None,srcs.full_dehydrate(src_request_bundle), 'application/json'))
 	derivatives = json.loads(derivs.serialize(None,derivs.full_dehydrate(deriv_request_bundle), 'application/json'))
 
 	# only remove private data if the user is not a superuser
 	if not request.user.is_superuser:
-		removePrivateData(request.user,derivatives,"derivatives")
-		removePrivateData(request.user,sources,"sources")
+		if request.user.is_authenticated():
+			removePrivateData(request.user,derivatives,"derivatives")
+			removePrivateData(request.user,sources,"sources")
 	
 	return HttpResponse(json.dumps({"derivativeTree":derivatives,"sourceTree":sources}), content_type="application/json")
 
@@ -290,7 +308,7 @@ def all_datasets(request):
 		
 	datasets.buffer_end = datasets.paginator.num_pages - 2
 
-	return render_to_response('data_connections/all_datasets.html', {"datasets": datasets,"order_by":order_field})
+	return render_to_response('data_connections/all_datasets.html', {"datasets": datasets,"order_by":order_field}, context_instance=RequestContext(request))
 	
 	
 	

@@ -30,10 +30,23 @@
 				     <!--<input type="submit" value="Search">-->
 				  </form>
 			  </li>
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Discover <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+	              <li><a href="{% url 'random_dataset' %}">Random Dataset</a></li>
+	              <li><a href="{% url 'all_datasets' %}">All Datasets</a></li>
+				</ul>
+				</li>
 			  {% if user.is_authenticated %}
-              <li><a href="/add_dataset">+Dataset</a></li>
-              <li><a href="/add_application">+Application</a></li>
-              <li><a href="/add_datarelation">+Data Relation</a></li>
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Add <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+	              <li><a href="{% url 'add_dataset' %}">+Dataset</a></li>
+	              <li><a href="{% url 'add_application' %}">+Application</a></li>
+	              <li><a href="{% url 'add_datarelation' %}">+Data Relation</a></li>
+				</ul>
+				</li>
+
               <!--<li><a href="./">+Scientist</a></li>-->
               {% endif %}
             </ul>
