@@ -111,7 +111,7 @@ function updateMap(trees){
 		if(dirs[0]=="d"){hOffset=padding;}
 		if(dirs[0]=="s"){hOffset=width-padding;}
 	}
-	else if(dirs.length == 2){
+	else if(dirs.length == 2 || dirs.length == 0){
 		cluster = d3.layout.cluster()
 		    .size([height, (width/2.)-padding]);
 		
@@ -122,9 +122,11 @@ function updateMap(trees){
 		    .projection(function(d) { return [width/2.-d.y, d.x]; });
 
 	}
-	
+
+	if(dirs==[]){dirs=["d","s"];}
 	
 	for(var ix in dirs){
+		
 		var dir=dirs[ix];
 		var tree;
 
@@ -397,6 +399,9 @@ function createMap(){
 			{% if user.is_authenticated %}
 			<a id='edit_dataset' href="{% url 'edit_dataset' dataset_id=dataset.id %}"><i class="icon-pencil"></i></a>
 			{% endif %}
+			<!-- This needs a function call to check that the user is allowed to delete the node -->
+			<!-- delete also needs to delete all the many-to-many connections. This will take some work -->
+			<!--<a id='deleted_dataset' href="{% url 'delete_dataset' dataset_id=dataset.id %}"><i class="icon-remove"></i></a>-->
 			</h4></div>
 			<div>Description: <p id="dataset_description">
 				{{ dataset.description|truncatechars:100 }}

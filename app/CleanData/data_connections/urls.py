@@ -29,6 +29,7 @@ urlpatterns = patterns('data_connections.views',
 	# the add/edit/delete views
     url(r'^add_dataset$','add_dataset',name="add_dataset"),
     url(r'^edit/(?P<dataset_id>\d+)','edit_dataset',name='edit_dataset'),
+    url(r'^delete/(?P<dataset_id>\d+)','delete_dataset',name='delete_dataset'),
     url(r'^add_application$','add_application',name="add_application"),
     url(r'^add_datarelation$','add_datarelation',name="add_datarelation"),
     url(r'^search$','search'),

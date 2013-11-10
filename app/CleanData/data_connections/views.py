@@ -195,7 +195,7 @@ def add_dataset(request):
 			d_obj.added_by = request.user
 
 			d_obj.save()
-			return redirect('index') # Redirect after POST
+			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
 		else:
 			return render_to_response('data_connections/add_dataset.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
 
@@ -233,7 +233,7 @@ def edit_dataset(request,dataset_id):
 				d_obj.manager = manager
 
 			d_obj.save()
-			return redirect('index') # Redirect after POST
+			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
 		else:
 			return render_to_response('data_connections/edit_dataset.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
 
@@ -241,6 +241,49 @@ def edit_dataset(request,dataset_id):
 		dataset_form = EditDataSetForm(instance=d)
 
 	return render_to_response('data_connections/edit_dataset.html',{"dataset_form":dataset_form,"manager":d.manager}, context_instance=RequestContext(request))
+
+def delete_dataset(request,dataset_id):
+	return redirect('index')
+	"""
+	if not request.user.is_authenticated():
+		return redirect('index')
+
+	p = request.user
+	d = get_object_or_404(Dataset, id=dataset_id)
+
+	editors = []
+	if d.manager != None:
+		if d.manager.user!=None:
+			editors.append(d.manager.user)
+	accessors = with_access.objects.filter(access_level='RX',dataset=d).all()
+	for item in accessors:
+		if item != None:
+			editors.append(item.user)
+	if not request.user.is_superuser and p!=d.manager.user and p not in editors:
+		return redirect('index')
+
+	###### Got to here ######
+
+	# called once the form is submitted
+	if request.method == 'POST':
+		dataset_form = EditDataSetForm(request.POST,instance=d)
+
+		if dataset_form.is_valid():
+			d_obj = dataset_form.save(commit=False)
+			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
+			if manager!=None:
+				d_obj.manager = manager
+
+			d_obj.save()
+			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
+		else:
+			return render_to_response('data_connections/edit_dataset.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
+
+	else:
+		dataset_form = EditDataSetForm(instance=d)
+
+	return render_to_response('data_connections/edit_dataset.html',{"dataset_form":dataset_form,"manager":d.manager}, context_instance=RequestContext(request))
+	"""
 
 # adds an application object to the data
 def add_application(request):
@@ -262,7 +305,7 @@ def add_application(request):
 			d_obj.added_by = request.user
 
 			d_obj.save()
-			return redirect('dataset/{0}'.format(d_obj.id)) # Redirect after POST
+			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
 			#return HttpResponseRedirect(reverse('dataset', args=[d_obj.id]))
 			#return redirect('dataset',dataset_id=d_obj.id) # Redirect after POST
 		else:
@@ -287,7 +330,7 @@ def add_datarelation(request):
 
 		if d_rel.source!=None and d_rel.derivative!=None:
 			d_rel.save()
-			return redirect('index') # Redirect after POST
+			return redirect('dataset_detail',dataset_id=d_rel.source.id) # Redirect after POST
 		else:
 			return render_to_response('data_connections/add_datarelation.html', {}, context_instance=RequestContext(request))
 
