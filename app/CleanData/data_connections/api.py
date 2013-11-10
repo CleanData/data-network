@@ -1,10 +1,14 @@
 from tastypie import fields
 from tastypie.resources import Resource, ModelResource, ALL, ALL_WITH_RELATIONS
 from data_connections.models import *
+from django.contrib.auth.models import User
 from tastypie.authentication import Authentication
 from tastypie.cache import SimpleCache
 
-
+class UserResource(ModelResource):
+    class Meta:
+        queryset = User.objects.all()
+        detail_uri_name = 'username'
 
 class ScientistResource(ModelResource):
 	class Meta:
@@ -72,40 +76,18 @@ class DatasetResource(ModelResource):
 			'url': ALL,
 		}
         
-class DatasetSourcesResource(ModelResource):
-	# note that the name in the ForeignKey relation here is the name of the foreign key field we're mapping to.
-	scientist = fields.ForeignKey(ScientistResource, 'manager',null=True,blank=True,full=True)
-	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
-
-	license = fields.ForeignKey(LicenseResource, 'license',full=True)
-	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
-
-	data_catalog = fields.ForeignKey(DataCatalogResource, 'data_catalog',null=True,blank=True,full=True)
-	
-	children = fields.ToManyField('self','derivatives',full=True)
-	#derivatives = fields.ToManyField('self','sources') 	
-	class Meta:
-		queryset = Dataset.objects.all()
-		resource_name = 'dataset_sources'
-		allowed_methods = ['get']
-		authentication = Authentication()
-		cache=SimpleCache()
-		filtering = {
-			'name': ALL,
-			'data_format': ALL,
-		}
-        
 class DatasetDerivativesResource(ModelResource):
 	# note that the name in the ForeignKey relation here is the name of the foreign key field we're mapping to.
 	scientist = fields.ForeignKey(ScientistResource, 'manager',null=True,blank=True,full=True)
-	license = fields.ForeignKey(LicenseResource, 'license',full=True)
-	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
-
-	data_catalog = fields.ForeignKey(DataCatalogResource, 'data_catalog',null=True,blank=True,full=True)
 	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
+	license = fields.ForeignKey(LicenseResource, 'license',full=True)
+	added_by = fields.ForeignKey(UserResource, 'added_by',full=False, null=True, blank=True)
+	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
+	data_catalog = fields.ForeignKey(DataCatalogResource, 'data_catalog',null=True,blank=True,full=True)
 	
-	#sources = fields.ToManyField('self','derivatives')
-	children = fields.ToManyField('self','sources',full=True)
+	children = fields.ToManyField('self',
+				'derivatives',
+				full=True)
 	class Meta:
 		queryset = Dataset.objects.all()
 		resource_name = 'dataset_derivatives'
@@ -115,6 +97,35 @@ class DatasetDerivativesResource(ModelResource):
 		filtering = {
 			'name': ALL,
 			'data_format': ALL,
+			'accessors': ALL,
+			'is_public': ALL,
+			'added_by': ALL,			
+		}
+        
+class DatasetSourcesResource(ModelResource):
+	# note that the name in the ForeignKey relation here is the name of the foreign key field we're mapping to.
+	scientist = fields.ForeignKey(ScientistResource, 'manager',null=True,blank=True,full=True)
+	license = fields.ForeignKey(LicenseResource, 'license',full=True)
+	added_by = fields.ForeignKey(UserResource, 'added_by',full=False, null=True, blank=True)
+	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
+
+	data_catalog = fields.ForeignKey(DataCatalogResource, 'data_catalog',null=True,blank=True,full=True)
+	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
+	
+	#sources = fields.ToManyField('self','derivatives')
+	children = fields.ToManyField('self','sources',full=True)
+	class Meta:
+		queryset = Dataset.objects.all()
+		resource_name = 'dataset_sources'
+		allowed_methods = ['get']
+		authentication = Authentication()
+		cache=SimpleCache()
+		filtering = {
+			'name': ALL,
+			'data_format': ALL,
+			'accessors': ALL,
+			'is_public': ALL,
+			'added_by': ALL,
 		}
         
 class MinimalDatasetResource(ModelResource):

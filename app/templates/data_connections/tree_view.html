@@ -33,20 +33,10 @@ var derivativeTree={"details":{},"children":[]};
 
 function populateTree(ds_id){
 	$.ajax({
-	    url: '/api/v1/dataset_derivatives/'+ds_id+'/?format=json',
+	    url: '/source_deriv_tree/'+ds_id+'?format=json',
 	    type: 'GET',
 	    success: function(data){
-			updateMap("derivatives",data);
-	    },
-	    error: function(response,str_error,error_obj) {
-	        console.log("Threw the error: "+str_error+" "+str(error_obj));
-	    }
-	});
-	$.ajax({
-	    url: '/api/v1/dataset_sources/'+ds_id+'/?format=json',
-	    type: 'GET',
-	    success: function(data){ 
-			updateMap("sources",data);
+			updateMap(data);
 	    },
 	    error: function(response,str_error,error_obj) {
 	        console.log("Threw the error: "+str_error+" "+str(error_obj));
@@ -54,7 +44,7 @@ function populateTree(ds_id){
 	});
 }
 
-var graph, width, height, cluster, manager_s, manager_d, diagonal, diagonal_inv = null;
+var graph, width, height, padding, cluster, manager_s, manager_d, diagonal, diagonal_inv = null;
 var i=0;
 
 var counter=0;
@@ -63,8 +53,10 @@ function initGraph(){
 	width = 800;
 	height = 600;
 	
+	padding = 160;
+	
 	cluster = d3.layout.cluster()
-	    .size([height, (width)/2.-160]);
+	    .size([height, (width)/2.-padding]);
 	
 	diagonal = d3.svg.diagonal()
 	    .projection(function(d) {return [d.y+width/2., d.x]; });
@@ -88,160 +80,258 @@ function resetMap(){
 }
 
 
-function updateMap(direction,tree){
-	var dir="";
-	if(direction=="sources"){dir="s";}
-	else{dir="d";}
+function resize(){
+	var mapWidth = $('#data_map').attr('width');
+	width=mapWidth;
+	d3.select("#data_map svg").attr("width",width);
+	
+}
 
-	var nodes = cluster.nodes(tree);
-	var links = cluster.links(nodes);
-	  	  
-	nodes.forEach(function(d,i) {
-		if(i==0){
-			d.x=height/2.;
+function updateMap(trees){
+	var dirs = [];
+	// we have derivatives!
+	if(trees["derivativeTree"]["children"].length != 0){dirs.push("d");}
+	// we have sources!
+	if(trees["sourceTree"]["children"].length != 0){dirs.push("s");}
+	
+	// handle the case where there are no sources or connections here.
+	// plotIsolatedDataset();
+	
+	// if there's only one or other direction, resort the layout
+	var hOffset=width/2;
+	if(dirs.length == 1){
+		cluster = d3.layout.cluster()
+		    .size([height, (width)-2*padding]);
+		
+		diagonal = d3.svg.diagonal()
+		    .projection(function(d) {return [d.y+padding, d.x]; });
+		
+		diagonal_inv = d3.svg.diagonal()
+		    .projection(function(d) { return [width-padding-d.y, d.x]; });
+		if(dirs[0]=="d"){hOffset=padding;}
+		if(dirs[0]=="s"){hOffset=width-padding;}
+	}
+	else if(dirs.length == 2){
+		cluster = d3.layout.cluster()
+		    .size([height, (width/2.)-padding]);
+		
+		diagonal = d3.svg.diagonal()
+		    .projection(function(d) {return [d.y+width/2., d.x]; });
+		
+		diagonal_inv = d3.svg.diagonal()
+		    .projection(function(d) { return [width/2.-d.y, d.x]; });
+
+	}
+	
+	
+	for(var ix in dirs){
+		var dir=dirs[ix];
+		var tree;
+
+		if(dir=="d"){
+			var tree=trees["derivativeTree"];
 		}
-		d.x0 = d.x;
-		d.y0 = d.y;
-	});
-	  
-	  var node = graph.selectAll(".node_"+dir)
-	      .data(nodes, function(d) { return d.id || (d.id = ++i); });
-	
-	  var nodeEnter = node.enter().append("g")
-	      .attr("class", "node_"+dir)
-	      .attr("transform", function(d) { 
-			  if(direction=="sources"){
-			      return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")";}
-		      else{
-		      	  return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")";}
-	       })
-		   .on("click", function(d) { printDetails(d); })
-		   .on("dblclick", function(d) { resetMap(); populateTree(d.id); });
-	  nodeEnter.append("svg:circle")
-	      .attr("r", 1e-6)
-	      //.style("fill", "#fff");
-	      .style("fill", function(d){
-	      
-	      	if(d.data_format.name == "Application"){ 
-	      		return "#0404B4";
-	      		}
-	      	else{
-	      		return "#fff";
-	      		}
-	      	});
-	
-	  nodeEnter.append("text")
-	      .attr("dx", 0)
-	      .attr("dy", 15)
-	      .style("text-anchor", "middle")
-	      .text(function(d,i) { if(direction=="sources" || i>0){return d.name;} })
-		  .style("fill-opacity", 1e-6);
-	
-	  var nodeUpdate = node.transition()													// update
-	      .duration(1000)
-	      .attr("transform", function(d) { 
-	      		if(direction=="sources"){
-		      		return "translate(" + (width/2.-d.y) + "," + d.x + ")";} 
-	      		else{
-					return "translate(" + (width/2.+d.y) + "," + d.x + ")";} 
-	  		})
-	
-	  nodeUpdate.select("circle")
-	      .attr("r", 4.5)
-	      .style("fill", 
-	      	//function(d) { return "#fff"; }
-		function(d){
-	      	if(d.data_format.name == "Application"){ 
-	      		return "#0404B4";
-	      		}
-	      	else{
-	      		return "#fff";
-	      		}
-	      	});
-	
-	  nodeUpdate.select("text")
-	      .style("fill-opacity", 1);
-	
-	  var nodeExit = node.exit().transition()
-	      .duration(1000)
-	      .attr("transform", function(d) { 
-	      			if(dir=="s"){return "translate(" + (width/2.-tree.y) + "," + (tree.x) + ")"; }
-	      			else{return "translate(" + (width/2.+tree.y) + "," + (tree.x) + ")"; }
-	      		})
-	      .remove();
-	
-	  nodeExit.select("circle")
-	      .attr("r", 1e-6);
-	
-	  nodeExit.select("text")
-	      .style("fill-opacity", 1e-6);
-	
-	
-	  // Update the links…
-	  var link = graph.selectAll(".link_"+dir)
-	      .data(links, function(d) { return d.target.id; });
-	
-	  // Enter any new links at the parent's previous position.
-	  var linkEnter=link.enter().insert("svg:path", "g")
-	      .attr("class", "link_"+dir)
-	      .attr("d", function(d) {
-     		if(direction=="sources"){
-			    //var o = {x: (width/2.-tree.x), y: tree.y};
-		        var o = {x: (height/2.), y: 0};
-		        return diagonal_inv({source: o, target: o});
-		        }
-	       else{
-			        //var o = {x: (width/2.+tree.x), y: tree.y};
-		        //var o = {x: (height/2.), y: (width/2.)};
-		        var o = {x: (height/2.), y: 0};
-		        return diagonal({source: o, target: o});
-		       }
-	      })
+		else{
+			var tree=trees["sourceTree"];
+		}
 
-	  // needs to be a full loop as the diagonal function must be set directly rather than passed as a return	 
-	if(direction=="sources"){
-		linkEnter.transition()
-	      .duration(1000)
-	      .attr("d", diagonal_inv);
+		var nodes = cluster.nodes(tree);
+		var links = cluster.links(nodes);
+		
+		nodes.forEach(function(d,i) {
+			// vertically center the starting node
+			if(i==0){
+				d.x=height/2.;
+			}
+			d.x0 = d.x;
+			d.y0 = d.y;
+		});
+		  
+		  var node = graph.selectAll(".node_"+dir)
+		      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+		
+		  var nodeEnter = node.enter().append("g")
+		      .attr("class", "node_"+dir)
+		      .attr("transform", function(d) { 
+				  if(dir=="s"){
+				      return "translate(" + (hOffset-tree.y) + "," + (tree.x) + ")";}
+			      else{
+			      	  return "translate(" + (hOffset+tree.y) + "," + (tree.x) + ")";}
+		       })
+			   .on("click", function(d) { printDetails(d); })
+			   .on("dblclick", function(d) { resetMap(); populateTree(d.id); });
 	
-		  // Transition links to their new position.
-		  link.transition()
+		  nodeEnter.append("image")
+		      .attr("xlink:href", function(d){
+		      		if(d.license.name == "Copyright"){
+		      			return "/static/user/img/icons/copyright.png";
+		      		}
+		      		else if(d.license.name == "Closed"){
+		      			return "/static/user/img/icons/closed.png";
+		      		}
+		      		else if(d.license.name == "Unknown"){
+		      			return "/static/user/img/icons/unknown.png";
+		      		}
+		      		else if(d.license.name == "Commercial"){
+		      			return "/static/user/img/icons/commercial.png";
+		      		}
+		      		else{
+		      			return "/static/user/img/icons/open.png";
+		      		}
+		      	})
+		      .attr("x", -8)
+		      .attr("y", -8)
+		      .attr("width", 16)
+		      .attr("height", 16);
+	
+		  /*nodeEnter.append("svg:circle")
+		      .attr("r", 1e-6)
+		      //.style("fill", "#fff");
+		      .style("fill", function(d){
+		      	if(d.data_format.name == "Application"){ 
+		      		return "#0404B4";
+		      		}
+		      	else{
+		      		return "#fff";
+		      		}
+		      	});*/
+		
+		  nodeEnter.append("text")
+		      .attr("dx", 0)
+		      .attr("dy", 15)
+		      .style("text-anchor", "middle")
+		      .text(function(d,i) { if(dir=="s" || i>0 || dirs.length<2){return d.name;} })
+			  .style("fill-opacity", 1e-6);
+		
+		  var nodeUpdate = node.transition()													// update
+		      .duration(1000)
+		      .attr("transform", function(d) { 
+		      		if(dir=="s"){
+			      		return "translate(" + (hOffset-d.y) + "," + d.x + ")";} 
+		      		else{
+						return "translate(" + (hOffset+d.y) + "," + d.x + ")";} 
+		  		})
+		
+		  nodeUpdate.select("circle")
+		      .attr("r", 4.5)
+		      .style("fill", 
+		      	//function(d) { return "#fff"; }
+			function(d){
+		      	if(d.data_format.name == "Application"){ 
+		      		return "#0404B4";
+		      		}
+		      	else{
+		      		return "#fff";
+		      		}
+		      	});
+		
+		  nodeUpdate.select("text")
+		      .style("fill-opacity", 1);
+		
+		  var nodeExit = node.exit().transition()
+		      .duration(1000)
+		      .attr("transform", function(d) { 
+		      			if(dir=="s"){return "translate(" + (hOffset-tree.y) + "," + (tree.x) + ")"; }
+		      			else{return "translate(" + (hOffset+tree.y) + "," + (tree.x) + ")"; }
+		      		})
+		      .remove();
+		
+		  nodeExit.select("circle")
+		      .attr("r", 1e-6);
+		
+		  nodeExit.select("text")
+		      .style("fill-opacity", 1e-6);
+		
+		
+		  // Update the links…
+		  var link = graph.selectAll(".link_"+dir)
+		      .data(links, function(d) { return d.target.id; });
+		
+		  // Enter any new links at the parent's previous position.
+		  var linkEnter=link.enter().insert("svg:path", "g")
+		      .attr("class", "link_"+dir)
+		      .attr("d", function(d) {
+	     		if(dir=="s"){
+				    //var o = {x: (width/2.-tree.x), y: tree.y};
+			        var o = {x: (height/2.), y: 0};
+			        return diagonal_inv({source: o, target: o});
+			        }
+		       else{
+				        //var o = {x: (width/2.+tree.x), y: tree.y};
+			        //var o = {x: (height/2.), y: (width/2.)};
+			        var o = {x: (height/2.), y: 0};
+			        return diagonal({source: o, target: o});
+			       }
+		      });
+	
+			  // ================================================
+			  // Add arrows to connected lines
+			  //
+	  	      /*.attr("marker-end",function(d){
+		     		if(direction=="derivatives"){
+		  	      		return "url(#triangle-end)";
+		  	      	}
+	  	      	})
+	  	      .attr("marker-start",function(d){
+		     		if(direction=="sources"){
+		  	      		return "url(#triangle-start)";
+		  	      	}
+	  	      	})*/
+	
+	  		  // allow click on lines
+	  		  //.on("click",function(){alert("clicked!")});
+	
+	
+		  // needs to be a full loop as the diagonal function must be set directly rather than passed as a return	 
+		if(dir=="s"){
+			linkEnter.transition()
 		      .duration(1000)
 		      .attr("d", diagonal_inv);
-	  }
-	  else{
-		linkEnter.transition()
-	      .duration(1000)
-	      .attr("d", diagonal);
-	
-		  // Transition links to their new position.
-		  link.transition()
+		
+			  // Transition links to their new position.
+			  link.transition()
+			      .duration(1000)
+			      .attr("d", diagonal_inv);
+		  }
+		  else{
+			linkEnter.transition()
 		      .duration(1000)
 		      .attr("d", diagonal);
-	  }
-	
-	  // Transition exiting nodes to the parent's new position.
-	  link.exit().transition()
-	      .duration(1000)
-	      .attr("d", function(d) {
-			  if(direction=="derivatives"){
-			        //var o = {x: (width/2.-tree.x), y: tree.y};
-			        var o = {x: (width/2.), y: 0};
-			        return diagonal_inv({source: o, target: o});
-		        }
-			  else{
-	  		        //var o = {x: (width/2.+tree.x), y: tree.y};
-			        var o = {x: (width/2.), y: 0};
-			        return diagonal({source: o, target: o});
-			  }
-	      })
-	      .remove();
 		
-	d3.select(self.frameElement).style("height", height + "px");
+			  // Transition links to their new position.
+			  link.transition()
+			      .duration(1000)
+			      .attr("d", diagonal);
+		  }
+		
+		  // Transition exiting nodes to the parent's new position.
+		  link.exit().transition()
+		      .duration(1000)
+		      .attr("d", function(d) {
+				  if(d=="d"){
+				        //var o = {x: (width/2.-tree.x), y: tree.y};
+				        var o = {x: (hOffset), y: 0};
+				        return diagonal_inv({source: o, target: o});
+			        }
+				  else{
+		  		        //var o = {x: (width/2.+tree.x), y: tree.y};
+				        var o = {x: (hOffset), y: 0};
+				        return diagonal({source: o, target: o});
+				  }
+		      })
+		      .remove();
+			
+		d3.select(self.frameElement).style("height", height + "px");
+	}
 }
 
 function printDetails(d){
 	$('#dataset_name').html(d["name"]);
+	
+	// Got to here.
+	$('#edit_dataset').attr("href",'/edit/'+d.id);
+	$('#dataset_description').html((d.description.length>100)?jQuery.trim(d.description).substring(0, 100)
+	    .split(" ").slice(0, -1).join(" ") + "...":d.description);
 	if(d["scientist"]!=null){
 		$('#dataset_scientist').html("<a href='/scientist/"+d.scientist.id+"'"+d.scientist.id+">"+d.scientist.firstname +" "+ d.scientist.lastname+"</a>");
 	}else{
@@ -284,8 +374,14 @@ function createMap(){
 			<div><strong>• Click a node to view details</strong></div>
 			<div><strong>• Double click a node to re-center</strong></div>
 			<hr/>
-			<div><h4><span id="dataset_name">{{ dataset.name }}</span></h4></div>
-
+			<div><h4><span id="dataset_name">{{ dataset.name }}</span> 
+			{% if user.is_authenticated %}
+			<a id='edit_dataset' href="{% url 'edit_dataset' dataset_id=dataset.id %}"><i class="icon-pencil"></i></a>
+			{% endif %}
+			</h4></div>
+			<div>Description: <p id="dataset_description">
+				{{ dataset.description|truncatechars:100 }}
+			</p></div>
 			<div>Manager: <span id="dataset_scientist">
 				{% if dataset.manager %}
 					<a href="{% url 'scientist_detail' scientist_id=dataset.manager.id %}">{{ dataset.manager.firstname }} {{ dataset.manager.lastname }}</a>
