@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 from tastypie.api import Api
 from data_connections.api import *
 
+# This needs to disappear in the production version.
 v1_api = Api(api_name='v1')
 v1_api.register(ScientistResource())
 v1_api.register(LicenseResource())
@@ -16,6 +17,7 @@ v1_api.register(DatasetUrlResource())
 
 urlpatterns = patterns('data_connections.views',
     url(r'^$', 'dataset_view',name='index'),
+    url(r'^source_deriv_tree/(?P<dataset_id>\d+)','getDerivsAndSources',name='source_deriv_tree'),
 	url(r'^dataset/(?P<dataset_id>\d+)', 'dataset_view',name="dataset_detail"),
 	url(r'^license/(?P<license_id>\d+)', 'license_view',name="license_detail"),
 	url(r'^data_format/(?P<format_id>\d+)', 'format_view',name="format_detail"),
@@ -25,8 +27,10 @@ urlpatterns = patterns('data_connections.views',
 	url(r'^organization/(?P<organization_id>\d+)', 'organization_view',name="organization_detail"),
 	# the add/edit/delete views
     (r'^add_dataset','add_dataset'),
+    url(r'^edit/(?P<dataset_id>\d+)','edit_dataset',name='edit_dataset'),
     (r'^add_application','add_application'),
     (r'^add_datarelation','add_datarelation'),
     (r'^search','search'),
-    (r'^api/', include(v1_api.urls)),
+	# toggle this to check the underlying API is working
+    #(r'^api/', include(v1_api.urls)),
 )

@@ -46,7 +46,7 @@ class Dataset(models.Model):
 	
 	data_catalog = models.ForeignKey(DataCatalog,null=True,blank=True)
 	# sets the registered user who added the dataset
-	added_by = models.ForeignKey(User,null=True)
+	added_by = models.ForeignKey(User,null=True,blank=True)
 
 	name = models.CharField(max_length=200)
 	date_published = models.DateTimeField('date published')
@@ -59,8 +59,10 @@ class Dataset(models.Model):
 	# relationships
 	data_format = models.ForeignKey(Format,related_name="formatted_datasets",null=True,blank=True)
 	license = models.ForeignKey(License,related_name="licensed_datasets",null=True,blank=True)
-	sources = models.ManyToManyField('self', through='DataRelation', symmetrical=False,
-									related_name='derivatives',null=True,blank=True)
+	derivatives = models.ManyToManyField('self', through='DataRelation', symmetrical=False,
+									related_name='sources',null=True,blank=True)
+	#sources = models.ManyToManyField('self', through='DataRelation', symmetrical=False,
+	#								related_name='derivatives',null=True,blank=True)
 	contributors = models.ManyToManyField('Scientist', through='ContributorRelation', symmetrical=False,
 									related_name='contributed_datasets',null=True,blank=True)
 
@@ -69,11 +71,33 @@ class Dataset(models.Model):
 	# scientists who are identified as managers, and who are registered users of Clean.Data.
 	managing_organization = models.ForeignKey("Organization",related_name="managed_datasets",null=True,blank=True)
 
+	is_public = models.BooleanField(verbose_name="Is this visible to others?", default = True)
+
 	def __unicode__(self):
 		return self.name
 	#class Meta:
 	#	unique_together = (('name','url'),)
-
+		
+# The permissions model
+class with_access(models.Model):
+	ReadOnly = 'RO'
+	ReadAndEdit = 'RW'
+	ReadEditDelete = 'RX'
+	ACCESS_LEVEL_CHOICES = (
+		('RO','Read only'),
+		('RW','Read and edit'),
+		('RX','Read, edit and delete')
+	)
+	dataset = models.ForeignKey(Dataset, related_name='accessors')
+	user = models.ForeignKey(Dataset, related_name='accessing')
+	access_level = models.CharField(max_length=2,
+                                      choices=ACCESS_LEVEL_CHOICES,
+                                      default=ReadOnly)
+	def can_edit(self):
+		return self.access_level in (self.ReadAndEdit, self.ReadEditDelete)
+	def can_delete(self):
+		return self.access_level in (self.ReadEditDelete)
+	
 
 class DataRelation(models.Model):
 	source = models.ForeignKey(Dataset, related_name='relation_to_derivative')

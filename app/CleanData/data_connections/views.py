@@ -8,6 +8,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 from models import *
 from forms import *
+from api import DatasetSourcesResource, DatasetDerivativesResource
+import json
 
 # super handy helper function
 def get_or_none(model, **kwargs):
@@ -55,7 +57,6 @@ def get_organization_or_create(name,url):
 			org_out = organization
 	return org_out
 
-# deprecated for now.
 def dataset_view(request,dataset_id=None):
 
 	if dataset_id==None:
@@ -87,6 +88,55 @@ def organization_view(request,organization_id):
 	return render_to_response('data_connections/organization_view.html',{"organization":theOrganization},
 							  context_instance=RequestContext(request))
 
+def checkDatasetIsVisible(dataset,theUser):
+	if dataset["is_public"]:
+		return True
+	if theUser.is_superuser:
+		return True
+	if dataset["added_by"]!=None and dataset["added_by"]!='' and dataset["added_by"]["id"] == theUser:
+		return True
+
+	# add extra permissions structure here
+
+	return False
+
+# gets rid of any private data node if you don't have the rights to view it.
+def removePrivateData(theUser,tree,childKey):
+	for child in tree[childKey]:
+		if child["is_public"]:
+			if len(child[childKey])>0:
+				removePrivateData(theUser,tree,childKey)
+		else:
+			if checkDatasetIsVisible(child,theUser):
+				if len(child[childKey])>0:
+					removePrivateData(theUser,tree,childKey)
+			else:
+				tree[childKey].remove(child)
+
+def getDerivsAndSources(request,dataset_id):
+	d=get_or_none(Dataset,id=dataset_id)
+	if d==None:
+		return HttpResponse(json.dumps({"error":"No dataset with this id"}), content_type="application/json")
+	srcs = DatasetSourcesResource()
+	src_request_bundle = srcs.build_bundle(obj=d,request=request)		# empty object at this stage
+	#src_queryset = srcs.obj_get_list(src_request_bundle)						# builds a queryset
+
+	derivs = DatasetDerivativesResource()
+	deriv_request_bundle = derivs.build_bundle(obj=d,request=request)		# empty object at this stage
+	#deriv_queryset = derivs.obj_get_list(deriv_request_bundle)						# builds a queryset
+	
+	# This line needs to be fixed to match up to expectations. Needs to be fixed in the API request
+	sources = json.loads(srcs.serialize(None,srcs.full_dehydrate(src_request_bundle), 'application/json'))
+	derivatives = json.loads(derivs.serialize(None,derivs.full_dehydrate(deriv_request_bundle), 'application/json'))
+
+	# only remove private data if the user is not a superuser
+	if not request.user.is_superuser:
+		removePrivateData(request.user,derivatives,"derivatives")
+		removePrivateData(request.user,sources,"sources")
+	
+	return HttpResponse(json.dumps({"derivativeTree":derivatives,"sourceTree":sources}), content_type="application/json")
+
+
 def add_dataset(request):
 	if not request.user.is_authenticated():
 		return redirect('index')
@@ -104,6 +154,8 @@ def add_dataset(request):
 			#if organization!=None:
 			#	d_obj.managing_organization = organization
 
+			d_obj.added_by = request.user
+
 			d_obj.save()
 			return redirect('index') # Redirect after POST
 		else:
@@ -113,6 +165,44 @@ def add_dataset(request):
 		dataset_form = NewDataSetForm()
 
 	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+
+def edit_dataset(request,dataset_id):
+	if not request.user.is_authenticated():
+		return redirect('index')
+
+	p = request.user
+	d = get_object_or_404(Dataset, id=dataset_id)
+
+	editors = []
+	if d.manager != None:
+		if d.manager.user!=None:
+			editors.append(d.manager.user)
+	accessors = with_access.objects.filter(access_level__in=['RW','RX'],dataset=d).all()
+	for item in accessors:
+		if item != None:
+			editors.append(item.user)
+	if not request.user.is_superuser and p!=d.manager.user and p not in editors:
+		return redirect('index')
+
+	# called once the form is submitted
+	if request.method == 'POST':
+		dataset_form = EditDataSetForm(request.POST,instance=d)
+
+		if dataset_form.is_valid():
+			d_obj = dataset_form.save(commit=False)
+			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
+			if manager!=None:
+				d_obj.manager = manager
+
+			d_obj.save()
+			return redirect('index') # Redirect after POST
+		else:
+			return render_to_response('data_connections/edit_dataset.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
+
+	else:
+		dataset_form = EditDataSetForm(instance=d)
+
+	return render_to_response('data_connections/edit_dataset.html',{"dataset_form":dataset_form,"manager":d.manager}, context_instance=RequestContext(request))
 
 # adds an application object to the data
 def add_application(request):
@@ -130,6 +220,9 @@ def add_application(request):
 			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
 			if manager!=None:
 				d_obj.manager = manager
+
+			d.added_by = request.user
+
 			d_obj.save()
 			return redirect('dataset/{0}'.format(d_obj.id)) # Redirect after POST
 			#return HttpResponseRedirect(reverse('dataset', args=[d_obj.id]))
