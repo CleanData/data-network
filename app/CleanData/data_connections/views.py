@@ -138,16 +138,20 @@ def checkDatasetIsVisible(dataset,theUser):
 	return False
 
 
+_notes=0
+
 # gets rid of any private data node if you don't have the rights to view it.
 def removePrivateData(theUser,tree,childKey):
+	if childKey not in tree.keys():
+		return
 	for child in tree[childKey]:
 		if child["is_public"]:
 			if len(child[childKey])>0:
-				removePrivateData(theUser,tree,childKey)
+				removePrivateData(theUser,child,childKey)
 		else:
 			if checkDatasetDictIsVisible(child,theUser):
 				if len(child[childKey])>0:
-					removePrivateData(theUser,tree,childKey)
+					removePrivateData(theUser,child,childKey)
 			else:
 				tree[childKey].remove(child)
 
@@ -168,11 +172,11 @@ def getDerivsAndSources(request,dataset_id):
 
 	# only remove private data if the user is not a superuser
 	if not request.user.is_superuser:
-		if request.user.is_authenticated():
-			removePrivateData(request.user,derivatives,"derivatives")
-			removePrivateData(request.user,sources,"sources")
+		removePrivateData(request.user,derivatives,"children")
+		removePrivateData(request.user,sources,"children")
+
 	
-	return HttpResponse(json.dumps({"derivativeTree":derivatives,"sourceTree":sources}), content_type="application/json")
+	return HttpResponse(json.dumps({"notes":_notes,"derivativeTree":derivatives,"sourceTree":sources}), content_type="application/json")
 
 
 def add_dataset(request):
