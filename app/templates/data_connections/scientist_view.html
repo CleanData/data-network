@@ -12,10 +12,108 @@
 
 <div class="container">
 	<div class="row-fluid">
-		<h4>Name: {{ scientist.firstname }} {{ scientist.lastname }}</h4>
+		<div class="span2">
+		<div style="width:100px; height: 100px; background-color: rgb(230,230,230); border-radius: 50px;"></div>
+		<h4>{{ scientist.firstname }} {{ scientist.lastname }}</h4>
 		{% if scientist.profile_url != "" %}
-			<div><a href="{{ scientist.profile_url }}" target=_blank>Web Profile</a></div>
+			<div><a href="{{ scientist.profile_url }}" target=_blank>Website</a></div>
 		{% endif %}
+		<br>
+		{% if scientist.github_url != "" %}
+			<div id="github"><a href="{{ scientist.github_url }}" target=_blank>Github Profile</a></div>
+		{% endif %}
+		{% if scientist.linkedin_url != "" %}
+			<div id="linkedIn"><a href="{{ scientist.linkedin_url }}" target=_blank>LinkedIn Profile</a></div>
+		{% endif %}
+
+		{% if organization_list|length > 0 %}
+		<h5>Organizations:</h5>
+		{% for organization in organization_list %}
+			<div><a href="{% url 'organization_detail' organization_id=organization.id %}">{{ organization.name }}</a> 
+			<a href="{{ organization.url }}" target=_blank><i class="icon-globe"></i></a></div>
+		{% endfor %}
+		{% endif %}
+		</div>
+		<div class="span10">
+			<h5>Managed Datasets</h5>
+			<table class="table table-striped table-condensed table-hover">
+			<thead>
+				<th class="span6"><a href="?order_by={% if order_by == 'title' %}-{% endif %}title">Name
+					{% if order_by == 'title' %}
+						<i class="icon-chevron-down"></i>
+					{% elif order_by == '-title' %}
+						<i class="icon-chevron-up"></i>
+					{% endif %}
+				</a></th>
+				<th class="span1"><a href="?order_by={% if order_by == 'issued' %}-{% endif %}issued">Published
+					{% if order_by == 'issued' %}
+						<i class="icon-chevron-down"></i>
+					{% elif order_by == '-issued' %}
+						<i class="icon-chevron-up"></i>
+					{% endif %}
+				</a></th>
+				<th class="span1"><a href="?order_by={% if order_by == 'modified' %}-{% endif %}modified">Updated
+					{% if order_by == 'modified' %}
+						<i class="icon-chevron-down"></i>
+					{% elif order_by == '-modified' %}
+						<i class="icon-chevron-up"></i>
+					{% endif %}
+				</a></th>
+				<th class="span1"><a href="?order_by={% if order_by == 'src_count' %}-{% endif %}src_count">Sources
+					{% if order_by == 'src_count' %}
+						<i class="icon-chevron-down"></i>
+					{% elif order_by == '-src_count' %}
+						<i class="icon-chevron-up"></i>
+					{% endif %}
+				</a></th>
+				<th class="span1"><a href="?order_by={% if order_by == 'deriv_count' %}-{% endif %}deriv_count">Derivatives
+					{% if order_by == 'deriv_count' %}
+						<i class="icon-chevron-down"></i>
+					{% elif order_by == '-deriv_count' %}
+						<i class="icon-chevron-up"></i>
+					{% endif %}
+				</a></th>
+			</thead>
+			
+			{% for dataset in datasets %}
+			    {# Each "dataset" is a Dataset model object. #}
+			    <tr>
+				    <td><a href="{% url 'dataset_detail' dataset_id=dataset.id %}">{{ dataset.title }}</a> 
+				    	<a href="{{ dataset.landingPage }}"><i class="icon-globe"></i></a>
+				    </td>
+				    <td>{{ dataset.issued | date:"m.d.Y" }}</td>
+				    <td>{{ dataset.modified | date:"m.d.Y" }}</td>
+				    <td>{{ dataset.src_count }}</td>
+				    <td>{{ dataset.deriv_count }}</td>
+			    </tr>
+			{% endfor %}
+			</table>
+			
+			<div class="pagination">
+			  <ul>
+			    {% if datasets.has_previous %}
+				    {% if datasets.previous_page_number > 1 %}
+					    <li><a href="?page=1&order_by={{ order_by }}">1</a></li>
+					    {% if datasets.number > 3 %}
+						    <li class="disabled"><a href="#">...</a></li>
+					    {% endif %}
+				    {% endif %}
+				    <li><a href="?page={{ datasets.previous_page_number }}&order_by={{ order_by }}">{{ datasets.previous_page_number }}</a></li>
+			    {% endif %}
+			    <li class="active"><a href="?page={{ datasets.number }}&order_by={{ order_by }}">{{ datasets.number }}</a></li>
+			    {% if datasets.has_next %}
+				    <li><a href="?page={{ datasets.next_page_number }}&order_by={{ order_by }}">{{ datasets.next_page_number }}</a></li>
+				    {% if datasets.next_page_number != datasets.paginator.num_pages %}
+					    {% if datasets.number < datasets.buffer_end %}
+						    <li class="disabled"><a href="#">...</a></li>
+					    {% endif %}
+					    <li><a href="?page={{ datasets.paginator.num_pages }}&order_by={{ order_by }}">{{ datasets.paginator.num_pages }}</a></li>
+				    {% endif %}
+			    {% endif %}
+			  </ul>
+			</div>
+		</div>
+		
 	</div>
 </div>
 

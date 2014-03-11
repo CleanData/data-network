@@ -34,6 +34,9 @@ urlpatterns = patterns('data_connections.views',
     url(r'^add_datarelation$','add_datarelation',name="add_datarelation"),
     url(r'^search$','search'),
     url(r'^searchAPI$','searchAPI'),
+    url(r'^findSimilarKeywords$','findSimilarKeywords'),
+    url(r'^findSimilarCategories$','findSimilarCategories'),
+    url(r'^findSimilarDataset$','searchAPI'),
 	# toggle this to check the underlying API is working
     #(r'^api/', include(v1_api.urls)),
 )

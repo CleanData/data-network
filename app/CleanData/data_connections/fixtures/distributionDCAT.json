@@ -1,0 +1,251 @@
+[
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+            "license": ["MIT"],
+            "data_format": ["JSON"],
+			"accessURL":"",
+			"downloadURL":"",
+            "modified": "2013-07-27T01:31:13Z",
+            "issued": "2013-07-27T01:31:11Z",
+			"dataset": ["Test dataset"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+			"accessURL":"",
+			"downloadURL":"",
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2011-09-28T00:00:00Z",
+			"dataset": ["Electric Consumption by ZIP Code - 2010"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+			"accessURL":"",
+			"downloadURL":"",
+            "modified": "2013-06-26T00:00:00Z",
+            "issued": "2012-09-06T00:00:00Z",
+			"dataset": ["Energy Usage From DCAS Buildings"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "modified": "2013-06-26T00:00:00Z",
+            "issued": "2012-09-06T00:00:00Z",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+			"dataset": ["Energy Usage From DOE Buildings"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2012-02-14T00:00:00Z",
+			"dataset": ["Energy Efficiency Projects"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2012-02-14T00:00:00Z",
+			"dataset": ["2010 & 2011 NYC Municipal Building Energy Benchmarking Results"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+            "modified": "2011-09-28T00:00:00Z",
+            "issued": "2011-09-28T00:00:00Z",
+			"dataset": ["Steam Consumption by ZIP Code - 2010"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": 1,
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2011-09-29T00:00:00Z",
+			"dataset": ["Oil Boilers - Detailed Fuel Consumption and Building Data"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+            "modified": "2011-09-28T00:00:00Z",
+            "issued": "2011-09-28T00:00:00Z",
+			"dataset": ["Natural Gas Consumption by ZIP Code - 2010"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2012-06-26T00:00:00Z",
+			"dataset": ["NYC Cool Roofs Buildings"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2012-06-26T00:00:00Z",
+			"dataset": ["Oil Usage (Select City Owned Buildings)"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Attribution License (ODC-By)"],
+            "data_format": ["CSV"],
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2012-06-29T00:00:00Z",
+			"dataset": ["Sustainability Indicators (2012)"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Unknown"],
+            "data_format": ["Mapbox Map"],
+            "modified": "2013-06-21T00:00:00Z",
+            "issued": "2012-06-29T00:00:00Z",
+			"dataset": ["NYC Energy Map"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Unknown"],
+            "data_format": ["TSV"],
+            "modified": "2013-06-29T00:00:00Z",
+            "issued": "2013-05-29T00:00:00Z",
+			"dataset": ["Energy Zip - processed data"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Unknown"],
+            "data_format": ["JSON"],
+            "modified": "2013-05-29T00:00:00Z",
+            "issued": "2013-05-29T00:00:00Z",
+			"dataset": ["Energy Zip - JSONed data for app"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "data_format": ["GeoJSON"],
+            "modified": "2013-04-10T00:00:00Z",
+            "issued": "2013-04-10T00:00:00Z",
+			"dataset": ["NYC Zipcode Tabulation Areas - GeoJSON"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "data_format": ["Shapefile"],
+            "modified": "2013-04-09T00:00:00Z",
+            "issued": "2013-04-09T00:00:00Z",
+			"dataset": ["NYC Zipcode Tabulation Areas"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "data_format": ["CSV"],
+            "modified": "2010-12-30T00:00:00Z",
+            "issued": "2010-12-30T00:00:00Z",
+			"dataset": ["Median Value of Owner Occupied Housing Units, NYC"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "data_format": ["CSV"],
+            "modified": "2010-12-30T00:00:00Z",
+            "issued": "2010-12-30T00:00:00Z",
+			"dataset": ["Households and Families: 2010 Census Summary File 1, NYC"]}
+	},
+	{
+		"model":"data_connections.Distribution",
+		"pk":null,
+		"fields":{
+			"accessURL":"",
+			"downloadURL":"",
+            "license": ["Open Data Commons Open Database License (ODC-ODbL)"],
+            "data_format": ["CSV"],
+            "modified": "2011-12-30T00:00:00Z",
+            "issued": "2011-12-30T00:00:00Z",
+			"dataset": ["Median Income In The Past 12 Months, NYC"]}
+	}
+]
+
+
+
+
+
+
+
+
+

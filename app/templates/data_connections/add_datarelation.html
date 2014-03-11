@@ -98,7 +98,7 @@ function searchForSets(input){
 				for(var i in data.results){
 					$('<option>')
 						.val(data.results[i].id)
-						.text(data.results[i].name+" ("+data.results[i].format+")")
+						.text(data.results[i].title+" ("+data.results[i].format+")")
 						.appendTo('#'+input+'_select');
 				}
 		  });	

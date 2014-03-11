@@ -57,7 +57,7 @@ def get_organization_or_create(name,url):
 			org_out = organization
 	return org_out
 
-# This is currently the index view
+# ----------------------------------- the view -----------------------------------
 def dataset_view(request,dataset_id=None):
 	if dataset_id==None:
 		if not request.user.is_authenticated():
@@ -73,7 +73,8 @@ def dataset_view(request,dataset_id=None):
 		theDataset = get_object_or_404(Dataset.objects.select_related(), id=dataset_id)
 		if not checkDatasetIsVisible(theDataset,request.user):
 			raise Http404
-	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset},
+	distributions = Distribution.objects.select_related('data_format','license').filter(dataset=theDataset).all()
+	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset,"distributions":distributions},
 							  context_instance=RequestContext(request))
 def random_dataset_view(request):
 	theDataset = Dataset.objects.filter(is_public=True)\
@@ -96,7 +97,21 @@ def catalog_view(request,data_catalog_id):
 							  context_instance=RequestContext(request))
 def scientist_view(request,scientist_id):
 	theScientist = get_object_or_404(Scientist, id=scientist_id)
-	return render_to_response('data_connections/scientist_view.html',{"scientist":theScientist},
+	organizations = theScientist.organization_set.all();
+
+	dataset_list = Dataset.objects.all()\
+						  .filter(is_public=True)\
+						  .filter(contactPoint=theScientist)\
+						  .annotate(src_count=Count('derivatives'))\
+						  .annotate(deriv_count=Count('sources'))\
+						  .select_related('data_format')\
+						  .order_by('title')
+	paginator = Paginator(dataset_list, 15)
+
+	datasets = paginator.page(1)
+	return render_to_response('data_connections/scientist_view.html',{"scientist":theScientist,
+																	  "organization_list":organizations,
+																	  "datasets":datasets},
 							  context_instance=RequestContext(request))
 def organization_view(request,organization_id):
 	theOrganization = get_object_or_404(Organization.objects.select_related(), id=organization_id)
@@ -189,16 +204,62 @@ def add_dataset(request):
 
 		if dataset_form.is_valid():
 			d_obj = dataset_form.save(commit=False)
-			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
-			if manager!=None:
-				d_obj.manager = manager
-			#organization = get_organization_or_create(request.POST["organization_name"], request.POST["organization_url"])
-			#if organization!=None:
-			#	d_obj.managing_organization = organization
-
+			contactPoint = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
+			if contactPoint!=None:
+				d_obj.contactPoint = contactPoint
 			d_obj.added_by = request.user
-
 			d_obj.save()
+
+			# first remove all categories, and then rebuild
+			categories = request.POST.getlist('category')
+			for cat in categories:
+				c_obj = get_or_none(Category, category=cat)
+				if c_obj==None:
+					c_obj=Category(category=cat)
+					c_obj.save()
+				if c_obj not in d_obj.categories.all():
+					d_obj.categories.add(c_obj)
+					d_obj.save()
+			# get list of keywords and save
+			keywords = request.POST.getlist('keyword')
+			for k in keywords:
+				k_obj = get_or_none(Keyword, keyword=k)
+				if k_obj==None:
+					k_obj=Keyword(keyword=k)
+					k_obj.save()
+				if k_obj not in d_obj.keywords.all():
+					d_obj.keywords.add(k_obj)
+					d_obj.save()
+			# get list of sources and save
+			sIDAddList = request.POST.getlist('add_source')
+			for sID in sIDAddList:
+				if sID==d_obj.id:
+					continue
+				s_obj = get_or_none(Dataset, id=sID)
+				if s_obj==None:
+					continue
+				if not checkDatasetIsVisible(s_obj,request.user):
+					continue
+				s_rel = get_or_none(DataRelation,source=s_obj,derivative=d_obj)
+				if s_rel==None:
+					s_rel=DataRelation(source=s_obj,derivative=d_obj)
+					s_rel.save()
+			# get list of derivatives and save
+			dIDAddList = request.POST.getlist('add_derivative')
+			for dID in dIDAddList:
+				if dID==d_obj.id:
+					continue
+				der_obj = get_or_none(Dataset, id=dID)
+				if der_obj==None:
+					continue
+				if not checkDatasetIsVisible(der_obj,request.user):
+					continue
+				der_rel = get_or_none(DataRelation,source=d_obj,derivative=der_obj)
+				if der_rel==None:
+					der_rel=DataRelation(source=d_obj,derivative=der_obj)
+					der_rel.save()
+			d_obj.save()
+
 			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
 		else:
 			return render_to_response('data_connections/add_dataset.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
@@ -216,14 +277,17 @@ def edit_dataset(request,dataset_id):
 	d = get_object_or_404(Dataset, id=dataset_id)
 
 	editors = []
-	if d.manager != None:
-		if d.manager.user!=None:
-			editors.append(d.manager.user)
+	if d.contactPoint != None:
+		if d.contactPoint.user!=None:
+			editors.append(d.contactPoint.user)
 	accessors = with_access.objects.filter(access_level__in=['RW','RX'],dataset=d).all()
 	for item in accessors:
 		if item != None:
 			editors.append(item.user)
-	if not request.user.is_superuser and p!=d.manager.user and p not in editors:
+	manager = d.contactPoint
+	if manager!=None:
+		manager=manager.user
+	if not request.user.is_superuser and p!=manager and p not in editors:
 		return redirect('index')
 
 	# called once the form is submitted
@@ -232,10 +296,88 @@ def edit_dataset(request,dataset_id):
 
 		if dataset_form.is_valid():
 			d_obj = dataset_form.save(commit=False)
-			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
-			if manager!=None:
-				d_obj.manager = manager
+			contactPoint = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
+			if contactPoint!=None:
+				d_obj.contactPoint = contactPoint
+			d_obj.save()
 
+			# first remove all categories, and then rebuild
+			d_obj.categories.clear()
+			categories = request.POST.getlist('category')
+			for cat in categories:
+				c_obj = get_or_none(Category, category=cat)
+				if c_obj==None:
+					c_obj=Category(category=cat)
+					c_obj.save()
+				if c_obj not in d_obj.categories.all():
+					d_obj.categories.add(c_obj)
+					d_obj.save()
+
+			
+			# get list of keywords and save
+			d_obj.keywords.clear()
+			keywords = request.POST.getlist('keyword')
+			for k in keywords:
+				k_obj = get_or_none(Keyword, keyword=k)
+				if k_obj==None:
+					k_obj=Keyword(keyword=k)
+					k_obj.save()
+				if k_obj not in d_obj.keywords.all():
+					d_obj.keywords.add(k_obj)
+					d_obj.save()
+			
+			# get list of sources and save
+			sIDAddList = request.POST.getlist('add_source')
+			for sID in sIDAddList:
+				if sID==d_obj.id:
+					continue
+				s_obj = get_or_none(Dataset, id=sID)
+				if s_obj==None:
+					continue
+				if not checkDatasetIsVisible(s_obj,request.user):
+					continue
+				s_rel = get_or_none(DataRelation,source=s_obj,derivative=d_obj)
+				if s_rel==None:
+					s_rel=DataRelation(source=s_obj,derivative=d_obj)
+					s_rel.save()
+			sIDRemoveList = request.POST.getlist('remove_source')
+			for sID in sIDRemoveList:
+				if sID==d_obj.id:
+					continue
+				s_obj = get_or_none(Dataset, id=sID)
+				if s_obj==None:
+					continue
+				if not checkDatasetIsVisible(s_obj,request.user):
+					continue
+				s_rel = get_or_none(DataRelation,source=s_obj,derivative=d_obj)
+				if s_rel!=None:
+					s_rel.delete()
+			# get list of derivatives and save
+			dIDAddList = request.POST.getlist('add_derivative')
+			for dID in dIDAddList:
+				if dID==d_obj.id:
+					continue
+				der_obj = get_or_none(Dataset, id=dID)
+				if der_obj==None:
+					continue
+				if not checkDatasetIsVisible(der_obj,request.user):
+					continue
+				der_rel = get_or_none(DataRelation,source=d_obj,derivative=der_obj)
+				if der_rel==None:
+					der_rel=DataRelation(source=d_obj,derivative=der_obj)
+					der_rel.save()
+			dIDRemoveList = request.POST.getlist('remove_derivative')
+			for dID in dIDRemoveList:
+				if dID==d_obj.id:
+					continue
+				der_obj = get_or_none(Dataset, id=dID)
+				if der_obj==None:
+					continue
+				if not checkDatasetIsVisible(der_obj,request.user):
+					continue
+				der_rel = get_or_none(DataRelation,source=d_obj,derivative=der_obj)
+				if der_rel!=None:
+					der_rel.delete()
 			d_obj.save()
 			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
 		else:
@@ -244,7 +386,12 @@ def edit_dataset(request,dataset_id):
 	else:
 		dataset_form = EditDataSetForm(instance=d)
 
-	return render_to_response('data_connections/edit_dataset.html',{"dataset_form":dataset_form,"manager":d.manager}, context_instance=RequestContext(request))
+	categories = [{'text':cat.category,'label':cat.category.replace(' ','_').lower()} for cat in d.categories.all()]
+	keywords = [{'text':k.keyword,'label':k.keyword.replace(' ','_').lower()} for k in d.keywords.all()]
+	sources = [{'title':s.title,'label':s.title.replace(' ','_').lower(),'description':s.description,'id':s.id} for s in d.sources.all() if checkDatasetIsVisible(s,request.user)]
+	derivatives = [{'title':ds.title,'label':ds.title.replace(' ','_').lower(),'description':ds.description,'id':ds.id} for ds in d.derivatives.all() if checkDatasetIsVisible(ds,request.user)]
+	
+	return render_to_response('data_connections/edit_dataset.html',{"dataset_form":dataset_form,"contactPoint":d.contactPoint,"categories":categories,"keywords":keywords,'sources':sources,'derivatives':derivatives}, context_instance=RequestContext(request))
 
 def delete_dataset(request,dataset_id):
 	return redirect('index')
@@ -302,9 +449,9 @@ def add_application(request):
 		if dataset_form.is_valid():
 			d_obj = dataset_form.save(commit=False)
 			d_obj.data_format=Format.objects.get(name__exact = "Application")
-			manager = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
-			if manager!=None:
-				d_obj.manager = manager
+			contactPoint = get_manager_or_create(request.POST["manager_firstname"], request.POST["manager_lastname"], request.POST["manager_profile_url"])
+			if contactPoint!=None:
+				d_obj.contactPoint = contactPoint
 
 			d_obj.added_by = request.user
 
@@ -342,7 +489,7 @@ def add_datarelation(request):
 	
 def search(request):
 	if 'query' in request.GET and request.GET['query'] != '':
-		results = Dataset.objects.filter(name__icontains=request.GET['query'])
+		results = Dataset.objects.filter(title__icontains=request.GET['query'])
 	else :
 		results = []
 	parsedResults=[]
@@ -353,28 +500,25 @@ def search(request):
 	return render_to_response('data_connections/search_result.html',{"results":parsedResults},context_instance=RequestContext(request))
 
 def searchAPI(request):
-	HttpResponse("Got to here")
 	if 'query' in request.GET and request.GET['query'] != '':
-		results = Dataset.objects.filter(name__icontains=request.GET['query'])\
-								.select_related('data_format')\
-								.order_by("name")
+		results = Dataset.objects.filter(title__icontains=request.GET['query'])
 	else :
 		results = []
 	parsedResults=[]
 	for d in results:
 		if checkDatasetIsVisible(d,request.user):
 			parsedResults.append(d)
-	resultSet = [{"name":x.name,"id":x.id,"format":x.data_format.name} for x in parsedResults]
-	return HttpResponse(json.dumps({"results":resultSet}), content_type="application/json")
+	resultSet = [{"title":x.title,"id":x.id,"description":x.description} for x in parsedResults]
+	return HttpResponse(json.dumps({"suggestions":resultSet}), content_type="application/json")
 
 
 def all_datasets(request):
 
-	fields = { "name":"Name","date_published":"Published","date_last_edited":"Last Edited","data_format__name":"Format","src_count":"Sources","deriv_count":"Derivatives" }
+	fields = { "title":"Name","issued":"Published","modified":"Last Edited","data_format__name":"Format","src_count":"Sources","deriv_count":"Derivatives" }
 	
 	order_field = request.GET.get('order_by')
 	if order_field == None:
-		order_field = 'name'
+		order_field = 'title'
 
 	dataset_list = Dataset.objects.all()\
 						  .filter(is_public=True)\
@@ -399,10 +543,19 @@ def all_datasets(request):
 
 	return render_to_response('data_connections/all_datasets.html', {"datasets": datasets,"order_by":order_field}, context_instance=RequestContext(request))
 	
+def findSimilarKeywords(request):
+	segment = request.GET.get('query');
+	options=Keyword.objects.filter(keyword__istartswith=segment).all()
+	suggestions = [{'text':obj.keyword,"id":obj.id} for obj in options]
+	return HttpResponse(json.dumps({"suggestions":suggestions}), content_type="application/json")
 	
+def findSimilarCategories(request):
+	segment = request.GET.get('query');
+	options=Category.objects.filter(category__istartswith=segment).all()
+	suggestions = [{'text':obj.category,"id":obj.id} for obj in options]
+	return HttpResponse(json.dumps({"suggestions":suggestions}), content_type="application/json")
 	
-	
-	
+
 	
 	
 	
