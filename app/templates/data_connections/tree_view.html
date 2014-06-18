@@ -421,10 +421,10 @@ function createMap(){
 				<li>{{ dist.data_format.name }} 
 					<a href="{% url 'format_detail' format_id=dist.data_format.id %}"><i class="icon-info-sign"></i></a>
 					{% if dist.accessURL|length > 0 %}
-						<a href="{{ dist.data_format.accessURL }}"><i class="icon-globe"></i></a>
+						<a href="{{ dist.accessURL }}"><i class="icon-globe"></i></a>
 					{% endif %}
 					{% if dist.downloadURL|length > 0 %}
-						<a href="{{ dist.data_format.downloadURL }}"><i class="icon-download-alt"></i></a>
+						<a href="{{ dist.downloadURL }}"><i class="icon-download-alt"></i></a>
 					{% endif %}
 				</li>
 			{% endfor%}

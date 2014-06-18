@@ -30,9 +30,8 @@
 		<div class="span12">
 		<form method="post" id="theForm" action="" class="form-horizontal">
 		<fieldset>
-		<legend>Edit Dataset <button action='submit' class='btn pull-right'>Submit changes</button></legend>
-		
-
+			  
+		<legend>Edit Dataset <button type="button" class="btn pull-right" onclick="location.href='{% url "index" %}'">Cancel</button><button type="submit" value="{% trans 'Submit' %}" class="btn btn-primary pull-right">Save Changes</button></legend>
 		<div class="row">
 			<div class="span6">
 			  {% csrf_token %}
@@ -44,13 +43,10 @@
 				{% endfor %}
 			</div>
 			<div class="span6">
-				<!--<div class="control-group" id="manager_controls">
-			        <label class="control-label">Manager (optional) </label> <div class="controls"><input type="text" name="manager_firstname" placeholder="first name"/> <input type="text" name="manager_lastname" placeholder="last name"/> <input type="text" name="manager_profile_url" placeholder="url of profile page"/></div>
-				</div>-->
-		        <label>Contact Point (optional) </label>
-		        <input type="text" name="manager_firstname" placeholder="first name" class="input-xs"/>
-		        <input type="text" name="manager_lastname" placeholder="last name" class="input-xs"/>
-		        <input type="text" name="manager_profile_url" placeholder="url of profile page" class="input-s"/>
+		        <label>Contact Point (optional) {{ contactPoint }}</label>
+		        <input type="text" name="manager_firstname" placeholder="first name" value="{{ contactPoint.firstname }}" class="input-xs"/>
+		        <input type="text" name="manager_lastname" placeholder="last name" value="{{ contactPoint.lastname }}" class="input-xs"/>
+		        <input type="text" name="manager_profile_url" placeholder="url of profile page" value="{{ contactPoint.profile_url }}" class="input-s"/>
 				<br>
 				<hr>
 				<div class="control-group">
@@ -113,13 +109,102 @@
 					{% endfor %}
 					</div>
 				</div>
-				<hr>		        
-			</div>
-		</div>
-		<div class="control-group">
-			<div class="controls">
-			  <button type="submit" value="{% trans 'Submit' %}" class="btn btn-primary">Save Changes</button>
-			  <button type="button" class="btn" onclick="location.href='{% url "index" %}'">Cancel</button>
+				<hr>	
+				<h4>Distributions</h4>
+				<input type='number' value={{ distributions|length }} id='distCount' name='distCount' style='display:none'/>
+				<ul class="nav nav-tabs" id="distTabs">
+					{% for dist in distributions %}
+					  <li id='dist{{forloop.counter}}List'><a id="dist{{forloop.counter}}Link" href="#dist{{forloop.counter}}" data-toggle="tab">{{forloop.counter}}</a></li>
+				    {% endfor %}
+				  <li><a id='addDistLink' href="#addDist">+</a></li>
+				</ul>
+				<div class='tab-content' id='distTabContent'>
+				{% for dist in distributions %}
+					<div class="tab-pane" id="dist{{forloop.counter}}">					
+						<input type='number' id='distID_{{forloop.counter}}' name='distID_{{forloop.counter}}' value='{{dist.id}}' style='display:none'>
+						<div class="control-group" style='display:none'>
+					        <label class="control-label">Distribution Name </label>
+							<div class='controls'>
+								<div class="input">
+						        <input type="text" id="distTitleInput_{{forloop.counter}}" name="distTitleInput_{{forloop.counter}}" placeholder="Title of distribution" class="input-xs" value='{{dist.title}}' />
+								</div>
+							</div>
+						</div>
+						<div class="control-group" style='display:none'>
+					        <label class="control-label">Description </label>
+							<div class='controls'>
+								<div class="input">
+						        <textarea class="input-block-level" cols="40" rows="4" id="distDescInput_{{forloop.counter}}" name="distDescInput_{{forloop.counter}}" placeholder="">{{dist.description}}</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Format </label>
+							<div class='controls'>
+								<div class="input">
+								<select required id='distDataFormatInput_{{forloop.counter}}' name='distDataFormatInput_{{forloop.counter}}'>
+									{% for f in formats %}
+										{% if f.id == dist.data_format.id %}
+											<option value='{{ f.id }}' selected>{{ f.name }}</option>
+										{% else %}
+											<option value='{{ f.id }}'>{{ f.name }}</option>
+										{% endif%}
+									{% endfor %}
+								</select>
+								</div>
+							</div>
+						</div>						
+						<div class="control-group">
+					        <label class="control-label">License </label>
+							<div class='controls'>
+								<div class="input">
+								<select required id='distLicenseInput_{{forloop.counter}}' name='distLicenseInput_{{forloop.counter}}'>
+									{% for l in licenses %}
+										{% if l.id == dist.license.id %}
+											<option value='{{ l.id }}' selected>{{ l.name }}</option>
+										{% else %}
+											<option value='{{ l.id }}'>{{ l.name }}</option>
+]										{% endif %}
+									{% endfor %}
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Date Published </label>
+							<div class='controls'>
+								<div class="input">
+						        <input required type='datetime' id="distDateInput_{{forloop.counter}}" name="distDateInput_{{forloop.counter}}" placeholder='mm/dd/yyyy' value='{{dist.issued}}'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Date Modified </label>
+							<div class='controls'>
+								<div class="input">
+						        <input required type='datetime' id="distDateModInput_{{forloop.counter}}" name="distDateModInput_{{forloop.counter}}" placeholder='mm/dd/yyyy' value='{{dist.modified}}'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Access URL </label>
+							<div class='controls'>
+								<div class="input">
+								<input type='url' id='distAccessUrlInput_{{forloop.counter}}' name='distAccessUrlInput_{{forloop.counter}}' placeholder='the webpage about the data' value='{{ dist.accessURL }}'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Download URL </label>
+							<div class='controls'>
+								<div class="input">
+								<input type='url' id='distDownloadUrlInput_{{forloop.counter}}' name='distDownloadUrlInput_{{forloop.counter}}' placeholder='the download link' value='{{ dist.downloadURL }}'/>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}	        
+				</div>
 			</div>
 		</div>
 		</fieldset>
@@ -135,11 +220,59 @@
 		{% for ds in derivatives %}
 			<input type="hidden" name="add_derivative" id="input_add_d_{{ ds.label }}_{{ ds.id }}" value="{{ ds.id }}" />
 		{% endfor %}
+		<input type='text' name='checker' style='display:none'/>
 		</form>
 		</div>
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script>
+	{% for dist in distributions %}
+	$('#dist{{ forloop.counter }}Link').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	});
+	{% endfor %}
+	$('#addDistLink').click(function(e){
+	  e.preventDefault();
+	  addDist();
+	});
+	$( document ).ready(function() {
+		$('#dist1Link').click();
+  	});
+	function addDist(){
+		var numDists=$('#distTabs a').length-1;
+		var newNum=numDists+1;
+		// add a tab
+		$('#dist'+numDists+"List").after('<li id=\'dist'+newNum+'List\'><a id="dist'+newNum+'Link" href="#dist'+newNum+'" data-toggle="tab">'+newNum+'</a></li>');
+		// add a new div
+		$('#dist'+numDists).after('<div class="tab-pane active" id="dist'+newNum+'">'+$('#dist1').html().replace(/_1/g,'_'+newNum)+'</div>');
+		$('#distID_'+newNum).val('');
+
+		$('#distLicenseInput_'+newNum).val($('#distLicenseInput_1').val());
+		$('#distDateInput_'+newNum).val($('#distDateInput_1').val());
+		$('#distDateModInput_'+newNum).val($('#distDateModInput_1').val());
+		$('#distAccessUrlInput_'+newNum).val($('#distAccessUrlInput_1').val());
+
+		// activate the new tab
+		$('#dist'+newNum+'Link').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+		
+		$('#distCount').val(newNum);
+		
+		// switch to new tab
+		$('#dist'+newNum+'Link').click();
+	}
+	function addPublishDateToDistribution(){
+		var date=$('[name=issued]').val();
+		$('#distDateInput_1').val(date);
+	}
+	function addModDateToDistribution(){
+		var date=$('[name=modified]').val();
+		$('#distDateModInput_1').val(date);
+	}
+	
 	$('#categoryInput').bind('keyup', function(e){
 		if ( e.keyCode == 13 ) {$('#addCategoryButton').click();}
 		else{getSuggestions('Category');}
@@ -211,8 +344,13 @@
 		$('#button_'+category).remove();
 	}
 	function addCategory(category,id){
+		console.log('Adding category');
+		console.log(category);
+		console.log(id);
 		var val=(category!=undefined)?category:$('#categoryInput').val();
 		$("#theCategories").append("<span id='button_"+val.replace(/ /g,"_").toLowerCase()+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeCategory(\""+val.replace(/ /g,"_").toLowerCase()+"\")'></i></span>");
+		console.log($('#theForm'));
+		console.log('"input_'+val.replace(/ /g,"_").toLowerCase()+'"');
 		$('#theForm').append('<input type="hidden" name="category" id="input_'+val.replace(/ /g,"_").toLowerCase()+'" value="'+val+'" />');
 		$('#categoryInput').val("");
 	}

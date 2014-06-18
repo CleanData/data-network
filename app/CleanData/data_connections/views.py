@@ -5,11 +5,12 @@ from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count
+from django.db.models import Count, Q
 from models import *
 from forms import *
 from api import DatasetSourcesResource, DatasetDerivativesResource
 import json
+from datetime import datetime
 
 # super handy helper function
 def get_or_none(model, **kwargs):
@@ -57,14 +58,23 @@ def get_organization_or_create(name,url):
 			org_out = organization
 	return org_out
 
+# ----------------------------------- convenience -----------------------------------
+def getFormats():
+	formats=Format.objects.order_by('name').all()
+	return [{'name':f.name,'id':f.id} for f in formats]
+
+def getLicenses():
+	licenses=License.objects.order_by('name').all()
+	return [{'name':l.name,'id':l.id} for l in licenses]
+
 # ----------------------------------- the view -----------------------------------
 def dataset_view(request,dataset_id=None):
 	if dataset_id==None:
-		if not request.user.is_authenticated():
-			return render_to_response('front/index.html',{},
-								  context_instance=RequestContext(request))
-		else:
-			theDataset = Dataset.objects.filter(is_public=True)\
+		#if not request.user.is_authenticated():
+		#	return render_to_response('front/index.html',{},
+		#						  context_instance=RequestContext(request))
+		#else:
+		theDataset = Dataset.objects.filter(is_public=True)\
 										.exclude(derivatives__isnull=True)\
 										.all()\
 										.order_by('?')[0]
@@ -76,6 +86,9 @@ def dataset_view(request,dataset_id=None):
 	distributions = Distribution.objects.select_related('data_format','license').filter(dataset=theDataset).all()
 	return render_to_response('data_connections/tree_view.html',{"dataset":theDataset,"distributions":distributions},
 							  context_instance=RequestContext(request))
+def about_cleandata(request):
+	return render_to_response('data_connections/about_cleandata.html')
+
 def random_dataset_view(request):
 	theDataset = Dataset.objects.filter(is_public=True)\
 								.exclude(derivatives__isnull=True)\
@@ -102,8 +115,8 @@ def scientist_view(request,scientist_id):
 	dataset_list = Dataset.objects.all()\
 						  .filter(is_public=True)\
 						  .filter(contactPoint=theScientist)\
-						  .annotate(src_count=Count('derivatives'))\
-						  .annotate(deriv_count=Count('sources'))\
+						  .annotate(src_count=Count('sources'))\
+						  .annotate(deriv_count=Count('derivatives'))\
 						  .select_related('data_format')\
 						  .order_by('title')
 	paginator = Paginator(dataset_list, 15)
@@ -198,9 +211,17 @@ def add_dataset(request):
 	if not request.user.is_authenticated():
 		return redirect('index')
 	
+	formats = getFormats()
+	#formats = [f for f in formats if f['name']!='Application']
+	licenses = getLicenses()
+	
 	# called once the form is submitted
 	if request.method == 'POST':
 		dataset_form = NewDataSetForm(request.POST)
+
+		# bot checking
+		if request.POST.get('checker')!='':
+			return redirect('index')
 
 		if dataset_form.is_valid():
 			d_obj = dataset_form.save(commit=False)
@@ -210,7 +231,6 @@ def add_dataset(request):
 			d_obj.added_by = request.user
 			d_obj.save()
 
-			# first remove all categories, and then rebuild
 			categories = request.POST.getlist('category')
 			for cat in categories:
 				c_obj = get_or_none(Category, category=cat)
@@ -220,7 +240,7 @@ def add_dataset(request):
 				if c_obj not in d_obj.categories.all():
 					d_obj.categories.add(c_obj)
 					d_obj.save()
-			# get list of keywords and save
+
 			keywords = request.POST.getlist('keyword')
 			for k in keywords:
 				k_obj = get_or_none(Keyword, keyword=k)
@@ -230,7 +250,7 @@ def add_dataset(request):
 				if k_obj not in d_obj.keywords.all():
 					d_obj.keywords.add(k_obj)
 					d_obj.save()
-			# get list of sources and save
+
 			sIDAddList = request.POST.getlist('add_source')
 			for sID in sIDAddList:
 				if sID==d_obj.id:
@@ -244,7 +264,7 @@ def add_dataset(request):
 				if s_rel==None:
 					s_rel=DataRelation(source=s_obj,derivative=d_obj)
 					s_rel.save()
-			# get list of derivatives and save
+
 			dIDAddList = request.POST.getlist('add_derivative')
 			for dID in dIDAddList:
 				if dID==d_obj.id:
@@ -260,18 +280,49 @@ def add_dataset(request):
 					der_rel.save()
 			d_obj.save()
 
+			distCount=int(request.POST.get('distCount'))
+			for i in range(1,distCount+1):
+				distTitle=request.POST.get('distTitleInput_'+str(i))
+				distDesc=request.POST.get('distDescInput_'+str(i))
+				distDateStr=request.POST.get('distDateInput_'+str(i))
+				distDateModStr=request.POST.get('distDateModInput_'+str(i))
+				distLicenseID=request.POST.get('distLicenseInput_'+str(i))
+				distAccessUrl=request.POST.get('distAccessUrlInput_'+str(i))
+				distDownloadUrl=request.POST.get('distDownloadUrlInput_'+str(i))
+				distFormatID=request.POST.get('distDataFormatInput_'+str(i))
+				
+				theFormat=Format.objects.get(pk=distFormatID)
+				theLicense=License.objects.get(pk=distLicenseID)
+				distDate = datetime.strptime(distDateStr,'%m/%d/%Y')
+				distDateMod = datetime.strptime(distDateModStr,'%m/%d/%Y')
+				
+				dist=Distribution(  title = distTitle,
+									description = distDesc,
+									issued = distDate,
+									modified = distDateMod,
+									license = theLicense,
+									accessURL = distAccessUrl,
+									downloadURL = distDownloadUrl,
+									data_format = theFormat,
+									dataset = d_obj)
+				dist.save()
+				
 			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
 		else:
-			return render_to_response('data_connections/add_dataset.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
+			return render_to_response('data_connections/add_dataset.html', {"dataset_form":dataset_form,'formats':formats,'licenses':licenses}, context_instance=RequestContext(request))
 
 	else:
 		dataset_form = NewDataSetForm()
 
-	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+	return render_to_response('data_connections/add_dataset.html',{"dataset_form":dataset_form,'formats':formats,'licenses':licenses}, context_instance=RequestContext(request))
 
 def edit_dataset(request,dataset_id):
 	if not request.user.is_authenticated():
 		return redirect('index')
+
+	formats = getFormats()
+	#formats = [f for f in formats if f['name']!='Application']
+	licenses = getLicenses()
 
 	p = request.user
 	d = get_object_or_404(Dataset, id=dataset_id)
@@ -293,6 +344,10 @@ def edit_dataset(request,dataset_id):
 	# called once the form is submitted
 	if request.method == 'POST':
 		dataset_form = EditDataSetForm(request.POST,instance=d)
+
+		# bot checking
+		if request.POST.get('checker')!='':
+			return redirect('index')
 
 		if dataset_form.is_valid():
 			d_obj = dataset_form.save(commit=False)
@@ -379,6 +434,61 @@ def edit_dataset(request,dataset_id):
 				if der_rel!=None:
 					der_rel.delete()
 			d_obj.save()
+
+			# now handle the distributions
+			distCount=int(request.POST.get('distCount'))
+			for i in range(1,distCount+1):
+				distIDStr=request.POST.get('distID_'+str(i))
+				
+				distTitle=request.POST.get('distTitleInput_'+str(i))
+				distDesc=request.POST.get('distDescInput_'+str(i))
+				distDateStr=request.POST.get('distDateInput_'+str(i))
+				distDateModStr=request.POST.get('distDateModInput_'+str(i))
+				distLicenseID=request.POST.get('distLicenseInput_'+str(i))
+				distAccessUrl=request.POST.get('distAccessUrlInput_'+str(i))
+				distDownloadUrl=request.POST.get('distDownloadUrlInput_'+str(i))
+				distFormatID=request.POST.get('distDataFormatInput_'+str(i))
+				
+				theFormat=Format.objects.get(pk=distFormatID)
+				theLicense=License.objects.get(pk=distLicenseID)
+				distDate = datetime.strptime(distDateStr,'%m/%d/%Y')
+				distDateMod = datetime.strptime(distDateModStr,'%m/%d/%Y')
+				
+				# we don't yet remove distributions
+				if distIDStr=='':
+					dist=Distribution(  title = distTitle,
+										description = distDesc,
+										issued = distDate,
+										modified = distDateMod,
+										license = theLicense,
+										accessURL = distAccessUrl,
+										downloadURL = distDownloadUrl,
+										data_format = theFormat,
+										dataset = d_obj)
+				else:
+					dist=get_or_none(Distribution,pk=int(distIDStr))
+					if dist==None:
+						dist=Distribution(  title = distTitle,
+											description = distDesc,
+											issued = distDate,
+											modified = distDateMod,
+											license = theLicense,
+											accessURL = distAccessUrl,
+											downloadURL = distDownloadUrl,
+											data_format = theFormat,
+											dataset = d_obj)
+					else:
+						dist.title = distTitle
+						dist.description = distDesc
+						dist.issued = distDate
+						dist.modified = distDateMod
+						dist.license = theLicense
+						dist.accessURL = distAccessUrl
+						dist.downloadURL = distDownloadUrl
+						dist.data_format = theFormat
+						dist.dataset = d_obj
+				dist.save()			
+			
 			return redirect('dataset_detail',dataset_id=d_obj.id) # Redirect after POST
 		else:
 			return render_to_response('data_connections/edit_dataset.html', {"dataset_form":dataset_form}, context_instance=RequestContext(request))
@@ -390,8 +500,29 @@ def edit_dataset(request,dataset_id):
 	keywords = [{'text':k.keyword,'label':k.keyword.replace(' ','_').lower()} for k in d.keywords.all()]
 	sources = [{'title':s.title,'label':s.title.replace(' ','_').lower(),'description':s.description,'id':s.id} for s in d.sources.all() if checkDatasetIsVisible(s,request.user)]
 	derivatives = [{'title':ds.title,'label':ds.title.replace(' ','_').lower(),'description':ds.description,'id':ds.id} for ds in d.derivatives.all() if checkDatasetIsVisible(ds,request.user)]
-	
-	return render_to_response('data_connections/edit_dataset.html',{"dataset_form":dataset_form,"contactPoint":d.contactPoint,"categories":categories,"keywords":keywords,'sources':sources,'derivatives':derivatives}, context_instance=RequestContext(request))
+	distributions = [{
+						'title':dist.title,
+						'description':dist.description,
+						'issued':dist.issued.strftime("%m/%d/%Y"),
+						'modified':dist.modified.strftime("%m/%d/%Y"),
+						'license':dist.license,
+						'accessURL':dist.accessURL,
+						'downloadURL':dist.downloadURL,
+						'data_format':dist.data_format,
+						'id':dist.id
+					 } for dist in d.distributions.all()]	
+	return render_to_response('data_connections/edit_dataset.html',
+								{
+									"dataset_form":dataset_form,
+									"contactPoint":d.contactPoint,
+									"categories":categories,
+									"keywords":keywords,
+									'sources':sources,
+									'derivatives':derivatives,
+									'distributions':distributions,
+									"formats":formats,
+									"licenses":licenses
+								}, context_instance=RequestContext(request))
 
 def delete_dataset(request,dataset_id):
 	return redirect('index')
@@ -437,6 +568,7 @@ def delete_dataset(request,dataset_id):
 	"""
 
 # adds an application object to the data
+'''
 def add_application(request):
 	p=request.user
 	if not request.user.is_authenticated():
@@ -465,6 +597,7 @@ def add_application(request):
 		dataset_form = NewApplicationForm()
 
 	return render_to_response('data_connections/add_application.html',{"dataset_form":dataset_form}, context_instance=RequestContext(request))
+'''
 
 def add_datarelation(request):
 	if not request.user.is_authenticated():
@@ -522,12 +655,11 @@ def all_datasets(request):
 
 	dataset_list = Dataset.objects.all()\
 						  .filter(is_public=True)\
-						  .annotate(src_count=Count('derivatives'))\
-						  .annotate(deriv_count=Count('sources'))\
+						  .annotate(src_count=Count('sources'))\
+						  .annotate(deriv_count=Count('derivatives'))\
 						  .select_related('data_format')\
 						  .order_by(order_field)
 	paginator = Paginator(dataset_list, 15)
-	
 	
 	page = request.GET.get('page')
 	try:

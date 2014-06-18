@@ -360,8 +360,6 @@ class Dataset(models.Model):
 
 	derivatives = models.ManyToManyField('self', through='DataRelation', symmetrical=False,
 									related_name='sources',null=True,blank=True)
-	#sources = models.ManyToManyField('self', through='DataRelation', symmetrical=False,
-	#								related_name='derivatives',null=True,blank=True)
 	contributors = models.ManyToManyField('Scientist', through='ContributorRelation', symmetrical=False,
 									related_name='contributed_datasets',null=True,blank=True)
 
@@ -387,7 +385,7 @@ class DistributionManager(models.Manager):
 class Distribution(models.Model):
 	objects = DistributionManager()		# handles natural keys
 
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length=200,blank=True)
 	description = models.TextField(blank=True)
 
 	issued = models.DateTimeField('date published')
