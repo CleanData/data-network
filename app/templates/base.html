@@ -6,8 +6,8 @@
 	{# The libs block contains the page specific libs and css style links #}
 	{% block libs %}{% endblock %}
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link type="text/css" href="/static/user/css/style.css" rel="stylesheet" />
 	<link type="text/css" href="/static/user/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link type="text/css" href="/static/user/css/style.css" rel="stylesheet" />
 	{% block pageStyles %}
 	{% endblock %}
   </head>
@@ -25,17 +25,32 @@
           <a class="brand" href="{% url 'index' %}">Clean<span style="color:#04B4AE; font-size: larger;">.</span>Data<span style="color:#04B4AE; font-size: larger;">.</span></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><form action="/search/" class="navbar-search pull-left" method="GET">
+              <li><form action="/search" class="navbar-search pull-left" method="GET">
 				     <input type="text" name="query" class="search-query" placeholder="Search">
 				     <!--<input type="submit" value="Search">-->
 				  </form>
 			  </li>
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Discover <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+	              <li><a href="{% url 'random_dataset' %}">Random Dataset</a></li>
+	              <li><a href="{% url 'all_datasets' %}">All Datasets</a></li>
+				</ul>
+				</li>
+				
 			  {% if user.is_authenticated %}
-              <li><a href="/add_dataset">+Dataset</a></li>
-              <li><a href="/add_application">+Application</a></li>
-              <li><a href="/add_datarelation">+Data Relation</a></li>
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Add <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+	              <li><a href="{% url 'add_dataset' %}">+Dataset</a></li>
+	              <!--<li><a href="{% url 'add_application' %}">+Application</a></li>-->
+	              <li><a href="{% url 'add_datarelation' %}">+Data Relation</a></li>
+				</ul>
+				</li>
+
               <!--<li><a href="./">+Scientist</a></li>-->
               {% endif %}
+              <li><a href="{% url 'about_cleandata' %}">About</a></li>
             </ul>
 		    <div class="nav pull-right">
 			    <ul class="nav">

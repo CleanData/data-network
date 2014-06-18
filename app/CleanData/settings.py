@@ -85,7 +85,7 @@ INSTALLED_APPS = (
     'CleanData.data_connections',
     'registration',		# django-registration - details: https://django-registration.readthedocs.org
 	'tastypie',			# Tastypie: http://django-tastypie.readthedocs.org/en/latest/
-    'taggit',           # Create  custom tags for the datasets 
+    #'taggit',           # Create  custom tags for the datasets 
     'south',			# south: http://south.readthedocs.org/en/latest/installation.html
 )
 

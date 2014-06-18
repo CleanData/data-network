@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Clean.Data.{% endblock %}
 
+{% block libs %}{% endblock %}
+
 {% block pageStyles %}
- <style>
+    <style>
 
     /* GLOBAL STYLES
     -------------------------------------------------- */
     /* Padding below the footer and lighter body text */
+
+    body {
+      padding-top: 40px;
+      color: #5a5a5a;
+    }
 
     /* CUSTOMIZE THE CAROUSEL
     -------------------------------------------------- */
 
     /* Carousel base class */
     .carousel {
-      margin-bottom: 60px;
+      margin-bottom: 30px;
     }
 
     .carousel .container {
@@ -46,7 +53,7 @@
       background-color: transparent;
       position: static;
       max-width: 550px;
-      padding: 0 70px;
+      padding: 0 20px;
       margin-top: 200px;
     }
     .carousel-caption h1,
@@ -77,6 +84,12 @@
       margin-right: 10px;
     }
 
+	.slogan{
+      text-align: center;
+	}
+	.slogan h2,h3,h4{
+      font-weight: normal;
+	}
 
     /* Featurettes
     ------------------------- */
@@ -194,13 +207,9 @@
     </style>
 {% endblock %}
 
-
-{% block onload %}
-{% endblock %}
-
+{% block onload %}{% endblock %}
+	
 {% block content %}
-
-<div class="container">
     <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide">
@@ -209,8 +218,8 @@
           <img src="/static/user/img/images/slide-01.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <h1>What?</h1>
+              <p class="lead">Value proposition ...</p>
               <a class="btn btn-large btn-primary" href="#">Sign up today</a>
             </div>
           </div>
@@ -219,8 +228,8 @@
           <img src="/static/user/img/images/slide-02.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <h1>Who?</h1>
+              <p class="lead">Clean.Data. is a non-profit committed to ...</p>
               <a class="btn btn-large btn-primary" href="#">Learn more</a>
             </div>
           </div>
@@ -229,9 +238,9 @@
           <img src="/static/user/img/images/slide-03.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+              <h1>Examples</h1>
+              <p class="lead">Hear about awesome cases where Clean.Data. saved money, time, and the world!</p>
+              <a class="btn btn-large btn-primary" href="#">Browse examples</a>
             </div>
           </div>
         </div>
@@ -245,28 +254,34 @@
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-
+      <div class="row slogan">
+        <div class="span12">
+			<h2>Clean.Data.</h2>
+			<h4 class="muted">Saving scientists time. Saving industry money. Revealing the value of Open Data.</h4>
+        </div>
+      </div>
     <div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="span4">
           <img class="img-circle" data-src="holder.js/140x140">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+
+          <h2>Save Time</h2>
+          <p>You shouldn't need to clean up a public dataset - other scientists have already done it. Start with the clean data and save days of work.</p>
+          <!--<p><a class="btn" href="#">View details &raquo;</a></p>-->
         </div><!-- /.span4 -->
         <div class="span4">
           <img class="img-circle" data-src="holder.js/140x140">
-          <h2>Heading</h2>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h2>Discover</h2>
+          <p>Which datasets are most often used together? What data did a project use? How many applications does an open dataset power?</p>
+          <!--<p><a class="btn" href="#">View details &raquo;</a></p>-->
         </div><!-- /.span4 -->
         <div class="span4">
           <img class="img-circle" data-src="holder.js/140x140">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h2>Share</h2>
+          <p>You cleaned that dataset, now share it with the world. When people use the data - you see it, and get credit.</p>
+          <!--<p><a class="btn" href="#">View details &raquo;</a></p>-->
         </div><!-- /.span4 -->
       </div><!-- /.row -->
 
@@ -277,24 +292,24 @@
 
       <div class="featurette">
         <img class="featurette-image pull-right" src="/static/user/img/images/browser-icon-chrome.png">
-        <h2 class="featurette-heading">First featurette headling. <span class="muted">It'll blow your mind.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">For Data Scientists: <br/><span class="muted">Discover datasets.<br/>Be discovered.</span></h2>
+        <p class="lead">You know the story - you spend an hour searching for a dataset, download it, spend another hour trying to unpack the proprietary data format and then lose a day figuring out why a month of data was overwritten with raw html <span class="muted">true story</span>. You're not alone. Everyone using that data has done the same thing. Why not skip the pain and just use their clean data? Because you couldn't find it - until now. Find clean data - and share your own and get credit.</p>
       </div>
 
       <hr class="featurette-divider">
 
       <div class="featurette">
         <img class="featurette-image pull-left" src="/static/user/img/images/browser-icon-firefox.png">
-        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">For Industry: <br/><span class="muted">Save time.<br/>Sell data.</span></h2>
+        <p class="lead">Your analysts waste hours cleaning datasets - data that's already been cleaned in another company, government department or academic lab. Use Clean.Data. to discover cleaned datasets and save days. Clean.Data. datasets don't have to be public and open source - they can be proprietary. The network of data shows where your datasets have been used. After all - if 100s of researchers are using your data it's easier for the 101st to decide to buy it.</p>
       </div>
 
       <hr class="featurette-divider">
 
       <div class="featurette">
         <img class="featurette-image pull-right" src="/static/user/img/images/browser-icon-safari.png">
-        <h2 class="featurette-heading">And lastly, this one. <span class="muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">For Governments:<br/><span class="muted">Open Data creates value.<br/>Show it.</span></h2>
+        <p class="lead">Do you know where your data goes when you set it free? We do. You can now see the value created by Open Data initiatives.</p>
       </div>
 
       <hr class="featurette-divider">
@@ -305,23 +320,11 @@
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2013 Clean.Data. &middot; <!--<a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>-->
       </footer>
-</div>
-    <!--<script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>-->
-    <script src="/static/user/js/holder.js"></script>
+
+    </div><!-- /.container -->
+
 {% endblock %}
 
 {% block jqueryScripts %}
@@ -333,4 +336,6 @@
         })
       }(window.jQuery)
     </script>
+    <script src="/static/user/js/holder.js"></script>
+
 {% endblock %}

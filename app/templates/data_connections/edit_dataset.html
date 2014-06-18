@@ -6,6 +6,18 @@
     <script type="text/javascript" src="/static/user/js/d3.v2.js"></script>
     <script type="text/javascript" src="/static/user/js/mapper.js"></script>
 	<link type="text/css" href="/static/user/css/map_style.css" rel="stylesheet" />
+	<style>
+	span.tag{
+		background: rgb(240,240,240);
+		color: black;
+		margin: 5px;
+		font-size: small;
+		padding:5px;
+		cursor: default;
+		border: 1px solid lightgrey;
+		border-radius: 7px;
+	}
+	</style>
 {% endblock %}
 
 {% block onload %}
@@ -16,34 +28,376 @@
 <div class="container" id="main">
 	<div class="row">
 		<div class="span12">
-		<form method="post" action="" class="form-horizontal">
+		<form method="post" id="theForm" action="" class="form-horizontal">
 		<fieldset>
-		<legend>Edit Dataset</legend>
-		  {% csrf_token %}
-			{% for field in dataset_form %}
-				<div class="control-group">
-			        {{ field.errors }}
-			        <label class="control-label">{{ field.label_tag }}</label> <div class="controls">{{ field }}</div>
-				</div>
-			{% endfor %}
-			<div class="control-group" id="manager_controls">
-		        <label class="control-label">Manager (optional) </label> <div class="controls"><input type="text" name="manager_firstname" placeholder="first name" value="{{ manager.firstname }}" /> <input type="text" name="manager_lastname" placeholder="last name" value="{{ manager.lastname }}"/> <input type="text" name="manager_profile_url" placeholder="url of profile page" value="{{ manager.profile_url }}"/></div>
+			  
+		<legend>Edit Dataset <button type="button" class="btn pull-right" onclick="location.href='{% url "index" %}'">Cancel</button><button type="submit" value="{% trans 'Submit' %}" class="btn btn-primary pull-right">Save Changes</button></legend>
+		<div class="row">
+			<div class="span6">
+			  {% csrf_token %}
+				{% for field in dataset_form %}
+					<div class="control-group">
+				        {{ field.errors }}
+				        <label class="control-label">{{ field.label_tag }}</label> <div class="controls">{{ field }}</div>
+					</div>
+				{% endfor %}
 			</div>
-			<!--<div class="control-group" id="organization_controls">
-		        <label class="control-label">Managing Organization (optional) </label> <div class="controls"><input type="text" name="organization_name" placeholder="name"/> <input type="text" name="organization_url" placeholder="website"/> </div>
-			</div>-->
-
-			<div class="control-group">
-				<div class="controls">
-				  <button type="submit" value="{% trans 'Submit' %}" class="btn btn-primary">Save Changes</button>
-				  <button type="button" class="btn" onclick="location.href='{% url "index" %}'">Cancel</button>
+			<div class="span6">
+		        <label>Contact Point (optional) {{ contactPoint }}</label>
+		        <input type="text" name="manager_firstname" placeholder="first name" value="{{ contactPoint.firstname }}" class="input-xs"/>
+		        <input type="text" name="manager_lastname" placeholder="last name" value="{{ contactPoint.lastname }}" class="input-xs"/>
+		        <input type="text" name="manager_profile_url" placeholder="url of profile page" value="{{ contactPoint.profile_url }}" class="input-s"/>
+				<br>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label" style='text-align: left'>Categories </label>
+					<div class='controls'>
+						<div class="input-append">
+					        <input type="text" id="categoryInput" name="categoryInput" placeholder="" class="input-block-level"/><button id="addCategoryButton" class="btn" type="button" onclick="addCategory()">+</button>
+						</div>
+				        <div id="categoryOptions" class="dropdown"></div>
+					</div>
+					<div id="theCategories">
+					{% for cat in categories %}
+						<span id='button_{{ cat.label }}' class='label tag'>{{ cat.text }} <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeCategory("{{ cat.label }}")'></i></span>
+					{% endfor %}
+					</div>
 				</div>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label" style='text-align: left'>Keywords </label>
+					<div class='controls'>
+						<div class="input-append">
+					        <input type="text" id="keywordInput" name="keywordInput" placeholder="" class="input-block-level"/>
+							<button id="addKeywordButton" class="btn" type="button" onclick="addKeyword()">+</button>
+						</div>
+				        <div id="keywordOptions" class="dropdown"></div>
+					</div>
+					<div id="theKeywords">
+					{% for k in keywords %}
+						<span id='button_{{ k.label }}' class='label tag'>{{ k.text }} <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeKeyword("{{ k.label }}")'></i></span>
+					{% endfor %}						
+					</div>
 				</div>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label" style='text-align: left'>Source Datasets </label>
+					<div class='controls'>
+						<div class="input">
+					        <input type="text" id="sourceInput" name="sourceInput" placeholder="" class="input-xs"/>
+						</div>
+				        <div id="sourceOptions" class="dropdown"></div>
+					</div>
+					<div id="theSources">
+					{% for s in sources %}
+						<span id="button_s_{{ s.label }}_{{ s.id }}" title="{{ s.description }}" class="label tag">{{ s.title }} <i style="cursor: hand; cursor: pointer;" class="icon-remove" onclick="removeSource('{{ s.label }}','{{ s.id }}')"></i></span>					
+					{% endfor %}
+					</div>
+				</div>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label" style='text-align: left'>Derivative Datasets </label>
+					<div class='controls'>
+						<div class="input">
+					        <input type="text" id="derivativeInput" name="derivativeInput" placeholder="" class="input-xs"/>
+						</div>
+				        <div id="derivativeOptions" class="dropdown"></div>
+					</div>
+					<div id="theDerivatives">
+					{% for ds in derivatives %}
+						<span id="button_d_{{ ds.label }}_{{ ds.id }}" title="{{ ds.description }}" class="label tag">{{ ds.title }} <i style="cursor: hand; cursor: pointer;" class="icon-remove" onclick="removeDerivative('{{ ds.label }}','{{ ds.id }}')"></i></span>					
+					{% endfor %}
+					</div>
+				</div>
+				<hr>	
+				<h4>Distributions</h4>
+				<input type='number' value={{ distributions|length }} id='distCount' name='distCount' style='display:none'/>
+				<ul class="nav nav-tabs" id="distTabs">
+					{% for dist in distributions %}
+					  <li id='dist{{forloop.counter}}List'><a id="dist{{forloop.counter}}Link" href="#dist{{forloop.counter}}" data-toggle="tab">{{forloop.counter}}</a></li>
+				    {% endfor %}
+				  <li><a id='addDistLink' href="#addDist">+</a></li>
+				</ul>
+				<div class='tab-content' id='distTabContent'>
+				{% for dist in distributions %}
+					<div class="tab-pane" id="dist{{forloop.counter}}">					
+						<input type='number' id='distID_{{forloop.counter}}' name='distID_{{forloop.counter}}' value='{{dist.id}}' style='display:none'>
+						<div class="control-group" style='display:none'>
+					        <label class="control-label">Distribution Name </label>
+							<div class='controls'>
+								<div class="input">
+						        <input type="text" id="distTitleInput_{{forloop.counter}}" name="distTitleInput_{{forloop.counter}}" placeholder="Title of distribution" class="input-xs" value='{{dist.title}}' />
+								</div>
+							</div>
+						</div>
+						<div class="control-group" style='display:none'>
+					        <label class="control-label">Description </label>
+							<div class='controls'>
+								<div class="input">
+						        <textarea class="input-block-level" cols="40" rows="4" id="distDescInput_{{forloop.counter}}" name="distDescInput_{{forloop.counter}}" placeholder="">{{dist.description}}</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Format </label>
+							<div class='controls'>
+								<div class="input">
+								<select required id='distDataFormatInput_{{forloop.counter}}' name='distDataFormatInput_{{forloop.counter}}'>
+									{% for f in formats %}
+										{% if f.id == dist.data_format.id %}
+											<option value='{{ f.id }}' selected>{{ f.name }}</option>
+										{% else %}
+											<option value='{{ f.id }}'>{{ f.name }}</option>
+										{% endif%}
+									{% endfor %}
+								</select>
+								</div>
+							</div>
+						</div>						
+						<div class="control-group">
+					        <label class="control-label">License </label>
+							<div class='controls'>
+								<div class="input">
+								<select required id='distLicenseInput_{{forloop.counter}}' name='distLicenseInput_{{forloop.counter}}'>
+									{% for l in licenses %}
+										{% if l.id == dist.license.id %}
+											<option value='{{ l.id }}' selected>{{ l.name }}</option>
+										{% else %}
+											<option value='{{ l.id }}'>{{ l.name }}</option>
+]										{% endif %}
+									{% endfor %}
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Date Published </label>
+							<div class='controls'>
+								<div class="input">
+						        <input required type='datetime' id="distDateInput_{{forloop.counter}}" name="distDateInput_{{forloop.counter}}" placeholder='mm/dd/yyyy' value='{{dist.issued}}'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Date Modified </label>
+							<div class='controls'>
+								<div class="input">
+						        <input required type='datetime' id="distDateModInput_{{forloop.counter}}" name="distDateModInput_{{forloop.counter}}" placeholder='mm/dd/yyyy' value='{{dist.modified}}'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Access URL </label>
+							<div class='controls'>
+								<div class="input">
+								<input type='url' id='distAccessUrlInput_{{forloop.counter}}' name='distAccessUrlInput_{{forloop.counter}}' placeholder='the webpage about the data' value='{{ dist.accessURL }}'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Download URL </label>
+							<div class='controls'>
+								<div class="input">
+								<input type='url' id='distDownloadUrlInput_{{forloop.counter}}' name='distDownloadUrlInput_{{forloop.counter}}' placeholder='the download link' value='{{ dist.downloadURL }}'/>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}	        
+				</div>
+			</div>
+		</div>
 		</fieldset>
+		{% for cat in categories %}
+			<input type="hidden" name="category" id="input_{{ cat.label }}" value="{{ cat.text }}" />
+		{% endfor %}
+		{% for k in keywords %}
+			<input type="hidden" name="keyword" id="input_{{ k.label }}" value="{{ k.text }}" />
+		{% endfor %}
+		{% for s in sources %}
+			<input type="hidden" name="add_source" id="input_add_s_{{ s.label }}_{{ s.id }}" value="{{ s.id }}" />
+		{% endfor %}
+		{% for ds in derivatives %}
+			<input type="hidden" name="add_derivative" id="input_add_d_{{ ds.label }}_{{ ds.id }}" value="{{ ds.id }}" />
+		{% endfor %}
+		<input type='text' name='checker' style='display:none'/>
 		</form>
 		</div>
 	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+	{% for dist in distributions %}
+	$('#dist{{ forloop.counter }}Link').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	});
+	{% endfor %}
+	$('#addDistLink').click(function(e){
+	  e.preventDefault();
+	  addDist();
+	});
+	$( document ).ready(function() {
+		$('#dist1Link').click();
+  	});
+	function addDist(){
+		var numDists=$('#distTabs a').length-1;
+		var newNum=numDists+1;
+		// add a tab
+		$('#dist'+numDists+"List").after('<li id=\'dist'+newNum+'List\'><a id="dist'+newNum+'Link" href="#dist'+newNum+'" data-toggle="tab">'+newNum+'</a></li>');
+		// add a new div
+		$('#dist'+numDists).after('<div class="tab-pane active" id="dist'+newNum+'">'+$('#dist1').html().replace(/_1/g,'_'+newNum)+'</div>');
+		$('#distID_'+newNum).val('');
 
+		$('#distLicenseInput_'+newNum).val($('#distLicenseInput_1').val());
+		$('#distDateInput_'+newNum).val($('#distDateInput_1').val());
+		$('#distDateModInput_'+newNum).val($('#distDateModInput_1').val());
+		$('#distAccessUrlInput_'+newNum).val($('#distAccessUrlInput_1').val());
+
+		// activate the new tab
+		$('#dist'+newNum+'Link').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+		
+		$('#distCount').val(newNum);
+		
+		// switch to new tab
+		$('#dist'+newNum+'Link').click();
+	}
+	function addPublishDateToDistribution(){
+		var date=$('[name=issued]').val();
+		$('#distDateInput_1').val(date);
+	}
+	function addModDateToDistribution(){
+		var date=$('[name=modified]').val();
+		$('#distDateModInput_1').val(date);
+	}
+	
+	$('#categoryInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {$('#addCategoryButton').click();}
+		else{getSuggestions('Category');}
+	});
+	$('#keywordInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {$('#addKeywordButton').click();}
+		else{getSuggestions('Keyword');}
+	});
+	$('#sourceInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {return false}
+		else{getSuggestions('Source');}
+	});
+	$('#derivativeInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {return false}
+		else{getSuggestions('Derivative');}
+	});
+	function getSuggestions(whatFor){
+		var subString=$.trim($("#"+whatFor.toLowerCase()+"Input").val().toLowerCase());
+		if(subString.length>1){
+			var theURL = (whatFor=="Keyword")?"/findSimilarKeywords":(whatFor=="Category")?"/findSimilarCategories":(whatFor=="Source")?"/findSimilarDataset":(whatFor=="Derivative")?"/findSimilarDataset":"";
+			$.ajax({
+				url:theURL,
+				data:{"query":subString},
+				success:function(data){
+					if(data.suggestions.length==0){
+						$("#"+whatFor.toLowerCase()+"Options").empty();
+						$("#"+whatFor.toLowerCase()+"Options").removeClass('open');
+						return;
+					}					
+					$("#"+whatFor.toLowerCase()+"Options").removeClass('open');
+					var list="<a style=\"display:none\" class=\"dropdown-toggle\" id=\""+whatFor.toLowerCase()+"ListToggle\" role=\"button\" data-toggle=\"dropdown\" data-target=\"#\" href=\"#\">Test</a>";
+					list += "<ul class='dropdown-menu' id='"+whatFor.toLowerCase()+"Menu' role='menu' aria-labelledby='dropdownMenu'>";
+					for(var tx in data.suggestions){
+						if(whatFor=="Source" || whatFor=="Derivative"){
+							list+="<li><a data-target='#' href=\"#\" id='"+whatFor+"_"+data.suggestions[tx].id+"' title='"+data.suggestions[tx].description+"'>"+data.suggestions[tx].title+"</a></li>";
+						}
+						else{
+							var term=data.suggestions[tx].text;
+							var termId=data.suggestions[tx].id;
+							list+="<li><a data-target='#' href=\"#\" id='"+whatFor+"_"+termId+"'>"+term+"</a></li>";
+						}
+					}
+					list+="</ul>";
+					
+					$("#"+whatFor.toLowerCase()+"Options").html(list);
+					$("#"+whatFor.toLowerCase()+"Menu a").on('click',function(){
+						if(whatFor=="Keyword"){
+							addKeyword($(this).text(),$(this).attr('id'));
+						}
+						else if(whatFor=="Category"){
+							addCategory($(this).text(),$(this).attr('id'));
+						}
+						else if(whatFor=="Source"){
+							addSource($(this).text(),$(this).attr('id').replace('Source_',''),$(this).attr('title'));
+						}
+						else if(whatFor=="Derivative"){
+							addDerivative($(this).text(),$(this).attr('id').replace('Derivative_',''),$(this).attr('title'));
+						}
+						$("#"+whatFor.toLowerCase()+"Options").removeClass('open');
+						return false;
+					})
+					$("#"+whatFor.toLowerCase()+"ListToggle").dropdown('toggle');
+				}
+			});
+		}
+	}
+	function removeCategory(category){
+		$('#input_'+category).remove();
+		$('#button_'+category).remove();
+	}
+	function addCategory(category,id){
+		console.log('Adding category');
+		console.log(category);
+		console.log(id);
+		var val=(category!=undefined)?category:$('#categoryInput').val();
+		$("#theCategories").append("<span id='button_"+val.replace(/ /g,"_").toLowerCase()+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeCategory(\""+val.replace(/ /g,"_").toLowerCase()+"\")'></i></span>");
+		console.log($('#theForm'));
+		console.log('"input_'+val.replace(/ /g,"_").toLowerCase()+'"');
+		$('#theForm').append('<input type="hidden" name="category" id="input_'+val.replace(/ /g,"_").toLowerCase()+'" value="'+val+'" />');
+		$('#categoryInput').val("");
+	}
+	function removeKeyword(keyword){
+		$('#input_'+keyword).remove();
+		$('#button_'+keyword).remove();
+	}
+	function addKeyword(keyword,id){
+		var val=(keyword!=undefined)?keyword:$('#keywordInput').val();
+		$("#theKeywords").append("<span id='button_"+val.replace(/ /g,"_").toLowerCase()+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeKeyword(\""+val.replace(/ /g,"_").toLowerCase()+"\")'></i></span>");
+		$('#theForm').append('<input type="hidden" name="keyword" id="input_'+val.replace(/ /g,"_").toLowerCase()+'" value="'+val+'" />');
+		$('#keywordInput').val("");
+	}	
+	function removeSource(source,id){
+		$('#input_add_s_'+source+"_"+id).remove();
+		$('#button_s_'+source+"_"+id).remove();
+		$('#theForm').append('<input type="hidden" name="remove_source" id="input_remove_s_'+source+"_"+id+'" value="'+id+'" />');
+	}
+	function addSource(source,id,description){
+		if(source==undefined || id==undefined){
+			alert('You must pick a source from the drop down list.');
+			return false;
+		}
+		var val=source;
+		$("#theSources").append("<span title='"+description+"' id='button_s_"+val.replace(/ /g,"_").toLowerCase()+"_"+id+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeSource(\""+val.replace(/ /g,"_").toLowerCase()+"\",\""+id+"\")'></i></span>");
+		$('#theForm').append('<input type="hidden" name="add_source" id="input_add_s_'+val.replace(/ /g,"_").toLowerCase()+"_"+id+'" value="'+id+'" />');
+		$('#input_remove_s_'+val.replace(/ /g,"_").toLowerCase()+"_"+id).remove();		
+		$('#sourceInput').val("");
+	}
+	function removeDerivative(derivative,id){
+		$('#input_add_d_'+derivative+"_"+id).remove();
+		$('#button_d_'+derivative+"_"+id).remove();
+		$('#theForm').append('<input type="hidden" name="remove_derivative" id="input_remove_d_'+derivative+"_"+id+'" value="'+id+'" />');
+	}
+	function addDerivative(derivative,id,description){
+		if(derivative==undefined || id==undefined){
+			alert('You must pick a derivative from the drop down list.');
+			return false;
+		}
+		var val=derivative;
+		$("#theDerivatives").append("<span title='"+description+"' id='button_d_"+val.replace(/ /g,"_").toLowerCase()+"_"+id+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeDerivative(\""+val.replace(/ /g,"_").toLowerCase()+"\",\""+id+"\")'></i></span>");
+		$('#theForm').append('<input type="hidden" name="add_derivative" id="input_add_d_'+val.replace(/ /g,"_").toLowerCase()+"_"+id+'" value="'+id+'" />');
+		$('#input_remove_d_'+val.replace(/ /g,"_").toLowerCase()+"_"+id).remove();		
+		$('#derivativeInput').val("");
+	}
+	
+	</script>
 </div>
 {% endblock %}
 

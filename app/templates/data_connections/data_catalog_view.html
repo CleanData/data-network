@@ -12,7 +12,7 @@
 
 <div class="container">
 	<div class="row-fluid">
-		<h4>Catalog: {{ data_catalog.name }}</h4>
+		<h4>Catalog: {{ data_catalog.title }}</h4>
 		<div>Manager: 
 		{% if data_catalog.manager %}
 			<a href="/scientist/{{ data_catalog.manager.id }}">

@@ -48,6 +48,15 @@ class DataCatalogResource(ModelResource):
 		allowed_methods = ['get']
 		authentication = Authentication()
 		cache=SimpleCache()
+class DistributionResource(ModelResource):
+	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
+	license = fields.ForeignKey(LicenseResource, 'license',full=True)
+	class Meta:
+		queryset = Distribution.objects.all()
+		resource_name = 'distribution'		
+		allowed_methods = ['get']
+		authentication = Authentication()
+		cache=SimpleCache()
 class DataRelationResource(ModelResource):
 	source = fields.ToOneField('data_connections.api.DatasetResource', 'source',full=True)
 	derivative = fields.ToOneField('data_connections.api.DatasetResource', 'derivative',full=True)
@@ -71,20 +80,22 @@ class DatasetResource(ModelResource):
 		authentication = Authentication()
 		cache=SimpleCache()
 		filtering = {
-			'name': ALL,
+			'title': ALL,
 			'data_format': ALL,
-			'url': ALL,
+			'landingPage': ALL,
 		}
         
 class DatasetDerivativesResource(ModelResource):
 	# note that the name in the ForeignKey relation here is the name of the foreign key field we're mapping to.
-	scientist = fields.ForeignKey(ScientistResource, 'manager',null=True,blank=True,full=True)
+	contactPoint = fields.ForeignKey(ScientistResource,'contactPoint',null=True,blank=True,full=True)
 	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
-	license = fields.ForeignKey(LicenseResource, 'license',full=True)
+	#license = fields.ForeignKey(LicenseResource, 'license',full=True)
 	added_by = fields.ForeignKey(UserResource, 'added_by',full=False, null=True, blank=True)
-	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
+	#data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
 	data_catalog = fields.ForeignKey(DataCatalogResource, 'data_catalog',null=True,blank=True,full=True)
 	
+	distributions = fields.ToManyField(DistributionResource,'distributions',full=True)
+
 	children = fields.ToManyField('self',
 				'derivatives',
 				full=True)
@@ -95,7 +106,7 @@ class DatasetDerivativesResource(ModelResource):
 		authentication = Authentication()
 		cache=SimpleCache()
 		filtering = {
-			'name': ALL,
+			'title': ALL,
 			'data_format': ALL,
 			'accessors': ALL,
 			'is_public': ALL,
@@ -104,13 +115,15 @@ class DatasetDerivativesResource(ModelResource):
         
 class DatasetSourcesResource(ModelResource):
 	# note that the name in the ForeignKey relation here is the name of the foreign key field we're mapping to.
-	scientist = fields.ForeignKey(ScientistResource, 'manager',null=True,blank=True,full=True)
-	license = fields.ForeignKey(LicenseResource, 'license',full=True)
+	contactPoint = fields.ForeignKey(ScientistResource, 'contactPoint',null=True,blank=True,full=True)
+	#license = fields.ForeignKey(LicenseResource, 'license',full=True)
 	added_by = fields.ForeignKey(UserResource, 'added_by',full=False, null=True, blank=True)
-	data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
+	#data_format = fields.ForeignKey(FormatResource, 'data_format',full=True)
 
 	data_catalog = fields.ForeignKey(DataCatalogResource, 'data_catalog',null=True,blank=True,full=True)
 	organization = fields.ForeignKey(OrganizationResource, 'managing_organization',null=True,blank=True,full=True)
+	
+	distributions = fields.ToManyField(DistributionResource,'distributions',full=True)
 	
 	#sources = fields.ToManyField('self','derivatives')
 	children = fields.ToManyField('self','sources',full=True)
@@ -121,7 +134,7 @@ class DatasetSourcesResource(ModelResource):
 		authentication = Authentication()
 		cache=SimpleCache()
 		filtering = {
-			'name': ALL,
+			'title': ALL,
 			'data_format': ALL,
 			'accessors': ALL,
 			'is_public': ALL,
@@ -137,20 +150,20 @@ class MinimalDatasetResource(ModelResource):
 		authentication = Authentication()
 		cache=SimpleCache()
 		filtering = {
-			'name': ALL,
-			'url': ALL,
+			'title': ALL,
+			'landingPage': ALL,
 		}
 
 class DatasetUrlResource(ModelResource):
 	class Meta:
 		queryset = Dataset.objects.all()
-		fields = ['url']
+		fields = ['landingPage']
 		resource_name = 'dataset_url'
 		allowed_methods = ['get']
 		authentication = Authentication()
 		cache=SimpleCache()
 		filtering = {
-			'url': ALL
+			'landingPage': ALL
 		}
 
 

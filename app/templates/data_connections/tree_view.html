@@ -111,7 +111,7 @@ function updateMap(trees){
 		if(dirs[0]=="d"){hOffset=padding;}
 		if(dirs[0]=="s"){hOffset=width-padding;}
 	}
-	else if(dirs.length == 2){
+	else if(dirs.length == 2 || dirs.length == 0){
 		cluster = d3.layout.cluster()
 		    .size([height, (width/2.)-padding]);
 		
@@ -122,9 +122,11 @@ function updateMap(trees){
 		    .projection(function(d) { return [width/2.-d.y, d.x]; });
 
 	}
-	
+
+	if(dirs==[]){dirs=["d","s"];}
 	
 	for(var ix in dirs){
+		
 		var dir=dirs[ix];
 		var tree;
 
@@ -161,7 +163,7 @@ function updateMap(trees){
 			   .on("click", function(d) { printDetails(d); })
 			   .on("dblclick", function(d) { resetMap(); populateTree(d.id); });
 	
-		  nodeEnter.append("image")
+		  /*nodeEnter.append("image")
 		      .attr("xlink:href", function(d){
 		      		if(d.license.name == "Copyright"){
 		      			return "/static/user/img/icons/copyright.png";
@@ -182,26 +184,37 @@ function updateMap(trees){
 		      .attr("x", -8)
 		      .attr("y", -8)
 		      .attr("width", 16)
-		      .attr("height", 16);
+		      .attr("height", 16);*/
 	
-		  /*nodeEnter.append("svg:circle")
+		  nodeEnter.append("svg:circle")
 		      .attr("r", 1e-6)
 		      //.style("fill", "#fff");
 		      .style("fill", function(d){
-		      	if(d.data_format.name == "Application"){ 
-		      		return "#0404B4";
-		      		}
-		      	else{
 		      		return "#fff";
-		      		}
-		      	});*/
+		      	});
 		
 		  nodeEnter.append("text")
 		      .attr("dx", 0)
-		      .attr("dy", 15)
+		      .attr("dy", 20)
+		      //.attr("class","shadow")
 		      .style("text-anchor", "middle")
-		      .text(function(d,i) { if(dir=="s" || i>0 || dirs.length<2){return d.name;} })
-			  .style("fill-opacity", 1e-6);
+		      .text(function(d,i) { if(dir=="s" || i>0 || dirs.length<2){
+				  	var label=(d.title.length>40)?jQuery.trim(d.title).substring(0, 40)
+	    .split(" ").slice(0, -1).join(" ") + "...":d.title;
+		      		return label;
+		      	} })
+			  .style("fill-opacity", 1e-6)
+			  .style("stroke-opacity", 1e-6);
+		  /*nodeEnter.append("text")
+		      .attr("dx", 0)
+		      .attr("dy", 20)
+		      .style("text-anchor", "middle")
+		      .text(function(d,i) { if(dir=="s" || i>0 || dirs.length<2){
+				  	var label=(d.name.length>40)?jQuery.trim(d.name).substring(0, 40)
+	    .split(" ").slice(0, -1).join(" ") + "...":d.name;
+		      		return label;
+		      	} })
+			  .style("fill-opacity", 1e-6);*/
 		
 		  var nodeUpdate = node.transition()													// update
 		      .duration(1000)
@@ -217,16 +230,14 @@ function updateMap(trees){
 		      .style("fill", 
 		      	//function(d) { return "#fff"; }
 			function(d){
-		      	if(d.data_format.name == "Application"){ 
-		      		return "#0404B4";
-		      		}
-		      	else{
 		      		return "#fff";
-		      		}
 		      	});
 		
 		  nodeUpdate.select("text")
-		      .style("fill-opacity", 1);
+		      .style("fill-opacity", 1)
+		      .style("stroke-opacity", 0.5);
+		  /*nodeUpdate.select("text.shadow")
+		      .style("stroke-opacity", 0.8);*/
 		
 		  var nodeExit = node.exit().transition()
 		      .duration(1000)
@@ -326,30 +337,36 @@ function updateMap(trees){
 }
 
 function printDetails(d){
-	$('#dataset_name').html(d["name"]);
+	$('#dataset_name').html(d.title);
 	
-	// Got to here.
 	$('#edit_dataset').attr("href",'/edit/'+d.id);
 	$('#dataset_description').html((d.description.length>100)?jQuery.trim(d.description).substring(0, 100)
 	    .split(" ").slice(0, -1).join(" ") + "...":d.description);
-	if(d["scientist"]!=null){
-		$('#dataset_scientist').html("<a href='/scientist/"+d.scientist.id+"'"+d.scientist.id+">"+d.scientist.firstname +" "+ d.scientist.lastname+"</a>");
+	if(d.contactPoint!=null){
+		$('#dataset_scientist').html("<a href='/scientist/"+d.contactPoint.id+"'"+d.contactPoint.id+">"+d.contactPoint.firstname +" "+ d.contactPoint.lastname+"</a>");
 	}else{
 		$('#dataset_scientist').html("Unknown");
 	}
 	if(d["organization"]!=null){
 		$('#dataset_organization').html("<a href='/organization/"+ d.organization.id+"'>"+d.organization.name+"</a>");
 	}else{$('#dataset_organization').html("None");}
-	$('#dataset_license').html("<a href='/license/"+ d.license.id+"'>"+d.license.name+"</a>");
-	$('#dataset_format').html("<a href='/data_format/"+ d.data_format.id+"'>"+d.data_format.name+"</a>");
 	if(d["data_catalog"]!=null){
-		$('#dataset_catalog').html("<a href='/data_catalog/"+ d.data_catalog.id+"'>"+d.data_catalog.name+"</a>");
+		$('#dataset_catalog').html("<a href='/data_catalog/"+ d.data_catalog.id+"'>"+d.data_catalog.title+"</a>");
 	}else{$('#dataset_catalog').html("None");}
-	var pub=new Date(Date.parse(d.date_published));
+	$("#distList").empty();
+	for(var ix in d.distributions){
+		dist=d.distributions[ix];
+		var entry="<li>"+dist.data_format.name+" <a href='/data_format/"+dist.data_format.id+"'><i class=\"icon-info-sign\"></i></a>";
+		if(dist.accessURL!=""){entry+="<a href='"+dist.accessURL+"'><i class=\"icon-globe\"></i></a>";}
+		if(dist.downloadURL!=""){entry+="<a href='"+dist.downloadURL+"'><i class=\"icon-download-alt\"></i></a>";}
+		entry+="</li>";
+		$("#distList").append(entry);
+	}
+	var pub=new Date(Date.parse(d.issued));
 	$('#dataset_date_created').html(pub.getMonth()+"."+pub.getDay()+"."+pub.getFullYear());
-	var edit=new Date(Date.parse(d.date_last_edited));
+	var edit=new Date(Date.parse(d.modified));
 	$('#dataset_last_edited').html(edit.getMonth()+"."+edit.getDay()+"."+edit.getFullYear());
-	$('#dataset_url').html("<a href='"+d.url+"'>Source Website</a>");
+	$('#dataset_url').html("<a href='"+d.homepage+"'>Source Website</a>");
 	$('#permalink_url').html("<a href='/dataset/"+d.id+"'>Link to this view</a>");
 	
 	$('#dataset_sources').html("");
@@ -374,17 +391,20 @@ function createMap(){
 			<div><strong>• Click a node to view details</strong></div>
 			<div><strong>• Double click a node to re-center</strong></div>
 			<hr/>
-			<div><h4><span id="dataset_name">{{ dataset.name }}</span> 
+			<div><h4><span id="dataset_name">{{ dataset.title }}</span> 
 			{% if user.is_authenticated %}
 			<a id='edit_dataset' href="{% url 'edit_dataset' dataset_id=dataset.id %}"><i class="icon-pencil"></i></a>
 			{% endif %}
+			<!-- This needs a function call to check that the user is allowed to delete the node -->
+			<!-- delete also needs to delete all the many-to-many connections. This will take some work -->
+			<!--<a id='deleted_dataset' href="{% url 'delete_dataset' dataset_id=dataset.id %}"><i class="icon-remove"></i></a>-->
 			</h4></div>
-			<div>Description: <p id="dataset_description">
+			<div><p id="dataset_description">
 				{{ dataset.description|truncatechars:100 }}
 			</p></div>
-			<div>Manager: <span id="dataset_scientist">
-				{% if dataset.manager %}
-					<a href="{% url 'scientist_detail' scientist_id=dataset.manager.id %}">{{ dataset.manager.firstname }} {{ dataset.manager.lastname }}</a>
+			<div>Contact: <span id="dataset_scientist">
+				{% if dataset.contactPoint %}
+					<a href="{% url 'scientist_detail' scientist_id=dataset.contactPoint.id %}">{{ dataset.contactPoint.firstname }} {{ dataset.contactPoint.lastname }}</a>
 				{% else %}
 					None
 				{% endif %}
@@ -396,29 +416,41 @@ function createMap(){
 					None
 				{% endif %}
 					</span></div>
-			<div>License: <span id="dataset_license">
-					<a href="{% url 'license_detail' license_id=dataset.license.id %}">{{ dataset.license.name }}</a>
-					<!--<a href="/license/{{ dataset.license.id }}">{{ dataset.license.name }}</a>-->
+			<div>Available Formats:</div><ul id="distList">
+			{% for dist in distributions %}
+				<li>{{ dist.data_format.name }} 
+					<a href="{% url 'format_detail' format_id=dist.data_format.id %}"><i class="icon-info-sign"></i></a>
+					{% if dist.accessURL|length > 0 %}
+						<a href="{{ dist.accessURL }}"><i class="icon-globe"></i></a>
+					{% endif %}
+					{% if dist.downloadURL|length > 0 %}
+						<a href="{{ dist.downloadURL }}"><i class="icon-download-alt"></i></a>
+					{% endif %}
+				</li>
+			{% endfor%}
+			</ul>
+			<!--<div>License: <span id="dataset_license">
+					<a href="">{{ dataset.title }}</a> - fix this to list of licenses
 				</span></div>
 			<div>Format: <span id="dataset_format">
-					<a href="{% url 'format_detail' format_id=dataset.data_format.id %}">{{ dataset.data_format.name }}</a>
-				</span></div>
+					<a href="{% url 'format_detail' format_id=1 %}">CSV</a> -- fix this too
+				</span></div>-->
 			<div>Catalog: <span id="dataset_catalog">
 				{% if dataset.data_catalog %}
-					<a href="{% url 'data_catalog_detail' data_catalog_id=dataset.data_catalog.id %}">{{ dataset.data_catalog.name }}</a>
+					<a href="{% url 'data_catalog_detail' data_catalog_id=dataset.data_catalog.id %}">{{ dataset.data_catalog.title }}</a>
 				{% else %}
 					None
 				{% endif %}
 				</span></div>
-			<div>Date Created: <span id="dataset_date_created">
-					{{ dataset.date_published | date:"m.d.y" }}
+			<div>Issued: <span id="dataset_issued">
+					{{ dataset.issued | date:"m.d.y" }}
 				</span></div>
-			<div>Last Edited: <span id="dataset_last_edited">
-					{{ dataset.date_last_edited | date:"m.d.y" }}			
+			<div>Modified: <span id="dataset_modified">
+					{{ dataset.modified | date:"m.d.y" }}			
 			</span></div>
 			<hr/>
-			<div><span id="dataset_url">
-					<a href="{{ dataset.url }}">Source Website</a>
+			<div><span id="dataset_homepage">
+					<a href="{{ dataset.landingPage }}">Source Website</a>
 				</span></div>
 			<hr/>
 			<div><span id="permalink_url">

@@ -6,6 +6,18 @@
     <script type="text/javascript" src="/static/user/js/d3.v2.js"></script>
     <script type="text/javascript" src="/static/user/js/mapper.js"></script>
 	<link type="text/css" href="/static/user/css/map_style.css" rel="stylesheet" />
+	<style>
+	span.tag{
+		background: rgb(240,240,240);
+		color: black;
+		margin: 5px;
+		font-size: small;
+		padding:5px;
+		cursor: default;
+		border: 1px solid lightgrey;
+		border-radius: 7px;
+	}
+	</style>
 {% endblock %}
 
 {% block onload %}
@@ -14,11 +26,14 @@
 
 {% block content %}
 <div class="container" id="main">
+
 	<div class="row">
 		<div class="span12">
-		<form method="post" action="" class="form-horizontal">
+		<form method="post" id="theForm" action="" class="form-horizontal">
 		<fieldset>
-		<legend>Add Dataset</legend>
+		<legend>Add Dataset <button type="button" class="btn pull-right" onclick="location.href='{% url "index" %}'">Cancel</button> <button type="submit" value="{% trans 'Submit' %}" class="btn btn-primary pull-right">Save Dataset</button></legend>
+		<div class="row">
+			<div class="span6">
 		  {% csrf_token %}
 			{% for field in dataset_form %}
 				<div class="control-group">
@@ -26,24 +41,320 @@
 			        <label class="control-label">{{ field.label_tag }}</label> <div class="controls">{{ field }}</div>
 				</div>
 			{% endfor %}
-			<div class="control-group" id="manager_controls">
-		        <label class="control-label">Manager (optional) </label> <div class="controls"><input type="text" name="manager_firstname" placeholder="first name"/> <input type="text" name="manager_lastname" placeholder="last name"/> <input type="text" name="manager_profile_url" placeholder="url of profile page"/></div>
 			</div>
-			<!--<div class="control-group" id="organization_controls">
-		        <label class="control-label">Managing Organization (optional) </label> <div class="controls"><input type="text" name="organization_name" placeholder="name"/> <input type="text" name="organization_url" placeholder="website"/> </div>
-			</div>-->
-
-			<div class="control-group">
-				<div class="controls">
-				  <button type="submit" value="{% trans 'Submit' %}" class="btn btn-primary">Save Changes</button>
-				  <button type="button" class="btn" onclick="location.href='{% url "index" %}'">Cancel</button>
+			<div class="span6">
+		        <label>Contact Point (optional) </label>
+		        <input type="text" name="manager_firstname" placeholder="first name" class="input-xs"/>
+		        <input type="text" name="manager_lastname" placeholder="last name" class="input-xs"/>
+		        <input type="text" name="manager_profile_url" placeholder="url of profile page" class="input-s"/>
+				<br>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label">Categories </label>
+					<div class='controls'>
+						<div class="input-append">
+					        <input type="text" id="categoryInput" name="categoryInput" placeholder="" class="input-block-level"/><button id="addCategoryButton" class="btn" type="button" onclick="addCategory()">+</button>
+						</div>
+				        <div id="categoryOptions" class="dropdown"></div>
+					</div>
+					<div id="theCategories">
+					</div>
 				</div>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label">Keywords </label>
+					<div class='controls'>
+						<div class="input-append">
+					        <input type="text" id="keywordInput" name="keywordInput" placeholder="" class="input-block-level"/>
+							<button id="addKeywordButton" class="btn" type="button" onclick="addKeyword()">+</button>
+						</div>
+				        <div id="keywordOptions" class="dropdown"></div>
+					</div>
+					<div id="theKeywords">
+					</div>
 				</div>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label">Source Datasets </label>
+					<div class='controls'>
+						<div class="input">
+					        <input type="text" id="sourceInput" name="sourceInput" placeholder="" class="input-xs"/>
+						</div>
+				        <div id="sourceOptions" class="dropdown"></div>
+					</div>
+					<div id="theSources">
+					</div>
+				</div>
+				<hr>
+				<div class="control-group">
+			        <label class="control-label">Derivative Datasets </label>
+					<div class='controls'>
+						<div class="input">
+					        <input type="text" id="derivativeInput" name="derivativeInput" placeholder="" class="input-xs"/>
+						</div>
+				        <div id="derivativeOptions" class="dropdown"></div>
+					</div>
+					<div id="theDerivatives">
+					</div>
+				</div>
+				<hr>		        
+				<h4>Distributions</h4>
+				<input type='number' value=1 id='distCount' name='distCount' style='display:none'/>
+				<ul class="nav nav-tabs" id="distTabs">
+				  <li id='dist1List' class='active'><a id="dist1Link" href="#dist1" data-toggle="tab">1</a></li>
+				  <li><a id='addDistLink' href="#addDist">+</a></li>
+				</ul>
+				<div class='tab-content' id='distTabContent'>
+					<div class="tab-pane active" id="dist1">					
+						<div class="control-group" style='display:none'>
+					        <label class="control-label">Distribution Name </label>
+							<div class='controls'>
+								<div class="input">
+						        <input type="text" id="distTitleInput_1" name="distTitleInput_1" placeholder="Title of distribution" class="input-xs"/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group" style='display:none'>
+					        <label class="control-label">Description </label>
+							<div class='controls'>
+								<div class="input">
+						        <textarea class="input-block-level" cols="40" rows="4" id="distDescInput_1" name="distDescInput_1" placeholder="" ></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Format </label>
+							<div class='controls'>
+								<div class="input">
+								<select required id='distDataFormatInput_1' name='distDataFormatInput_1'>
+									{% for f in formats %}
+										<option value='{{ f.id }}'>{{ f.name }}</option>
+									{% endfor %}
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">License </label>
+							<div class='controls'>
+								<div class="input">
+								<select required id='distLicenseInput_1' name='distLicenseInput_1'>
+									{% for l in licenses %}
+										<option value='{{ l.id }}'>{{ l.name }}</option>
+									{% endfor %}
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Date Published </label>
+							<div class='controls'>
+								<div class="input">
+						        <input required type='datetime' id="distDateInput_1" name="distDateInput_1" placeholder='mm/dd/yyyy'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Date Modified </label>
+							<div class='controls'>
+								<div class="input">
+						        <input required type='datetime' id="distDateModInput_1" name="distDateModInput_1" placeholder='mm/dd/yyyy'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Access URL </label>
+							<div class='controls'>
+								<div class="input">
+								<input type='url' id='distAccessUrlInput_1' name='distAccessUrlInput_1' placeholder='the webpage about the data'/>
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+					        <label class="control-label">Download URL </label>
+							<div class='controls'>
+								<div class="input">
+								<input type='url' id='distDownloadUrlInput_1' name='distDownloadUrlInput_1' placeholder='the download link'/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type='text' name='checker' style='display:none'/>
 		</fieldset>
 		</form>
 		</div>
 	</div>
 
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+	// The distribution tabs
+	$('#dist1Link').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	});
+	$('#addDistLink').click(function(e){
+	  e.preventDefault();
+	  addDist();
+	});
+	function addPublishDateToDistribution(){
+		var date=$('[name=issued]').val();
+		$('#distDateInput_1').val(date);
+	}
+	function addModDateToDistribution(){
+		var date=$('[name=modified]').val();
+		$('#distDateModInput_1').val(date);
+	}
+
+	function addDist(){
+		var numDists=$('#distTabs a').length-1;
+		var newNum=numDists+1;
+		// add a tab
+		$('#dist'+numDists+"List").after('<li id=\'dist'+newNum+'List\'><a id="dist'+newNum+'Link" href="#dist'+newNum+'" data-toggle="tab">'+newNum+'</a></li>');
+		// add a new div
+		$('#dist'+numDists).after('<div class="tab-pane active" id="dist'+newNum+'">'+$('#dist1').html().replace(/_1/g,'_'+newNum)+'</div>');
+		
+		$('#distLicenseInput_'+newNum).val($('#distLicenseInput_1').val());
+		$('#distDateInput_'+newNum).val($('#distDateInput_1').val());
+		$('#distDateModInput_'+newNum).val($('#distDateModInput_1').val());
+		$('#distAccessUrlInput_'+newNum).val($('#distAccessUrlInput_1').val());
+
+		// activate the new tab
+		$('#dist'+newNum+'Link').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+		
+		$('#distCount').val(newNum);
+		
+		// switch to new tab
+		$('#dist'+newNum+'Link').click();
+	}
+	
+	
+	$('#categoryInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {$('#addCategoryButton').click();}
+		else{getSuggestions('Category');}
+	});
+	$('#keywordInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {$('#addKeywordButton').click();}
+		else{getSuggestions('Keyword');}
+	});
+	$('#sourceInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {return false}
+		else{getSuggestions('Source');}
+	});
+	$('#derivativeInput').bind('keyup', function(e){
+		if ( e.keyCode == 13 ) {return false}
+		else{getSuggestions('Derivative');}
+	});
+	function getSuggestions(whatFor){
+		var subString=$.trim($("#"+whatFor.toLowerCase()+"Input").val().toLowerCase());
+		if(subString.length>1){
+			var theURL = (whatFor=="Keyword")?"/findSimilarKeywords":(whatFor=="Category")?"/findSimilarCategories":(whatFor=="Source")?"/findSimilarDataset":(whatFor=="Derivative")?"/findSimilarDataset":"";
+			$.ajax({
+				url:theURL,
+				data:{"query":subString},
+				success:function(data){
+					if(data.suggestions.length==0){
+						$("#"+whatFor.toLowerCase()+"Options").empty();
+						$("#"+whatFor.toLowerCase()+"Options").removeClass('open');
+						return;
+					}					
+					$("#"+whatFor.toLowerCase()+"Options").removeClass('open');
+					var list="<a style=\"display:none\" class=\"dropdown-toggle\" id=\""+whatFor.toLowerCase()+"ListToggle\" role=\"button\" data-toggle=\"dropdown\" data-target=\"#\" href=\"#\">Test</a>";
+					list += "<ul class='dropdown-menu' id='"+whatFor.toLowerCase()+"Menu' role='menu' aria-labelledby='dropdownMenu'>";
+					for(var tx in data.suggestions){
+						if(whatFor=="Source" || whatFor=="Derivative"){
+							list+="<li><a data-target='#' href=\"#\" id='"+whatFor+"_"+data.suggestions[tx].id+"' title='"+data.suggestions[tx].description+"'>"+data.suggestions[tx].title+"</a></li>";
+						}
+						else{
+							var term=data.suggestions[tx].text;
+							var termId=data.suggestions[tx].id;
+							list+="<li><a data-target='#' href=\"#\" id='"+whatFor+"_"+termId+"'>"+term+"</a></li>";
+						}
+					}
+					list+="</ul>";
+					
+					$("#"+whatFor.toLowerCase()+"Options").html(list);
+					$("#"+whatFor.toLowerCase()+"Menu a").on('click',function(){
+						if(whatFor=="Keyword"){
+							addKeyword($(this).text(),$(this).attr('id'));
+						}
+						else if(whatFor=="Category"){
+							addCategory($(this).text(),$(this).attr('id'));
+						}
+						else if(whatFor=="Source"){
+							addSource($(this).text(),$(this).attr('id').replace('Source_',''),$(this).attr('title'));
+						}
+						else if(whatFor=="Derivative"){
+							addDerivative($(this).text(),$(this).attr('id').replace('Derivative_',''),$(this).attr('title'));
+						}
+						$("#"+whatFor.toLowerCase()+"Options").removeClass('open');
+						return false;
+					})
+					$("#"+whatFor.toLowerCase()+"ListToggle").dropdown('toggle');
+				}
+			});
+		}
+	}
+	function removeCategory(category){
+		$('#input_'+category).remove();
+		$('#button_'+category).remove();
+	}
+	function addCategory(category,id){
+		console.log('Adding category');
+		console.log(category);
+		console.log(id);
+		var val=(category!=undefined)?category:$('#categoryInput').val();
+		$("#theCategories").append("<span id='button_"+val.replace(/ /g,"_").toLowerCase()+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeCategory(\""+val.replace(/ /g,"_").toLowerCase()+"\")'></i></span>");
+		console.log($('#theForm'));
+		console.log('"input_'+val.replace(/ /g,"_").toLowerCase()+'"');
+		$('#theForm').append('<input type="hidden" name="category" id="input_'+val.replace(/ /g,"_").toLowerCase()+'" value="'+val+'" />');
+		$('#categoryInput').val("");
+	}
+	function removeKeyword(keyword){
+		$('#input_'+keyword).remove();
+		$('#button_'+keyword).remove();
+	}
+	function addKeyword(keyword,id){
+		var val=(keyword!=undefined)?keyword:$('#keywordInput').val();
+		$("#theKeywords").append("<span id='button_"+val.replace(/ /g,"_").toLowerCase()+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeKeyword(\""+val.replace(/ /g,"_").toLowerCase()+"\")'></i></span>");
+		$('#theForm').append('<input type="hidden" name="keyword" id="input_'+val.replace(/ /g,"_").toLowerCase()+'" value="'+val+'" />');
+		$('#keywordInput').val("");
+	}	
+	function removeSource(source,id){
+		$('#input_add_s_'+source+"_"+id).remove();
+		$('#button_s_'+source+"_"+id).remove();
+	}
+	function addSource(source,id,description){
+		if(source==undefined || id==undefined){
+			alert('You must pick a source from the drop down list.');
+			return false;
+		}
+		var val=source;
+		$("#theSources").append("<span title='"+description+"' id='button_s_"+val.replace(/ /g,"_").toLowerCase()+"_"+id+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeSource(\""+val.replace(/ /g,"_").toLowerCase()+"\",\""+id+"\")'></i></span>");
+		$('#theForm').append('<input type="hidden" name="add_source" id="input_add_s_'+val.replace(/ /g,"_").toLowerCase()+"_"+id+'" value="'+id+'" />');
+		$('#sourceInput').val("");
+	}
+	function removeDerivative(derivative,id){
+		$('#input_add_d_'+derivative+"_"+id).remove();
+		$('#button_d_'+derivative+"_"+id).remove();
+	}
+	function addDerivative(derivative,id,description){
+		if(derivative==undefined || id==undefined){
+			alert('You must pick a derivative from the drop down list.');
+			return false;
+		}
+		var val=derivative;
+		$("#theDerivatives").append("<span title='"+description+"' id='button_d_"+val.replace(/ /g,"_").toLowerCase()+"_"+id+"' class='label tag'>"+val+" <i style='cursor: hand; cursor: pointer;' class='icon-remove' onclick='removeDerivative(\""+val.replace(/ /g,"_").toLowerCase()+"\",\""+id+"\")'></i></span>");
+		$('#theForm').append('<input type="hidden" name="add_derivative" id="input_add_d_'+val.replace(/ /g,"_").toLowerCase()+"_"+id+'" value="'+id+'" />');
+		$('#derivativeInput').val("");
+	}
+	
+</script>
 {% endblock %}
 
